@@ -11,23 +11,27 @@ import {
   Container,
   theme,
 } from '@chakra-ui/react';
+import { ApolloProvider } from '@apollo/client';
+import Client from './lib/ApolloClient';
 import NavBar from './components/navbar/Navbar';
 import Footer from './components/footer/Footer';
 import Feed from './components/feed/Feed';
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <NavBar />
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="90vh" p={3}>
-          <Container maxW='container.xl'>
-            <Feed />
-          </Container>
-        </Grid>
-      </Box>
-      <Footer />
-    </ChakraProvider>
+    <ApolloProvider client={Client}>
+      <ChakraProvider theme={theme}>
+        <NavBar />
+        <Box textAlign="center" fontSize="xl">
+          <Grid minH="90vh" p={3}>
+            <Container maxW="container.xl">
+              <Feed />
+            </Container>
+          </Grid>
+        </Box>
+        <Footer />
+      </ChakraProvider>
+    </ApolloProvider>
   );
 }
 
