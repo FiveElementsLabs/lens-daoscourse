@@ -4,7 +4,7 @@ import PostPreview from './PostPreview';
 export default function Feed() {
   return (
     <Grid
-      h="50rem"
+      h="100vh"
       templateRows="repeat(10, 1fr)"
       templateColumns="repeat(2, 1fr)"
       gap={4}
