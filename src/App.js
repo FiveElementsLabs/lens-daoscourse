@@ -7,20 +7,26 @@ import {
   VStack,
   Code,
   Grid,
+  Heading,
+  Container,
   theme,
 } from '@chakra-ui/react';
 import NavBar from './components/navbar/Navbar';
+import Footer from './components/footer/Footer';
+import Feed from './components/feed/Feed';
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
-      <NavBar/>
+      <NavBar />
       <Box textAlign="center" fontSize="xl">
-        <Grid minH="100vh" p={3}>
-          <VStack spacing={8}>
-          </VStack>
+        <Grid minH="90vh" p={3}>
+          <Container maxW='container.xl'>
+            <Feed />
+          </Container>
         </Grid>
       </Box>
+      <Footer />
     </ChakraProvider>
   );
 }

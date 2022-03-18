@@ -1,0 +1,41 @@
+import { Grid, GridItem, Heading, Box } from '@chakra-ui/react';
+import PostPreview from './PostPreview';
+
+export default function Feed() {
+  return (
+    <Grid
+      h="50rem"
+      templateRows="repeat(10, 1fr)"
+      templateColumns="repeat(2, 1fr)"
+      gap={4}
+    >
+      <GridItem rowSpan={1} colSpan={1}>
+        <Heading as="h3" size="lg" align="left">
+          Latest posts
+        </Heading>
+      </GridItem>
+      <GridItem rowSpan={10} colSpan={1} bg="papayawhip"></GridItem>
+      <GridItem rowSpan={1} colSpan={1}>
+        <PostPreview
+          title="My first post"
+          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          category="general"
+        />
+      </GridItem>
+      <GridItem rowSpan={1} colSpan={1}>
+        <PostPreview
+          title="My second post"
+          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          category="finance"
+        />
+      </GridItem>
+      <GridItem rowSpan={1} colSpan={1}>
+        <PostPreview
+          title="My third post"
+          desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+          category="ideas"
+        />
+      </GridItem>
+    </Grid>
+  );
+}
