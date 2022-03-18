@@ -20,6 +20,10 @@ export default function Feed() {
           title="My first post"
           desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           category="general"
+          author="Satoshi Nakamoto"
+          role="BTC master"
+          avatar="https://bit.ly/sage-adebayo"
+          date="17-03-2022 12:00 AM"
         />
       </GridItem>
       <GridItem rowSpan={1} colSpan={1}>
@@ -27,6 +31,10 @@ export default function Feed() {
           title="My second post"
           desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           category="finance"
+          author="Martin Odersky"
+          role="Computer scientist"
+          avatar="https://bit.ly/sage-adebayo"
+          date="16-03-2022 11:00 PM"
         />
       </GridItem>
       <GridItem rowSpan={1} colSpan={1}>
@@ -34,6 +42,10 @@ export default function Feed() {
           title="My third post"
           desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
           category="ideas"
+          author="Sir Isaac Newton"
+          role="Inventor"
+          avatar="https://bit.ly/sage-adebayo"
+          date="15-03-2022 2:00 PM"
         />
       </GridItem>
     </Grid>
