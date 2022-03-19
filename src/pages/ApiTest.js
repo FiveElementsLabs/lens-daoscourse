@@ -2,13 +2,10 @@ import { useState } from 'react';
 import { Box, Button, Code, Flex, Container } from '@chakra-ui/react';
 
 import { ping } from '../api/health/ping';
+import { login } from '../api/authentication/login';
 
 export default function ApiTest() {
   const [pong, setPong] = useState('');
-
-  const onPing = async () => {
-    setPong(await ping());
-  };
 
   const onClear = () => {
     setPong('');
@@ -19,10 +16,13 @@ export default function ApiTest() {
     <>
       <Box>
         <Flex>
-          <Button onClick={onPing} mr={5}>
+          <Button onClick={async () => setPong(await ping())} mr={5}>
             Ping
           </Button>
           <Button onClick={onClear}>Clear</Button>
+        </Flex>
+        <Flex mt={5}>
+          <Button onClick={() => login()}>Login</Button>
         </Flex>
       </Box>
 
