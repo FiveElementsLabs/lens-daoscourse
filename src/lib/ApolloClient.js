@@ -1,6 +1,5 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-
-const LENS_API_URL = 'https://api-mumbai.lens.dev/';
+import { LENS_API_URL } from './ConfigVars';
 
 // This is the Apollo graphQL client config object.
 const Client = new ApolloClient({
