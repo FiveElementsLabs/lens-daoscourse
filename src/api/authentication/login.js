@@ -46,19 +46,16 @@ const authenticate = (address, signature) => {
 
 export const login = async (address, provider) => {
   if (getAuthenticationToken()) {
-    console.log('login: already logged in');
-    return;
+    return { message: 'Already logged in.' };
   }
 
   // We request a challenge from the server.
   const challengeResponse = await generateChallenge(address);
-  console.log('CHALLENGE GENERATED');
 
   // We sign the text with the wallet.
   const signature = await provider.signMessage(
     challengeResponse.data.challenge.text
   );
-  console.log('SIGNATURE OBTAINED');
 
   const accessTokens = await authenticate(address, signature);
   prettyJSON('login result: ', accessTokens.data);

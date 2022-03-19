@@ -10,3 +10,7 @@ export const setAuthenticationToken = token => {
 export const getAuthenticationToken = () => {
   return localStorage.getItem('auth_token');
 };
+
+export const removeAuthenticationToken = () => {
+  return localStorage.removeItem('auth_token');
+};
