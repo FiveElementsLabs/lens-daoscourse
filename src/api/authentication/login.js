@@ -1,7 +1,6 @@
 import { gql } from '@apollo/client';
 import ApolloClient from '../../lib/ApolloClient';
 import { prettyJSON } from '../../lib/Helpers';
-import { getAddress, signText } from 'ethers/lib/utils';
 import {
   getAuthenticationToken,
   setAuthenticationToken,
@@ -45,7 +44,7 @@ const authenticate = (address, signature) => {
   });
 };
 
-export const login = async (address = getAddress()) => {
+export const login = async (address, provider) => {
   if (getAuthenticationToken()) {
     console.log('login: already logged in');
     return;
@@ -56,7 +55,9 @@ export const login = async (address = getAddress()) => {
   console.log('CHALLENGE GENERATED');
 
   // We sign the text with the wallet.
-  const signature = await signText(challengeResponse.data.challenge.text);
+  const signature = await provider.signMessage(
+    challengeResponse.data.challenge.text
+  );
   console.log('SIGNATURE OBTAINED');
 
   const accessTokens = await authenticate(address, signature);

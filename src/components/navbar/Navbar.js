@@ -3,7 +3,6 @@ import {
   Flex,
   Text,
   IconButton,
-  Button,
   Stack,
   Collapse,
   Icon,
@@ -24,6 +23,7 @@ import {
 } from '@chakra-ui/icons';
 
 import { ColorModeSwitcher } from '../../ColorModeSwitcher';
+import Connect from './Connect';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
@@ -79,28 +79,7 @@ export default function Navbar() {
             direction={'row'}
             spacing={6}
           >
-            <Button
-              as={'a'}
-              fontSize={'sm'}
-              fontWeight={400}
-              variant={'link'}
-              href={'#'}
-            >
-              Sign In
-            </Button>
-            <Button
-              display={{ base: 'none', md: 'inline-flex' }}
-              fontSize={'sm'}
-              fontWeight={600}
-              color={'white'}
-              bg={'pink.400'}
-              href={'#'}
-              _hover={{
-                bg: 'pink.300',
-              }}
-            >
-              Sign Up
-            </Button>
+            <Connect>Connect Wallet</Connect>
           </Stack>
           <ColorModeSwitcher justifySelf="flex-end" />
         </Flex>
@@ -162,7 +141,7 @@ const DesktopNav = () => {
   );
 };
 
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+const DesktopSubNav = ({ label, href, subLabel }) => {
   return (
     <Link
       href={href}
@@ -213,7 +192,7 @@ const MobileNav = () => {
   );
 };
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, children, href }) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -266,14 +245,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
   );
 };
 
-interface NavItem {
-  label: string;
-  subLabel?: string;
-  children?: Array<NavItem>;
-  href?: string;
-}
-
-const NAV_ITEMS: Array<NavItem> = [
+const NAV_ITEMS = [
   {
     label: 'Inspiration',
     children: [
