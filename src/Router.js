@@ -10,6 +10,7 @@ import Layout from './components/layout/Layout';
 
 // These are all the pages that use the main Layout.
 import Home from './pages/Home';
+import ApiTest from './pages/ApiTest';
 
 export default function Router() {
   return (
@@ -17,6 +18,7 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/api-test" element={<ApiTest />} />
         </Route>
       </Routes>
     </BrowserRouter>
