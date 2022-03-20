@@ -30,7 +30,7 @@ export default function Connect() {
   const ens = useLookupAddress();
 
   useEffect(() => {
-    if (error && !toast.id('conn_err'))
+    if (error)
       toast({
         id: 'conn_err',
         title: 'Connection Error',

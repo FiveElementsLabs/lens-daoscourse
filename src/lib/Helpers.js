@@ -1,3 +1,7 @@
+/*
+ *  These are general helpers useful throughout the app.
+ */
+
 export const prettyJSON = (message, obj) => {
   console.log(message, JSON.stringify(obj, null, 2));
 };
