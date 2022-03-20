@@ -4,7 +4,7 @@ import { useEthers } from '@usedapp/core';
 import { login as loginCall } from '../api/authentication/login';
 import { logout as logoutCall } from '../api/authentication/logout';
 
-export const useApi = () => {
+export const useAuth = () => {
   const toast = useToast();
   const { account, library } = useEthers();
 
