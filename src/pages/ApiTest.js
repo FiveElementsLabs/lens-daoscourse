@@ -22,11 +22,13 @@ import { updateProfile } from '../api/profile/update-profile';
 import { createPost } from '../api/publications/post';
 
 export default function ApiTest() {
-  const { account } = useEthers();
+  const { account, library } = useEthers();
   const { login, logout } = useAuth();
+
   const [message, setMessage] = useState('');
   const [handle, setHandle] = useState('');
   const [profileMetaData, setProfileMetaData] = useState({});
+  const [postMetaData, setPostMetaData] = useState({});
 
   const onClear = () => {
     setMessage('');
@@ -49,6 +51,13 @@ export default function ApiTest() {
     });
   };
 
+  const updatePostMetaData = (e, field) => {
+    setPostMetaData({
+      ...postMetaData,
+      [field]: e.target.value,
+    });
+  };
+
   const onUpdateProfile = async e => {
     e.preventDefault();
     try {
@@ -61,12 +70,9 @@ export default function ApiTest() {
 
   const onCreatePost = async e => {
     e.preventDefault();
-
-    // TODO: Set post metadata according to test Form
-    const postMetaData = {};
-
     try {
-      const res = await createPost(postMetaData);
+      // See api/publications/post for full metadata types.
+      const res = await createPost(library.getSigner(), postMetaData);
       setMessage(res);
     } catch (err) {
       console.error(err.message);
@@ -152,7 +158,7 @@ export default function ApiTest() {
         p={4}
       >
         <Text>Update one of my profiles</Text>
-        {/* profileId, name, bio, location, website, twitterUrl, coverPicture */}
+        {/* Possible fields: profileId, name, bio, location, website, twitterUrl, coverPicture */}
         <form onSubmit={onUpdateProfile}>
           <FormControl mt={5} isRequired>
             <FormLabel htmlFor="profileId">Profile ID</FormLabel>
@@ -192,30 +198,63 @@ export default function ApiTest() {
         p={4}
       >
         <Text>Create new Post</Text>
+        {/* Possible fields: profileId, name, description, external_url, image, imageMimeType, content */}
         <form onSubmit={onCreatePost}>
+          <FormControl mt={5} isRequired>
+            <FormLabel htmlFor="profileId">Profile ID</FormLabel>
+            <Input
+              id="profileId"
+              type="text"
+              onChange={e => updatePostMetaData(e, 'profileId')}
+            />
+          </FormControl>
           <FormControl mt={5}>
             <FormLabel htmlFor="name">Name</FormLabel>
-            <Input id="name" type="text" />
+            <Input
+              id="name"
+              type="text"
+              onChange={e => updatePostMetaData(e, 'name')}
+            />
           </FormControl>
           <FormControl mt={5}>
             <FormLabel htmlFor="description">Description</FormLabel>
-            <Input id="description" type="text" />
+            <Input
+              id="description"
+              type="text"
+              onChange={e => updatePostMetaData(e, 'description')}
+            />
           </FormControl>
           <FormControl mt={5}>
             <FormLabel htmlFor="external_url">External URL</FormLabel>
-            <Input id="external_url" type="text" />
+            <Input
+              id="external_url"
+              type="text"
+              onChange={e => updatePostMetaData(e, 'external_url')}
+            />
           </FormControl>
           <FormControl mt={5}>
-            <FormLabel htmlFor="image_url">Image URL</FormLabel>
-            <Input id="image_url" type="text" />
+            <FormLabel htmlFor="image">Image URL</FormLabel>
+            <Input
+              id="image"
+              type="text"
+              onChange={e => updatePostMetaData(e, 'image')}
+            />
           </FormControl>
           <FormControl mt={5}>
-            <FormLabel htmlFor="image_mime_type">Image MimeType</FormLabel>
-            <Input id="image_mime_type" type="text" placeholder="image/jpeg" />
+            <FormLabel htmlFor="imageMimeType">Image MimeType</FormLabel>
+            <Input
+              id="imageMimeType"
+              type="text"
+              placeholder="image/jpeg"
+              onChange={e => updatePostMetaData(e, 'imageMimeType')}
+            />
           </FormControl>
           <FormControl mt={5}>
             <FormLabel htmlFor="content">Content</FormLabel>
-            <Textarea id="content" />
+            <Textarea
+              id="content"
+              onChange={e => updatePostMetaData(e, 'content')}
+            />
           </FormControl>
           <Button mt={5} type="submit" colorScheme="green">
             Create Post
