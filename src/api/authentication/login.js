@@ -46,7 +46,10 @@ const authenticate = (address, signature) => {
 
 export const login = async (address, provider) => {
   if (getAuthenticationToken()) {
-    return { message: 'Already logged in.' };
+    return {
+      message: 'Already logged in',
+      token: getAuthenticationToken(),
+    };
   }
 
   // We request a challenge from the server.
@@ -62,5 +65,8 @@ export const login = async (address, provider) => {
 
   setAuthenticationToken(accessTokens.data.authenticate.accessToken);
 
-  return accessTokens.data;
+  return {
+    message: 'Login successful',
+    token: accessTokens.data.authenticate.accessToken,
+  };
 };

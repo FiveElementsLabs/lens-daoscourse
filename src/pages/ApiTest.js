@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import { Box, Button, Code, Flex, Container, Text } from '@chakra-ui/react';
-import { useEthers } from '@usedapp/core';
+import { Box, Button, Code, Flex, Container } from '@chakra-ui/react';
 
-// These are the API routes tested by this component.
+import { useApi } from '../hooks/useApi';
 import { ping } from '../api/health/ping';
-import { login } from '../api/authentication/login';
-import { logout } from '../api/authentication/logout';
 
 export default function ApiTest() {
-  const { account, library } = useEthers();
+  const { login, logout } = useApi();
   const [message, setMessage] = useState('');
 
   const onClear = () => {
@@ -31,9 +28,7 @@ export default function ApiTest() {
         <Flex mt={4}>
           <Button
             w="full"
-            onClick={async () =>
-              setMessage(await login(account, library.getSigner()))
-            }
+            onClick={async () => setMessage(await login())}
             mr={5}
           >
             Login
@@ -43,9 +38,6 @@ export default function ApiTest() {
       </Box>
 
       <Container maxW="container.md" mt={10}>
-        <Text mb={5}>
-          {!account ? 'Wallet not connected' : `Connected as: ${account}`}
-        </Text>
         <Code maxW="container.md">{JSON.stringify(message)}</Code>
       </Container>
     </>
