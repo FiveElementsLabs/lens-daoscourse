@@ -3,7 +3,6 @@ import {
   Flex,
   Text,
   IconButton,
-  Button,
   Stack,
   Collapse,
   Icon,
@@ -14,6 +13,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  Container,
 } from '@chakra-ui/react';
 import {
   HamburgerIcon,
@@ -23,87 +23,72 @@ import {
 } from '@chakra-ui/icons';
 
 import { ColorModeSwitcher } from '../../ColorModeSwitcher';
+import Connect from './Connect';
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box>
-      <Flex
-        bg={useColorModeValue('white', 'gray.800')}
-        color={useColorModeValue('gray.600', 'white')}
-        minH={'60px'}
-        py={{ base: 2 }}
-        px={{ base: 4 }}
-        borderBottom={1}
-        borderStyle={'solid'}
-        borderColor={useColorModeValue('gray.200', 'gray.900')}
-        align={'center'}
-      >
+    <Container maxW="container.xl">
+      <Box>
         <Flex
-          flex={{ base: 1, md: 'auto' }}
-          ml={{ base: -2 }}
-          display={{ base: 'flex', md: 'none' }}
+          bg={useColorModeValue('white', 'gray.800')}
+          color={useColorModeValue('gray.600', 'white')}
+          minH={'60px'}
+          py={{ base: 2 }}
+          borderBottom={1}
+          borderStyle={'solid'}
+          borderColor={useColorModeValue('gray.200', 'gray.900')}
+          align={'center'}
         >
-          <IconButton
-            onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
-            variant={'ghost'}
-            aria-label={'Toggle Navigation'}
-          />
-        </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
-          <Text
-            textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-            fontFamily={'heading'}
-            color={useColorModeValue('gray.800', 'white')}
+          <Flex
+            flex={{ base: 1, md: 'auto' }}
+            ml={{ base: -2 }}
+            display={{ base: 'flex', md: 'none' }}
           >
-            Logo
-          </Text>
-
-          <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-            <DesktopNav />
+            <IconButton
+              onClick={onToggle}
+              icon={
+                isOpen ? (
+                  <CloseIcon w={3} h={3} />
+                ) : (
+                  <HamburgerIcon w={5} h={5} />
+                )
+              }
+              variant={'ghost'}
+              aria-label={'Toggle Navigation'}
+            />
           </Flex>
+          <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }}>
+            <Text
+              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
+              fontFamily={'heading'}
+              color={useColorModeValue('gray.800', 'white')}
+            >
+              Logo
+            </Text>
+
+            <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+              <DesktopNav />
+            </Flex>
+          </Flex>
+
+          <Stack
+            flex={{ base: 1, md: 0 }}
+            justify={'flex-end'}
+            direction={'row'}
+            spacing={6}
+          >
+            <Connect>Connect Wallet</Connect>
+          </Stack>
+          <ColorModeSwitcher justifySelf="flex-end" />
         </Flex>
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={'flex-end'}
-          direction={'row'}
-          spacing={6}
-        >
-          <Button
-            as={'a'}
-            fontSize={'sm'}
-            fontWeight={400}
-            variant={'link'}
-            href={'#'}
-          >
-            Sign In
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize={'sm'}
-            fontWeight={600}
-            color={'white'}
-            bg={'pink.400'}
-            href={'#'}
-            _hover={{
-              bg: 'pink.300',
-            }}
-          >
-            Sign Up
-          </Button>
-        </Stack>
-        <ColorModeSwitcher justifySelf="flex-end" />
-      </Flex>
-
-      <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
-      </Collapse>
-    </Box>
+        <Collapse in={isOpen} animateOpacity>
+          <MobileNav />
+        </Collapse>
+      </Box>
+    </Container>
   );
 }
 
@@ -156,7 +141,7 @@ const DesktopNav = () => {
   );
 };
 
-const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+const DesktopSubNav = ({ label, href, subLabel }) => {
   return (
     <Link
       href={href}
@@ -207,7 +192,7 @@ const MobileNav = () => {
   );
 };
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, children, href }) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -260,14 +245,7 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
   );
 };
 
-interface NavItem {
-  label: string;
-  subLabel?: string;
-  children?: Array<NavItem>;
-  href?: string;
-}
-
-const NAV_ITEMS: Array<NavItem> = [
+const NAV_ITEMS = [
   {
     label: 'Inspiration',
     children: [

@@ -1,33 +1,22 @@
 import React from 'react';
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  Heading,
-  Container,
-  theme,
-} from '@chakra-ui/react';
-import NavBar from './components/navbar/Navbar';
-import Footer from './components/footer/Footer';
-import Feed from './components/feed/Feed';
+import { ChakraProvider } from '@chakra-ui/react';
+import { ApolloProvider } from '@apollo/client';
+import { DAppProvider } from '@usedapp/core';
+
+import Client from './lib/ApolloClient';
+import DAppConfig from './lib/DAppConfig';
+import Theme from './lib/Theme';
+import Router from './Router';
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
-      <NavBar />
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="90vh" p={3}>
-          <Container maxW='container.xl'>
-            <Feed />
-          </Container>
-        </Grid>
-      </Box>
-      <Footer />
-    </ChakraProvider>
+    <DAppProvider config={DAppConfig}>
+      <ApolloProvider client={Client}>
+        <ChakraProvider theme={Theme}>
+          <Router />
+        </ChakraProvider>
+      </ApolloProvider>
+    </DAppProvider>
   );
 }
 
