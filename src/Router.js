@@ -16,10 +16,8 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/api-test" element={<ApiTest />} />
-        </Route>
+        <Route path='/' element={<Home />} />
+        <Route path='/api-test' element={<ApiTest />} />
       </Routes>
     </BrowserRouter>
   );

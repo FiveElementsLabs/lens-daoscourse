@@ -1,17 +1,6 @@
 import { useState } from 'react';
 import { useEthers } from '@usedapp/core';
-import {
-  Box,
-  Button,
-  Code,
-  Flex,
-  Container,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Button, Code, Flex, Container, FormControl, FormLabel, Input, Textarea, Text } from '@chakra-ui/react';
 
 import { useAuth } from '../hooks/useAuth';
 import { ping } from '../api/health/ping';
@@ -20,6 +9,8 @@ import { createProfile } from '../api/profile/create-profile';
 import { getProfiles } from '../api/profile/get-profiles';
 import { updateProfile } from '../api/profile/update-profile';
 import { createPost } from '../api/publications/post';
+
+import Layout from '../components/layout/Layout';
 
 export default function ApiTest() {
   const { account, library } = useEthers();
@@ -80,191 +71,109 @@ export default function ApiTest() {
   };
 
   return (
-    <>
-      <Box
-        mx="auto"
-        maxW="container.md"
-        mt={4}
-        p={3}
-        border="1px solid gray"
-        rounded="xl"
-      >
+    <Layout>
+      <Box mx='auto' maxW='container.md' mt={4} p={3} border='1px solid gray' rounded='xl'>
         <Flex>
-          <Button
-            w="full"
-            onClick={async () => setMessage(await ping())}
-            mr={5}
-          >
+          <Button w='full' onClick={async () => setMessage(await ping())} mr={5}>
             Ping
           </Button>
           <Button onClick={onClear}>Clear</Button>
         </Flex>
         <Flex mt={4}>
-          <Button
-            w="full"
-            onClick={async () => setMessage(await login())}
-            mr={5}
-          >
+          <Button w='full' onClick={async () => setMessage(await login())} mr={5}>
             Login
           </Button>
           <Button onClick={() => setMessage(logout())}>Logout</Button>
         </Flex>
-        <Button
-          w="full"
-          mt={5}
-          onClick={async () => setMessage(await getPublications())}
-        >
+        <Button w='full' mt={5} onClick={async () => setMessage(await getPublications())}>
           Get publications by "0x13"
         </Button>
-        <Button
-          w="full"
-          mt={5}
-          onClick={async () => setMessage(await getProfiles(account))}
-        >
+        <Button w='full' mt={5} onClick={async () => setMessage(await getProfiles(account))}>
           Get all my profiles
         </Button>
       </Box>
 
-      <Box
-        mx="auto"
-        maxW="container.md"
-        border="1px solid gray"
-        rounded="xl"
-        mt={5}
-        p={4}
-      >
+      <Box mx='auto' maxW='container.md' border='1px solid gray' rounded='xl' mt={5} p={4}>
         <Text>Create new Profile</Text>
         <form onSubmit={onCreateProfile}>
           <FormControl mt={5} isRequired>
-            <FormLabel htmlFor="handle">Handle</FormLabel>
-            <Input
-              id="handle"
-              type="text"
-              onChange={e => setHandle(e.target.value)}
-            />
+            <FormLabel htmlFor='handle'>Handle</FormLabel>
+            <Input id='handle' type='text' onChange={e => setHandle(e.target.value)} />
           </FormControl>
-          <Button colorScheme="green" mt={5} type="submit">
+          <Button colorScheme='green' mt={5} type='submit'>
             Create Profile
           </Button>
         </form>
       </Box>
 
-      <Box
-        mx="auto"
-        maxW="container.md"
-        border="1px solid gray"
-        rounded="xl"
-        mt={5}
-        p={4}
-      >
+      <Box mx='auto' maxW='container.md' border='1px solid gray' rounded='xl' mt={5} p={4}>
         <Text>Update one of my profiles</Text>
         {/* Possible fields: profileId, name, bio, location, website, twitterUrl, coverPicture */}
         <form onSubmit={onUpdateProfile}>
           <FormControl mt={5} isRequired>
-            <FormLabel htmlFor="profileId">Profile ID</FormLabel>
-            <Input
-              id="profileId"
-              type="text"
-              onChange={e => updateProfileMetaData(e, 'profileId')}
-            />
+            <FormLabel htmlFor='profileId'>Profile ID</FormLabel>
+            <Input id='profileId' type='text' onChange={e => updateProfileMetaData(e, 'profileId')} />
           </FormControl>
           <FormControl mt={5}>
-            <FormLabel htmlFor="name">Name</FormLabel>
-            <Input
-              id="name"
-              type="text"
-              onChange={e => updateProfileMetaData(e, 'name')}
-            />
+            <FormLabel htmlFor='name'>Name</FormLabel>
+            <Input id='name' type='text' onChange={e => updateProfileMetaData(e, 'name')} />
           </FormControl>
           <FormControl mt={5}>
-            <FormLabel htmlFor="bio">Bio</FormLabel>
-            <Textarea
-              id="bio"
-              onChange={e => updateProfileMetaData(e, 'bio')}
-            />
+            <FormLabel htmlFor='bio'>Bio</FormLabel>
+            <Textarea id='bio' onChange={e => updateProfileMetaData(e, 'bio')} />
           </FormControl>
-          <Button colorScheme="blue" mt={5} type="submit">
+          <Button colorScheme='blue' mt={5} type='submit'>
             Update this profile
           </Button>
         </form>
       </Box>
 
-      <Box
-        mx="auto"
-        mt={5}
-        maxW="container.md"
-        border="1px solid gray"
-        rounded="xl"
-        p={4}
-      >
+      <Box mx='auto' mt={5} maxW='container.md' border='1px solid gray' rounded='xl' p={4}>
         <Text>Create new Post</Text>
         {/* Possible fields: profileId, name, description, external_url, image, imageMimeType, content */}
         <form onSubmit={onCreatePost}>
           <FormControl mt={5} isRequired>
-            <FormLabel htmlFor="profileId">Profile ID</FormLabel>
-            <Input
-              id="profileId"
-              type="text"
-              onChange={e => updatePostMetaData(e, 'profileId')}
-            />
+            <FormLabel htmlFor='profileId'>Profile ID</FormLabel>
+            <Input id='profileId' type='text' onChange={e => updatePostMetaData(e, 'profileId')} />
           </FormControl>
           <FormControl mt={5}>
-            <FormLabel htmlFor="name">Name</FormLabel>
-            <Input
-              id="name"
-              type="text"
-              onChange={e => updatePostMetaData(e, 'name')}
-            />
+            <FormLabel htmlFor='name'>Name</FormLabel>
+            <Input id='name' type='text' onChange={e => updatePostMetaData(e, 'name')} />
           </FormControl>
           <FormControl mt={5}>
-            <FormLabel htmlFor="description">Description</FormLabel>
-            <Input
-              id="description"
-              type="text"
-              onChange={e => updatePostMetaData(e, 'description')}
-            />
+            <FormLabel htmlFor='description'>Description</FormLabel>
+            <Input id='description' type='text' onChange={e => updatePostMetaData(e, 'description')} />
           </FormControl>
           <FormControl mt={5}>
-            <FormLabel htmlFor="external_url">External URL</FormLabel>
-            <Input
-              id="external_url"
-              type="text"
-              onChange={e => updatePostMetaData(e, 'external_url')}
-            />
+            <FormLabel htmlFor='external_url'>External URL</FormLabel>
+            <Input id='external_url' type='text' onChange={e => updatePostMetaData(e, 'external_url')} />
           </FormControl>
           <FormControl mt={5}>
-            <FormLabel htmlFor="image">Image URL</FormLabel>
-            <Input
-              id="image"
-              type="text"
-              onChange={e => updatePostMetaData(e, 'image')}
-            />
+            <FormLabel htmlFor='image'>Image URL</FormLabel>
+            <Input id='image' type='text' onChange={e => updatePostMetaData(e, 'image')} />
           </FormControl>
           <FormControl mt={5}>
-            <FormLabel htmlFor="imageMimeType">Image MimeType</FormLabel>
+            <FormLabel htmlFor='imageMimeType'>Image MimeType</FormLabel>
             <Input
-              id="imageMimeType"
-              type="text"
-              placeholder="image/jpeg"
+              id='imageMimeType'
+              type='text'
+              placeholder='image/jpeg'
               onChange={e => updatePostMetaData(e, 'imageMimeType')}
             />
           </FormControl>
           <FormControl mt={5}>
-            <FormLabel htmlFor="content">Content</FormLabel>
-            <Textarea
-              id="content"
-              onChange={e => updatePostMetaData(e, 'content')}
-            />
+            <FormLabel htmlFor='content'>Content</FormLabel>
+            <Textarea id='content' onChange={e => updatePostMetaData(e, 'content')} />
           </FormControl>
-          <Button mt={5} type="submit" colorScheme="green">
+          <Button mt={5} type='submit' colorScheme='green'>
             Create Post
           </Button>
         </form>
       </Box>
 
-      <Container maxW="container.md" mt={10}>
-        <Code maxW="container.md">{JSON.stringify(message)}</Code>
+      <Container maxW='container.md' mt={10}>
+        <Code maxW='container.md'>{JSON.stringify(message)}</Code>
       </Container>
-    </>
+    </Layout>
   );
 }
