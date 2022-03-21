@@ -23,6 +23,7 @@ import {
 } from '@chakra-ui/icons';
 
 import { ColorModeSwitcher } from '../../ColorModeSwitcher';
+import { APP_NAME } from '../../lib/ConfigVars';
 import Connect from './Connect';
 
 export default function Navbar() {
@@ -65,7 +66,7 @@ export default function Navbar() {
               fontFamily={'heading'}
               color={useColorModeValue('gray.800', 'white')}
             >
-              Lens DAOscourse
+              {APP_NAME}
             </Text>
 
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
