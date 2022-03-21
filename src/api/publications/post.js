@@ -49,13 +49,13 @@ const createPostTypedData = createPostTypedDataRequest => {
   });
 };
 
-export const createPost = async (signer, profileId, postMetaData) => {
-  if (!profileId) {
+export const createPost = async (signer, postMetaData) => {
+  if (!postMetaData.profileId) {
     throw new Error('No Profile ID');
   }
 
-  const signedTypeData = (domain, types, value) => {
-    return signer._signTypedData(
+  const signedTypeData = async (domain, types, value) => {
+    return await signer._signTypedData(
       omit(domain, '__typename'),
       omit(types, '__typename'),
       omit(value, '__typename')
@@ -78,19 +78,26 @@ export const createPost = async (signer, profileId, postMetaData) => {
   //    appId: 'testing-daoscourse'
   //  }
 
-  const address = signer.address;
+  const address = await signer.address;
   console.log('create post: address', address);
 
   await login(address);
 
+  // For more info about the complete IPFS upload object:
+  // See lib/ipfs on this repo,
+  // See this example: https://github.com/aave/lens-api-examples/blob/master/src/ipfs.ts
+  // And see the docs: https://docs.lens.dev/docs/create-post-typed-data
   const ipfsResult = await uploadIpfs(postMetaData);
   console.log('create post: ipfs result', ipfsResult);
 
   // hard coded to make the code example clear
   const createPostRequest = {
-    profileId,
+    profileId: postMetaData.profileId,
     contentURI: 'ipfs://' + ipfsResult.path,
     collectModule: {
+      // For more info about post modules:
+      // https://docs.lens.dev/docs/create-post-typed-data
+      //
       // feeCollectModule: {
       //   amount: {
       //     currency: currencies.enabledModuleCurrencies.map(
@@ -101,6 +108,9 @@ export const createPost = async (signer, profileId, postMetaData) => {
       //   recipient: address,
       //   referralFee: 10.5,
       // },
+      //
+      // The Revert module works by disallowing all collects.
+      // If someone tried to collect from the contract level, it would throw and revert.
       revertCollectModule: true,
     },
     referenceModule: {
@@ -127,7 +137,11 @@ export const createPost = async (signer, profileId, postMetaData) => {
 
   const { v, r, s } = splitSignature(signature);
 
-  const lensHub = new ethers.Contract(LENS_HUB_CONTRACT, LENS_HUB_ABI, signer);
+  const lensHub = new ethers.Contract(
+    LENS_HUB_CONTRACT,
+    LENS_HUB_ABI,
+    await signer
+  );
 
   const tx = await lensHub.postWithSig({
     profileId: typedData.value.profileId,
@@ -144,4 +158,5 @@ export const createPost = async (signer, profileId, postMetaData) => {
     },
   });
   console.log('create post: tx hash', tx.hash);
+  return tx.hash;
 };
