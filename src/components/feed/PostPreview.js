@@ -2,7 +2,6 @@ import {
   Box,
   Text,
   Heading,
-  Stack,
   Badge,
   Flex,
   Avatar,
@@ -34,7 +33,7 @@ export default function PostPreview({
       <Text mt={4}>{desc}</Text>
       <HStack marginTop="1rem">
         <Badge colorScheme={categories[category]}>{category}</Badge>
-        <Text fontSize='xs'>{date}</Text>
+        <Text fontSize="xs">{date}</Text>
       </HStack>
     </Box>
   );

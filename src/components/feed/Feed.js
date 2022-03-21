@@ -1,4 +1,4 @@
-import { Grid, GridItem, Heading, Box } from '@chakra-ui/react';
+import { Grid, GridItem, Heading } from '@chakra-ui/react';
 import PostPreview from './PostPreview';
 
 export default function Feed() {
