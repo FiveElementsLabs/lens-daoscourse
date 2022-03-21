@@ -11,6 +11,8 @@ export const LENS_HUB_CONTRACT = '0xd7B3481De00995046C7850bCe9a5196B7605c367';
 // Check for updates here: https://docs.lens.dev/docs/metadata-standards
 export const LENS_PUBLICATION_METADATA_VERSION = '1.0.0';
 
+// This it the list of DAOs using Daoscourse.
+// It could become dynamic by querying a separate database.
 export const DAO_PROFILES = [
   {
     name: 'uniswap',
