@@ -29,7 +29,7 @@ export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Container maxW="container.xl">
+    <Container maxW="container.2xl">
       <Box>
         <Flex
           bg={useColorModeValue('white', 'gray.800')}
@@ -40,6 +40,11 @@ export default function Navbar() {
           borderStyle={'solid'}
           borderColor={useColorModeValue('gray.200', 'gray.900')}
           align={'center'}
+          pos="fixed"
+          w="100%"
+          px="4"
+          marginBottom="10"
+          zIndex={200}
         >
           <Flex
             flex={{ base: 1, md: 'auto' }}
