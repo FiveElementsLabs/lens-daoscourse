@@ -29,7 +29,7 @@ export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Container maxW="container.xl">
+    <Container maxW='container.xl'>
       <Box>
         <Flex
           bg={useColorModeValue('white', 'gray.800')}
@@ -81,7 +81,7 @@ export default function Navbar() {
           >
             <Connect>Connect Wallet</Connect>
           </Stack>
-          <ColorModeSwitcher justifySelf="flex-end" />
+          <ColorModeSwitcher justifySelf='flex-end' />
         </Flex>
 
         <Collapse in={isOpen} animateOpacity>

@@ -13,9 +13,9 @@ export default function Layout() {
     <>
       <Navbar />
 
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="90vh" p={3}>
-          <Container maxW="container.xl">
+      <Box textAlign='center' fontSize='xl'>
+        <Grid minH='90vh' p={3}>
+          <Container maxW='container.xl'>
             <Outlet />
           </Container>
         </Grid>
