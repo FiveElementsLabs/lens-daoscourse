@@ -20,11 +20,13 @@ export const DAO_PROFILES = [
   {
     name: 'uniswap',
     address: '0x8002e5D8cA10e2b0e7d1bd98C367fE08FA555A71',
+    desc: 'Uniswap is a decentralized protocol for automated liquidity provision.',
     profileId: '0xc8',
   },
   {
     name: 'yearn',
     address: '0xc79C9cce7Fd3B10495e8866842DF64110759cC4d',
+    desc: 'DeFi made simple.',
     profileId: '0x13',
   },
 ];
