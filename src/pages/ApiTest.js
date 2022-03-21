@@ -112,7 +112,7 @@ export default function ApiTest() {
         <Button
           w="full"
           mt={5}
-          onClick={async () => setMessage(await getPublications())}
+          onClick={async () => setMessage(await getPublications('0xc8'))}
         >
           Get publications by "0x13"
         </Button>

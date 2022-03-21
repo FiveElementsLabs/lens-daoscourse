@@ -24,10 +24,12 @@ const GET_PUBLICATIONS = `
       }
     }
   }
+
   fragment MediaFields on Media {
     url
     mimeType
   }
+
   fragment ProfileFields on Profile {
     id
     name
@@ -91,11 +93,13 @@ const GET_PUBLICATIONS = `
       }
     }
   }
+
   fragment PublicationStatsFields on PublicationStats { 
     totalAmountOfMirrors
     totalAmountOfCollects
     totalAmountOfComments
   }
+
   fragment MetadataOutputFields on MetadataOutput {
     name
     description
@@ -111,12 +115,14 @@ const GET_PUBLICATIONS = `
       value
     }
   }
+
   fragment Erc20Fields on Erc20 {
     name
     symbol
     decimals
     address
   }
+
   fragment CollectModuleFields on CollectModule {
     __typename
     ... on EmptyCollectModuleSettings {
@@ -174,6 +180,7 @@ const GET_PUBLICATIONS = `
       endTimestamp
     }
   }
+
   fragment PostFields on Post {
     id
     profile {
@@ -196,6 +203,7 @@ const GET_PUBLICATIONS = `
     }
     appId
   }
+
   fragment MirrorBaseFields on Mirror {
     id
     profile {
@@ -218,6 +226,7 @@ const GET_PUBLICATIONS = `
     }
     appId
   }
+
   fragment MirrorFields on Mirror {
     ...MirrorBaseFields
     mirrorOf {
@@ -229,6 +238,7 @@ const GET_PUBLICATIONS = `
      }
     }
   }
+
   fragment CommentBaseFields on Comment {
     id
     profile {
@@ -251,6 +261,7 @@ const GET_PUBLICATIONS = `
     }
     appId
   }
+
   fragment CommentFields on Comment {
     ...CommentBaseFields
     mainPost {
@@ -270,6 +281,7 @@ const GET_PUBLICATIONS = `
       }
     }
   }
+
   fragment CommentMirrorOfFields on Comment {
     ...CommentBaseFields
     mainPost {
@@ -281,6 +293,7 @@ const GET_PUBLICATIONS = `
       }
     }
   }
+
 `;
 
 const getPublicationsRequest = getPublicationQuery => {
@@ -292,12 +305,12 @@ const getPublicationsRequest = getPublicationQuery => {
   });
 };
 
-export const getPublications = async () => {
+export const getPublications = async profileId => {
   const result = await getPublicationsRequest({
-    profileId: '0x13',
-    publicationTypes: ['POST', 'COMMENT', 'MIRROR'],
+    profileId: profileId,
+    publicationTypes: ['POST'],
   });
   prettyJSON('publications: result', result.data);
 
-  return result.data;
+  return result.data.publications.items;
 };
