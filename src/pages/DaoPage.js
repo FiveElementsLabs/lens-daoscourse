@@ -1,19 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import {
-  Badge,
-  Box,
-  Heading,
-  Button,
-  Text,
-  Spacer,
-  Avatar,
-  useColorModeValue,
-  Flex,
-  Stack,
-  Grid,
-  GridItem,
-} from '@chakra-ui/react';
+import { Badge, Box, Heading, Button, Text, Spacer, Avatar, Flex, Grid, GridItem } from '@chakra-ui/react';
 
 import { AiOutlineFileAdd } from 'react-icons/ai';
 
@@ -57,29 +44,29 @@ export default function DaoPage() {
         <>
           {proposals.length && (
             <Box mt={5}>
-              <Flex alignItems="center">
+              <Flex alignItems='center'>
                 <Avatar
                   name={proposals[0].profile.name}
                   src={proposals[0].profile.picture?.original?.url}
-                  w="100px"
-                  h="100px"
-                  mr="14px"
+                  w='100px'
+                  h='100px'
+                  mr='14px'
                 />
                 <Heading m={0}>
                   {proposals[0].profile.name} / {daoData.name}
                 </Heading>
-                <Badge variant="outline" fontSize="xl" ml={2}>
+                <Badge variant='outline' fontSize='xl' ml={2}>
                   #{proposals[0].profile.id}
                 </Badge>
                 <Spacer />
-                <Link to="/create-post">
+                <Link to='/create-post'>
                   <Button mr={0} leftIcon={<AiOutlineFileAdd />}>
                     Create Proposal
                   </Button>
                 </Link>
               </Flex>
               <Flex>
-                <Text ml="114px">{daoData.desc}</Text>
+                <Text ml='114px'>{daoData.desc}</Text>
               </Flex>
             </Box>
           )}
@@ -92,16 +79,11 @@ export default function DaoPage() {
           </Box>
 
           <Grid templateColumns={'repeat(12, 1fr)'} gap={4}>
-            <GridItem colSpan={{base: 12, md: 9}}>
-              {proposals &&
-                proposals.map((proposal, idx) => (
-                  <Proposal key={idx} dao={dao} proposal={proposal} />
-                ))}
+            <GridItem colSpan={{ base: 12, md: 9 }}>
+              {proposals && proposals.map((proposal, idx) => <Proposal key={idx} dao={dao} proposal={proposal} />)}
             </GridItem>
-            <GridItem colSpan={3} display={{base: "none", md: "block"}}>
-              {proposals.length && (
-                <DaoInfo dao={dao} proposal={proposals[0]} />
-              )}
+            <GridItem colSpan={3} display={{ base: 'none', md: 'block' }}>
+              {proposals.length && <DaoInfo proposal={proposals[0]} />}
             </GridItem>
           </Grid>
         </>

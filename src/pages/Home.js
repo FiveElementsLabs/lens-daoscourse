@@ -1,6 +1,5 @@
 import { Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import Feed from '../components/feed/Feed';
 import { DAO_PROFILES } from '../lib/ConfigVars';
 
 export default function Home() {
