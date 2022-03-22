@@ -2,10 +2,9 @@ import { gql } from '@apollo/client/core';
 import ApolloClient from '../../lib/ApolloClient';
 import { prettyJSON } from '../../lib/Helpers';
 
-const GET_PUBLICATIONS = `
-  query($request: PublicationsQueryRequest!) {
-    publications(request: $request) {
-      items {
+const GET_PUBLICATION = `
+  query($request: PublicationQueryRequest!) {
+    publication(request: $request) {
         __typename 
         ... on Post {
           ...PostFields
@@ -15,12 +14,6 @@ const GET_PUBLICATIONS = `
         }
         ... on Mirror {
           ...MirrorFields
-        }
-      }
-      pageInfo {
-        prev
-        next
-        totalCount
       }
     }
   }
@@ -293,24 +286,22 @@ const GET_PUBLICATIONS = `
       }
     }
   }
-
 `;
 
-const getPublicationsRequest = getPublicationQuery => {
+const getProposalRequest = publicationId => {
   return ApolloClient.query({
-    query: gql(GET_PUBLICATIONS),
+    query: gql(GET_PUBLICATION),
     variables: {
-      request: getPublicationQuery,
+      request: {
+        publicationId,
+      },
     },
   });
 };
 
-export const getPublications = async profileId => {
-  const result = await getPublicationsRequest({
-    profileId: profileId,
-    publicationTypes: ['POST'],
-  });
-  //prettyJSON('publications: result', result.data);
+export const getProposal = async publicationId => {
+  const result = await getProposalRequest(publicationId);
+  //prettyJSON('publication: result', result.data);
 
-  return result.data.publications.items;
+  return result.data.publication;
 };

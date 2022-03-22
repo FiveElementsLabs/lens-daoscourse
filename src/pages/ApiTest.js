@@ -20,6 +20,7 @@ import { createProfile } from '../api/profile/create-profile';
 import { getProfiles } from '../api/profile/get-profiles';
 import { updateProfile } from '../api/profile/update-profile';
 import { createPost } from '../api/publications/post';
+import { createComment } from '../api/publications/comment';
 
 export default function ApiTest() {
   const { account, library } = useEthers();
@@ -29,6 +30,7 @@ export default function ApiTest() {
   const [handle, setHandle] = useState('');
   const [profileMetaData, setProfileMetaData] = useState({});
   const [postMetaData, setPostMetaData] = useState({});
+  const [commentMetaData, setCommentMetaData] = useState({});
 
   const onClear = () => {
     setMessage('');
@@ -58,6 +60,13 @@ export default function ApiTest() {
     });
   };
 
+  const updateCommentMetaData = (e, field) => {
+    setCommentMetaData({
+      ...commentMetaData,
+      [field]: e.target.value,
+    });
+  }
+
   const onUpdateProfile = async e => {
     e.preventDefault();
     try {
@@ -78,6 +87,16 @@ export default function ApiTest() {
       console.error(err.message);
     }
   };
+
+  const onCreateComment = async e => {
+    e.preventDefault();
+    try {
+      const res = await createComment(library.getSigner(), commentMetaData);
+      setMessage(res);
+    } catch(err) {
+      console.error(err.message);
+    }
+  }
 
   return (
     <>
@@ -282,6 +301,87 @@ export default function ApiTest() {
           </FormControl>
           <Button mt={5} type="submit" colorScheme="green">
             Create Post
+          </Button>
+        </form>
+      </Box>
+
+      <Box
+        mx="auto"
+        mt={5}
+        maxW="container.md"
+        border="1px solid gray"
+        rounded="xl"
+        p={4}
+      >
+        <Text>Create new Comment</Text>
+        {/* Possible fields: profileId, publicationId, name, description, external_url, image, imageMimeType, content */}
+        <form onSubmit={onCreateComment}>
+          <FormControl mt={5} isRequired>
+            <FormLabel htmlFor="profileId">Profile ID</FormLabel>
+            <Input
+              id="profileId"
+              type="text"
+              onChange={e => updateCommentMetaData(e, 'profileId')}
+            />
+          </FormControl>
+          <FormControl mt={5} isRequired>
+            <FormLabel htmlFor="publicationId">Publication ID (userId-postId)</FormLabel>
+            <Input
+              id="publicationId"
+              type="text"
+              onChange={e => updateCommentMetaData(e, 'publicationId')}
+            />
+          </FormControl>
+          <FormControl mt={5}>
+            <FormLabel htmlFor="name">Name</FormLabel>
+            <Input
+              id="name"
+              type="text"
+              onChange={e => updateCommentMetaData(e, 'name')}
+            />
+          </FormControl>
+          <FormControl mt={5}>
+            <FormLabel htmlFor="description">Description</FormLabel>
+            <Input
+              id="description"
+              type="text"
+              onChange={e => updateCommentMetaData(e, 'description')}
+            />
+          </FormControl>
+          <FormControl mt={5}>
+            <FormLabel htmlFor="external_url">External URL</FormLabel>
+            <Input
+              id="external_url"
+              type="text"
+              onChange={e => updateCommentMetaData(e, 'external_url')}
+            />
+          </FormControl>
+          <FormControl mt={5}>
+            <FormLabel htmlFor="image">Image URL</FormLabel>
+            <Input
+              id="image"
+              type="text"
+              onChange={e => updateCommentMetaData(e, 'image')}
+            />
+          </FormControl>
+          <FormControl mt={5}>
+            <FormLabel htmlFor="imageMimeType">Image MimeType</FormLabel>
+            <Input
+              id="imageMimeType"
+              type="text"
+              placeholder="image/jpeg"
+              onChange={e => updateCommentMetaData(e, 'imageMimeType')}
+            />
+          </FormControl>
+          <FormControl mt={5}>
+            <FormLabel htmlFor="content">Content</FormLabel>
+            <Textarea
+              id="content"
+              onChange={e => updateCommentMetaData(e, 'content')}
+            />
+          </FormControl>
+          <Button mt={5} type="submit" colorScheme="green">
+            Create Comment
           </Button>
         </form>
       </Box>

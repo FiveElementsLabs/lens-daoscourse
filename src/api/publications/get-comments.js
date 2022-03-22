@@ -2,7 +2,7 @@ import { gql } from '@apollo/client/core';
 import ApolloClient from '../../lib/ApolloClient';
 import { prettyJSON } from '../../lib/Helpers';
 
-const GET_PUBLICATIONS = `
+const GET_COMMENTS = `
   query($request: PublicationsQueryRequest!) {
     publications(request: $request) {
       items {
@@ -293,24 +293,22 @@ const GET_PUBLICATIONS = `
       }
     }
   }
-
 `;
 
-const getPublicationsRequest = getPublicationQuery => {
+const getCommentsRequest = publicationId => {
   return ApolloClient.query({
-    query: gql(GET_PUBLICATIONS),
+    query: gql(GET_COMMENTS),
     variables: {
-      request: getPublicationQuery,
+      request: {
+        commentsOf: publicationId,
+      },
     },
   });
 };
 
-export const getPublications = async profileId => {
-  const result = await getPublicationsRequest({
-    profileId: profileId,
-    publicationTypes: ['POST'],
-  });
-  //prettyJSON('publications: result', result.data);
+export const getComments = async publicationId => {
+  const result = await getCommentsRequest(publicationId);
+  prettyJSON(result.data);
 
-  return result.data.publications.items;
+  return result.data.publications;
 };
