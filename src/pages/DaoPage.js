@@ -1,23 +1,24 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import {
   Badge,
   Box,
   Heading,
   Button,
-  Select,
   Text,
+  Spacer,
   Avatar,
   useColorModeValue,
   Flex,
   Stack,
+  Grid,
+  GridItem,
 } from '@chakra-ui/react';
-import {
-  AiOutlineRetweet,
-  AiOutlineComment,
-  AiOutlinePlusCircle,
-} from 'react-icons/ai';
 
+import { AiOutlineFileAdd } from 'react-icons/ai';
+
+import Proposal from '../components/daoPage/proposal';
+import DaoInfo from '../components/daoPage/daoInfo';
 import { getPublications } from '../api/publications/get-publications';
 import { DAO_PROFILES } from '../lib/ConfigVars';
 
@@ -27,6 +28,7 @@ import { DAO_PROFILES } from '../lib/ConfigVars';
 
 export default function DaoPage() {
   const { dao } = useParams();
+  let navigate = useNavigate();
   const [proposals, setProposals] = useState([]);
   const [daoData, setDaoData] = useState(null);
 
@@ -40,6 +42,7 @@ export default function DaoPage() {
           setProposals(res);
         } catch (err) {
           console.error(err?.message);
+          navigate('/');
         }
       }
     };
@@ -52,86 +55,56 @@ export default function DaoPage() {
     <>
       {daoData && (
         <>
-          <Box mt={5}>
-            <Heading>{daoData.name}</Heading>
-            <Text mt={1}>{daoData.desc}</Text>
-          </Box>
+          {proposals.length && (
+            <Box mt={5}>
+              <Flex alignItems="center">
+                <Avatar
+                  name={proposals[0].profile.name}
+                  src={proposals[0].profile.picture?.original?.url}
+                  w="100px"
+                  h="100px"
+                  mr="14px"
+                />
+                <Heading m={0}>
+                  {proposals[0].profile.name} / {daoData.name}
+                </Heading>
+                <Badge variant="outline" fontSize="xl" ml={2}>
+                  #{proposals[0].profile.id}
+                </Badge>
+                <Spacer />
+                <Link to="/create-post">
+                  <Button mr={0} leftIcon={<AiOutlineFileAdd />}>
+                    Create Proposal
+                  </Button>
+                </Link>
+              </Flex>
+              <Flex>
+                <Text ml="114px">{daoData.desc}</Text>
+              </Flex>
+            </Box>
+          )}
           <Box py={5}>
-            <Select placeholder="Most Recent">
+            {/* <Select placeholder="Most Recent">  
               <option value="option1">Most Recent</option>
               <option value="option2">Most Popular</option>
               <option value="option3">Most Commented</option>
-            </Select>
+            </Select> */}
           </Box>
 
-          {proposals &&
-            proposals.map((proposal, idx) => (
-              <Proposal key={idx} dao={dao} proposal={proposal} />
-            ))}
+          <Grid templateColumns={'repeat(12, 1fr)'} gap={4}>
+            <GridItem colSpan={{base: 12, md: 9}}>
+              {proposals &&
+                proposals.map((proposal, idx) => (
+                  <Proposal key={idx} dao={dao} proposal={proposal} />
+                ))}
+            </GridItem>
+            <GridItem colSpan={3} display={{base: "none", md: "block"}}>
+              {proposals.length && (
+                <DaoInfo dao={dao} proposal={proposals[0]} />
+              )}
+            </GridItem>
+          </Grid>
         </>
-      )}
-    </>
-  );
-}
-
-function Proposal({ dao, proposal }) {
-  const { __typename, id, profile, stats, metadata, createdAt } = proposal;
-  const { name: author, picture } = profile;
-  const { name, description, content } = metadata;
-  const { totalAmountOfMirrors, totalAmountOfCollects, totalAmountOfComments } =
-    stats;
-
-  const border = useColorModeValue('gray.200', 'gray.600');
-
-  return (
-    <>
-      {__typename === 'Post' && (
-        <Link to={`/${dao}/proposal/${id}`}>
-          <Box
-            mb={3}
-            p={3}
-            cursor="pointer"
-            rounded="md"
-            textAlign="left"
-            shadow="sm"
-            border="1px solid"
-            borderColor={border}
-          >
-            <Flex alignItems="center">
-              <Avatar name={author} src={picture?.original?.url} />
-              <Badge variant="outline" fontSize="md" ml={2}>
-                Proposal {id}
-              </Badge>
-            </Flex>
-            <Text fontSize={{ base: 'lg', md: 'lg' }} fontWeight="medium">
-              {name}
-            </Text>
-            <Text fontSize="md">{description}</Text>
-            <Stack id="stats" mt={2} direction="row">
-              <Button
-                leftIcon={<AiOutlineRetweet />}
-                colorScheme="gray"
-                variant="outline"
-              >
-                {totalAmountOfMirrors}
-              </Button>
-              <Button
-                leftIcon={<AiOutlinePlusCircle />}
-                colorScheme="gray"
-                variant="outline"
-              >
-                {totalAmountOfCollects}
-              </Button>
-              <Button
-                leftIcon={<AiOutlineComment />}
-                colorScheme="gray"
-                variant="outline"
-              >
-                {totalAmountOfComments}
-              </Button>
-            </Stack>
-          </Box>
-        </Link>
       )}
     </>
   );

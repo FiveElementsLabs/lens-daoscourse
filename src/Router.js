@@ -12,6 +12,7 @@ import Layout from './components/layout/Layout';
 import DaoPage from './pages/DaoPage';
 import Home from './pages/Home';
 import ApiTest from './pages/ApiTest';
+import CreatePost from "./pages/CreatePost";
 
 export default function Router() {
   return (
@@ -20,6 +21,7 @@ export default function Router() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/api-test" element={<ApiTest />} />
+          <Route path="/create-post" element={<CreatePost />} /> 
           <Route path="/:dao" element={<DaoPage />} />
         </Route>
       </Routes>

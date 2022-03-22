@@ -183,6 +183,30 @@ export default function ApiTest() {
               onChange={e => updateProfileMetaData(e, 'bio')}
             />
           </FormControl>
+          <FormControl mt={5}>
+            <FormLabel htmlFor="location">Location</FormLabel>
+            <Input
+              id="location"
+              type="text"
+              onChange={e => updateProfileMetaData(e, 'location')}
+            />
+          </FormControl>
+          <FormControl mt={5}>
+            <FormLabel htmlFor="website">Website</FormLabel>
+            <Input
+              id="website"
+              type="text"
+              onChange={e => updateProfileMetaData(e, 'website')}
+            />
+          </FormControl>
+          <FormControl mt={5}>
+            <FormLabel htmlFor="twitter">Twitter</FormLabel>
+            <Input
+              id="twitter"
+              type="text"
+              onChange={e => updateProfileMetaData(e, 'twitterUrl')}
+            />
+          </FormControl>
           <Button colorScheme="blue" mt={5} type="submit">
             Update this profile
           </Button>

@@ -74,15 +74,9 @@ export default function Navbar() {
             </Flex>
           </Flex>
 
-          <Stack
-            flex={{ base: 1, md: 0 }}
-            justify={'flex-end'}
-            direction={'row'}
-            spacing={6}
-          >
-            <Connect>Connect Wallet</Connect>
-          </Stack>
-          <ColorModeSwitcher justifySelf="flex-end" />
+          <ColorModeSwitcher mr={2} justifySelf="flex-end" />
+          <Connect>Connect Wallet</Connect>
+          
         </Flex>
 
         <Collapse in={isOpen} animateOpacity>
