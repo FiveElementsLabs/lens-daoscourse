@@ -15,14 +15,10 @@ import {
   useDisclosure,
   Container,
 } from '@chakra-ui/react';
-import {
-  HamburgerIcon,
-  CloseIcon,
-  ChevronDownIcon,
-  ChevronRightIcon,
-} from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
 import { ColorModeSwitcher } from '../../ColorModeSwitcher';
+import { APP_NAME } from '../../lib/ConfigVars';
 import Connect from './Connect';
 
 export default function Navbar() {
@@ -41,20 +37,10 @@ export default function Navbar() {
           borderColor={useColorModeValue('gray.200', 'gray.900')}
           align={'center'}
         >
-          <Flex
-            flex={{ base: 1, md: 'auto' }}
-            ml={{ base: -2 }}
-            display={{ base: 'flex', md: 'none' }}
-          >
+          <Flex flex={{ base: 1, md: 'auto' }} ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
             <IconButton
               onClick={onToggle}
-              icon={
-                isOpen ? (
-                  <CloseIcon w={3} h={3} />
-                ) : (
-                  <HamburgerIcon w={5} h={5} />
-                )
-              }
+              icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
               variant={'ghost'}
               aria-label={'Toggle Navigation'}
             />
@@ -65,7 +51,7 @@ export default function Navbar() {
               fontFamily={'heading'}
               color={useColorModeValue('gray.800', 'white')}
             >
-              Lens DAOscourse
+              {APP_NAME}
             </Text>
 
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
@@ -73,15 +59,8 @@ export default function Navbar() {
             </Flex>
           </Flex>
 
-          <Stack
-            flex={{ base: 1, md: 0 }}
-            justify={'flex-end'}
-            direction={'row'}
-            spacing={6}
-          >
-            <Connect>Connect Wallet</Connect>
-          </Stack>
-          <ColorModeSwitcher justifySelf='flex-end' />
+          <ColorModeSwitcher mr={2} justifySelf='flex-end' />
+          <Connect>Connect Wallet</Connect>
         </Flex>
 
         <Collapse in={isOpen} animateOpacity>
@@ -119,14 +98,7 @@ const DesktopNav = () => {
             </PopoverTrigger>
 
             {navItem.children && (
-              <PopoverContent
-                border={0}
-                boxShadow={'xl'}
-                bg={popoverContentBgColor}
-                p={4}
-                rounded={'xl'}
-                minW={'sm'}
-              >
+              <PopoverContent border={0} boxShadow={'xl'} bg={popoverContentBgColor} p={4} rounded={'xl'} minW={'sm'}>
                 <Stack>
                   {navItem.children.map(child => (
                     <DesktopSubNav key={child.label} {...child} />
@@ -153,11 +125,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
     >
       <Stack direction={'row'} align={'center'}>
         <Box>
-          <Text
-            transition={'all .3s ease'}
-            _groupHover={{ color: 'pink.400' }}
-            fontWeight={500}
-          >
+          <Text transition={'all .3s ease'} _groupHover={{ color: 'pink.400' }} fontWeight={500}>
             {label}
           </Text>
           <Text fontSize={'sm'}>{subLabel}</Text>
@@ -180,11 +148,7 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 
 const MobileNav = () => {
   return (
-    <Stack
-      bg={useColorModeValue('white', 'gray.800')}
-      p={4}
-      display={{ md: 'none' }}
-    >
+    <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
       {NAV_ITEMS.map(navItem => (
         <MobileNavItem key={navItem.label} {...navItem} />
       ))}
@@ -207,10 +171,7 @@ const MobileNavItem = ({ label, children, href }) => {
           textDecoration: 'none',
         }}
       >
-        <Text
-          fontWeight={600}
-          color={useColorModeValue('gray.600', 'gray.200')}
-        >
+        <Text fontWeight={600} color={useColorModeValue('gray.600', 'gray.200')}>
           {label}
         </Text>
         {children && (
