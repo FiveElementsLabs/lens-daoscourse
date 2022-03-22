@@ -1,28 +1,13 @@
 import { Link } from 'react-router-dom';
-import {
-  Badge,
-  Box,
-  Heading,
-  Button,
-  Text,
-  Avatar,
-  useColorModeValue,
-  Flex,
-  Stack,
-} from '@chakra-ui/react';
-import {
-  AiOutlineRetweet,
-  AiOutlineComment,
-  AiOutlinePlusCircle,
-} from 'react-icons/ai';
+import { Box, Button, Text, Avatar, useColorModeValue, Flex, Stack } from '@chakra-ui/react';
+import { AiOutlineRetweet, AiOutlineComment, AiOutlinePlusCircle } from 'react-icons/ai';
 import { formatDistanceToNow } from 'date-fns';
 
 export default function Proposal({ dao, proposal }) {
   const { __typename, id, profile, stats, metadata, createdAt } = proposal;
   const { name: author, picture } = profile;
-  const { name, description, content } = metadata;
-  const { totalAmountOfMirrors, totalAmountOfCollects, totalAmountOfComments } =
-    stats;
+  const { name, description } = metadata;
+  const { totalAmountOfMirrors, totalAmountOfCollects, totalAmountOfComments } = stats;
 
   const border = useColorModeValue('gray.200', 'gray.600');
 
@@ -33,11 +18,11 @@ export default function Proposal({ dao, proposal }) {
           <Box
             mb={3}
             p={3}
-            cursor="pointer"
-            rounded="md"
-            textAlign="left"
-            shadow="sm"
-            border="1px solid"
+            cursor='pointer'
+            rounded='md'
+            textAlign='left'
+            shadow='sm'
+            border='1px solid'
             borderColor={border}
           >
             {/* <Flex alignItems="center">
@@ -47,37 +32,22 @@ export default function Proposal({ dao, proposal }) {
               </Badge>
             </Flex> */}
             <Flex>
-              <Avatar name={author} src={picture?.original?.url} mr="14px" />
+              <Avatar name={author} src={picture?.original?.url} mr='14px' />
               <Box>
-                <Text fontSize="lg" fontWeight="medium">
+                <Text fontSize='lg' fontWeight='medium'>
                   {name}
                 </Text>
-                <Text fontSize="sm">{description}</Text>
+                <Text fontSize='sm'>{description}</Text>
               </Box>
             </Flex>
-            <Stack id="stats" mt={2} direction="row" alignItems="center">
-              <Button
-                leftIcon={<AiOutlineRetweet />}
-                colorScheme="gray"
-                variant="outline"
-                size="xs"
-              >
+            <Stack id='stats' mt={2} direction='row' alignItems='center'>
+              <Button leftIcon={<AiOutlineRetweet />} colorScheme='gray' variant='outline' size='xs'>
                 {totalAmountOfMirrors}
               </Button>
-              <Button
-                leftIcon={<AiOutlinePlusCircle />}
-                colorScheme="gray"
-                variant="outline"
-                size="xs"
-              >
+              <Button leftIcon={<AiOutlinePlusCircle />} colorScheme='gray' variant='outline' size='xs'>
                 {totalAmountOfCollects}
               </Button>
-              <Button
-                leftIcon={<AiOutlineComment />}
-                colorScheme="gray"
-                variant="outline"
-                size="xs"
-              >
+              <Button leftIcon={<AiOutlineComment />} colorScheme='gray' variant='outline' size='xs'>
                 {totalAmountOfComments}
               </Button>
               <Text fontSize={12}>
