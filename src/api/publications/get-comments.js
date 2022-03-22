@@ -308,7 +308,7 @@ const getCommentsRequest = publicationId => {
 
 export const getComments = async publicationId => {
   const result = await getCommentsRequest(publicationId);
-  prettyJSON(result.data);
+  // prettyJSON(result.data);
 
   return result.data.publications;
 };

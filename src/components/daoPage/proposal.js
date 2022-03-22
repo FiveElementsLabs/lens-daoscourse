@@ -10,6 +10,7 @@ export default function Proposal({ dao, proposal }) {
   const { totalAmountOfMirrors, totalAmountOfCollects, totalAmountOfComments } = stats;
 
   const border = useColorModeValue('gray.200', 'gray.600');
+  const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (
     <>
@@ -24,6 +25,7 @@ export default function Proposal({ dao, proposal }) {
             shadow='sm'
             border='1px solid'
             borderColor={border}
+            backgroundColor={accent}
           >
             {/* <Flex alignItems="center">
               <Avatar name={author} src={picture?.original?.url} />
