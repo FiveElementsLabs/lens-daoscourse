@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client/core';
 import ApolloClient from '../../lib/ApolloClient';
-// import { prettyJSON } from '../../lib/Helpers';
+import { prettyJSON } from '../../lib/Helpers';
 
 const GET_COMMENTS = `
   query($request: PublicationsQueryRequest!) {
@@ -308,7 +308,7 @@ const getCommentsRequest = publicationId => {
 
 export const getComments = async publicationId => {
   const result = await getCommentsRequest(publicationId);
-  // prettyJSON(result.data);
+  prettyJSON(result.data);
 
   return result.data.publications;
 };

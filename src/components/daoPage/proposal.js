@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Box, Button, Text, Avatar, useColorModeValue, Flex, Stack } from '@chakra-ui/react';
-import { AiOutlineRetweet, AiOutlineComment, AiOutlinePlusCircle } from 'react-icons/ai';
+import { AiOutlineRetweet, AiOutlinePlusCircle } from 'react-icons/ai';
+import { FaRegComments} from 'react-icons/fa'
 import { formatDistanceToNow } from 'date-fns';
 
 export default function Proposal({ dao, proposal }) {
@@ -27,12 +28,6 @@ export default function Proposal({ dao, proposal }) {
             borderColor={border}
             backgroundColor={accent}
           >
-            {/* <Flex alignItems="center">
-              <Avatar name={author} src={picture?.original?.url} />
-              <Badge variant="outline" fontSize="md" ml={2}>
-                Proposal {id}
-              </Badge>
-            </Flex> */}
             <Flex>
               <Avatar name={author} src={picture?.original?.url} mr='14px' />
               <Box>
@@ -49,7 +44,7 @@ export default function Proposal({ dao, proposal }) {
               <Button leftIcon={<AiOutlinePlusCircle />} colorScheme='gray' variant='outline' size='xs'>
                 {totalAmountOfCollects}
               </Button>
-              <Button leftIcon={<AiOutlineComment />} colorScheme='gray' variant='outline' size='xs'>
+              <Button leftIcon={<FaRegComments />} colorScheme='gray' variant='outline' size='xs'>
                 {totalAmountOfComments}
               </Button>
               <Text fontSize={12}>

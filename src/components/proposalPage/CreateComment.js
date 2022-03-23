@@ -59,7 +59,7 @@ export default function CreateComment({ postId }) {
   const border = useColorModeValue('gray.300', 'gray.700');
 
   return (
-    <Box w='full' mt={3} p={3} border='1px solid' borderColor={border}>
+    <Box w='full' mt={3} p={3} border='1px solid' rounded='md' borderColor={border}>
       <form onSubmit={onComment} style={{ textAlign: 'right' }}>
         <FormControl isRequired borderBottom='1px solid' borderColor={border}>
           <Textarea
@@ -71,7 +71,7 @@ export default function CreateComment({ postId }) {
         </FormControl>
         <Flex>
           <Text fontSize={16} width='fit-content' my='auto'>
-            {profile?.name} :
+            Publish as: @{profile?.handle}
           </Text>
           <Spacer />
           <Button type='submit' mt={3}>

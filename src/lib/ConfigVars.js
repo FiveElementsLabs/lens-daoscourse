@@ -7,6 +7,7 @@ export const APP_DESC = 'The All-in-one fair on-chain DAO governance solution.';
 
 export const LENS_API_URL = 'https://api-mumbai.lens.dev/';
 export const MUMBAI_RPC_URL = 'https://rpc-mumbai.matic.today';
+export const MUMBAI_SCAN = 'https://mumbai.polygonscan.com/'
 
 export const LENS_HUB_CONTRACT = '0xd7B3481De00995046C7850bCe9a5196B7605c367';
 
