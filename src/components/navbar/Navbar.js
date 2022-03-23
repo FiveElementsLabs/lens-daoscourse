@@ -11,7 +11,6 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
   Container,
 } from '@chakra-ui/react';
@@ -21,53 +20,54 @@ import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { APP_NAME } from '../../lib/ConfigVars';
 import Connect from './Connect';
 
+const NAV_ITEMS = [
+  {
+    label: 'Home',
+    href: '/',
+  },
+  {
+    label: 'API Test',
+    href: '/api-test',
+  },
+];
+
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Container maxW='container.xl'>
-      <Box>
-        <Flex
-          minH={'60px'}
-          py={{ base: 2 }}
-          borderBottom={2}
-          borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.400', 'gray.600')}
-          align={'center'}
-        >
-          <Flex flex={{ base: 1, md: 'auto' }} ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
-            <IconButton
-              onClick={onToggle}
-              icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
-              variant={'link'}
-              aria-label={'Toggle Navigation'}
-            />
-          </Flex>
-          <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} alignItems='center'>
-            <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              fontWeight='bold'
-              fontSize='2xl'
-              color={useColorModeValue('primary', 'white')}
-            >
-              {APP_NAME}
-            </Text>
-
-            <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-              <DesktopNav />
+    <Box backgroundColor={useColorModeValue('light_azure', 'dark_azure')} shadow='md'>
+      <Container maxW='container.xl'>
+        <Box>
+          <Flex minH={'60px'} py={{ base: 2 }} align={'center'}>
+            <Flex flex={{ base: 1, md: 'auto' }} ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
+              <IconButton
+                onClick={onToggle}
+                icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+                variant='solid'
+                color={useColorModeValue('black', 'white')}
+                aria-label={'Toggle Navigation'}
+              />
             </Flex>
+            <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} alignItems='center'>
+              <Text fontWeight='bold' fontSize='2xl' color={useColorModeValue('primary', 'white')}>
+                {APP_NAME}
+              </Text>
+
+              <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+                <DesktopNav />
+              </Flex>
+            </Flex>
+
+            <ColorModeSwitcher mr={2} justifySelf='flex-end' />
+            <Connect variant='solid'>Connect Wallet</Connect>
           </Flex>
 
-          <ColorModeSwitcher mr={2} justifySelf='flex-end' />
-          <Connect variant='solid'>Connect Wallet</Connect>
-        </Flex>
-
-        <Collapse in={isOpen} animateOpacity>
-          <MobileNav />
-        </Collapse>
-      </Box>
-    </Container>
+          <Collapse in={isOpen} animateOpacity>
+            <MobileNav />
+          </Collapse>
+        </Box>
+      </Container>
+    </Box>
   );
 }
 
@@ -203,14 +203,3 @@ const MobileNavItem = ({ label, children, href }) => {
     </Stack>
   );
 };
-
-const NAV_ITEMS = [
-  {
-    label: 'Home',
-    href: '/',
-  },
-  {
-    label: 'API Test',
-    href: '/api-test',
-  },
-];

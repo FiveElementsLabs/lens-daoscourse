@@ -7,6 +7,7 @@ import { AiOutlineFileAdd } from 'react-icons/ai';
 import Proposal from '../components/daoPage/proposal';
 import DaoInfo from '../components/daoPage/daoInfo';
 import { getPublications } from '../api/publications/get-publications';
+import { capitalizeName } from '../lib/Helpers';
 import { DAO_PROFILES } from '../lib/ConfigVars';
 
 // 1. Control if the :dao name exists in the dao array.
@@ -28,7 +29,6 @@ export default function DaoPage() {
           setDaoData(daoInfo);
           setProposals(res);
         } catch (err) {
-          console.error(err?.message);
           navigate('/');
         }
       }
@@ -44,41 +44,36 @@ export default function DaoPage() {
         <>
           {proposals.length && (
             <Box mt={5}>
-              <Flex alignItems='center'>
+              <Flex alignItems='center' flexDir={{ base: 'column', md: 'row' }}>
                 <Avatar
                   name={proposals[0].profile.name}
                   src={proposals[0].profile.picture?.original?.url}
                   w='100px'
                   h='100px'
-                  mr='14px'
+                  mr={{ base: 0, md: '14px' }}
                 />
-                <Heading m={0}>
-                  {proposals[0].profile.name} / {daoData.name}
-                </Heading>
-                <Badge variant='outline' fontSize='xl' ml={2}>
-                  #{proposals[0].profile.id}
-                </Badge>
+                <Box textAlign={{ base: 'center', md: 'left' }}>
+                  <Heading>
+                    {capitalizeName(daoData.name)}
+                    <Badge ml={3} fontSize='xl' variant='outline' rounded='md'>
+                      #{proposals[0].profile.id}
+                    </Badge>
+                  </Heading>
+                  <Text>{daoData.desc}</Text>
+                </Box>
+
                 <Spacer />
-                <Link to='/create-post'>
-                  <Button mr={0} leftIcon={<AiOutlineFileAdd />}>
-                    Create Proposal
-                  </Button>
-                </Link>
+                <Box mt={{ base: 3, md: 0 }}>
+                  <Link to='/create-post'>
+                    <Button leftIcon={<AiOutlineFileAdd />}>Create Proposal</Button>
+                  </Link>
+                </Box>
               </Flex>
-              <Flex>
-                <Text ml='114px'>{daoData.desc}</Text>
-              </Flex>
+              <Flex></Flex>
             </Box>
           )}
-          <Box py={5}>
-            {/* <Select placeholder="Most Recent">  
-              <option value="option1">Most Recent</option>
-              <option value="option2">Most Popular</option>
-              <option value="option3">Most Commented</option>
-            </Select> */}
-          </Box>
 
-          <Grid templateColumns={'repeat(12, 1fr)'} gap={4}>
+          <Grid templateColumns={'repeat(12, 1fr)'} gap={5} mt={5}>
             <GridItem colSpan={{ base: 12, md: 9 }}>
               {proposals && proposals.map((proposal, idx) => <Proposal key={idx} dao={dao} proposal={proposal} />)}
             </GridItem>

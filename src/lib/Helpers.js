@@ -15,3 +15,7 @@ export const sleep = milliseconds => {
 export const omit = (object, name) => {
   return omitDeep(object, name);
 };
+
+export const capitalizeName = name => {
+  return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+};

@@ -1,18 +1,8 @@
-import { Box, Text, useColorModeValue, Link as ReachLink } from '@chakra-ui/react';
+import { Box, Text, useColorModeValue, Link } from '@chakra-ui/react';
 import { Mumbai, shortenAddress, useTokenBalance, useTokenList } from '@usedapp/core';
 import { DAO_PROFILES } from '../../lib/ConfigVars';
 
 export default function ProposalInfo(proposal) {
-  /*  const config = {
-    readOnlyChainId: 1,
-    readOnlyUrls: {
-      [Mainnet.chainId]: 'https://mainnet.infura.io/v3/62687d1a985d4508b2b7a24827551934',
-    },
-  }
- */
-  const border = useColorModeValue('gray.200', 'gray.600');
-  const accent = useColorModeValue('light_accent', 'dark_accent');
-
   const createdDate = new Date(proposal.proposal.createdAt);
   const endDate = new Date(proposal.proposal.createdAt);
   endDate.setDate(createdDate.getDate() + 7);
@@ -29,6 +19,9 @@ export default function ProposalInfo(proposal) {
   console.log('Token balance: ', tokenBalance);
   //console.log(useToken(daoInfo.daoToken));
 
+  const border = useColorModeValue('gray.200', 'gray.700');
+  const accent = useColorModeValue('light_accent', 'dark_accent');
+
   return (
     <Box
       mb={3}
@@ -41,12 +34,13 @@ export default function ProposalInfo(proposal) {
       backgroundColor={accent}
       fontSize={14}
     >
-      <Text fontSize={20}> Proposal Info</Text>
+      <Text fontSize='xl'> Proposal Overview</Text>
+      <Text>Unique ID: {proposal.proposal.id}</Text>
       <Text>
-        Author:&nbsp;
-        <ReachLink href={Mumbai.getExplorerAddressLink(proposal.proposal.profile.ownedBy)}>
+        Author:{' '}
+        <Link href={Mumbai.getExplorerAddressLink(proposal.proposal.profile.ownedBy)}>
           {shortenAddress(proposal.proposal.profile.ownedBy)}
-        </ReachLink>
+        </Link>
       </Text>
       <Text>Created: {createdDate.toLocaleString()}</Text>
       <Text>End: {endDate.toLocaleString()}</Text>

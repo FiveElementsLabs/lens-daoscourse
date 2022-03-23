@@ -1,18 +1,18 @@
 import { useState } from 'react';
-import { Box, Button, Text, Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
+import { Box, Badge, Button, Text, Grid, GridItem, useColorModeValue, Flex } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
 import ProposalInfo from './ProposalInfo';
 
 export default function Proposal(proposal) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const border = useColorModeValue('gray.200', 'gray.600');
+  const border = useColorModeValue('gray.200', 'gray.700');
   const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (
     <>
       <Box
-        my={3}
+        my={5}
         p={3}
         rounded='md'
         textAlign='left'
@@ -21,8 +21,10 @@ export default function Proposal(proposal) {
         borderColor={border}
         backgroundColor={accent}
       >
-        <Text fontWeight={600}>{proposal.proposal.metadata.name}</Text>
-        <Text fontSize={14}>{proposal.proposal.metadata.description}</Text>
+        <Text fontWeight='semibold' fontSize={{ base: '2xl', md: '3xl' }}>
+          {proposal.proposal.metadata.name}
+        </Text>
+        <Text fontSize='md'>{proposal.proposal.metadata.description}</Text>
       </Box>
       <Grid templateColumns={'repeat(12, 1fr)'} gap={4}>
         <GridItem colSpan={{ base: 12, md: 9 }}>
@@ -36,13 +38,16 @@ export default function Proposal(proposal) {
             borderColor={border}
             backgroundColor={accent}
           >
-            <Text textAlign='left' fontSize='lg'>
-              Proposal Content:
-            </Text>
+            <Flex alignItems='center'>
+              <Text textAlign='left' fontSize='2xl'>
+                Proposal
+              </Text>
+              <Badge ml={2} variant='outline' fontSize='sm'>
+                {proposal.proposal.id}
+              </Badge>
+            </Flex>
             <Box textAlign='left' fontSize='sm' noOfLines={isExpanded ? 1000 : 5}>
-              <ReactMarkdown>
-                {proposal.proposal.metadata.content}
-              </ReactMarkdown>
+              <ReactMarkdown>{proposal.proposal.metadata.content}</ReactMarkdown>
             </Box>
 
             <Button size='sm' mt={6} variant='link' fontWeight='bold' onClick={() => setIsExpanded(!isExpanded)}>
@@ -62,7 +67,7 @@ export default function Proposal(proposal) {
             borderColor={border}
             backgroundColor={accent}
           >
-            Proposal Vote
+            <Text fontSize='xl'>Proposal Vote</Text>
           </Box>
         </GridItem>
       </Grid>

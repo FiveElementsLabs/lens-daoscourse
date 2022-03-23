@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Box, Button, Text, Avatar, useColorModeValue, Flex, Stack } from '@chakra-ui/react';
 import { AiOutlineRetweet, AiOutlinePlusCircle } from 'react-icons/ai';
-import { FaRegComments} from 'react-icons/fa'
+import { FaRegComments } from 'react-icons/fa';
 import { formatDistanceToNow } from 'date-fns';
 
 export default function Proposal({ dao, proposal }) {
@@ -10,7 +10,7 @@ export default function Proposal({ dao, proposal }) {
   const { name, description } = metadata;
   const { totalAmountOfMirrors, totalAmountOfCollects, totalAmountOfComments } = stats;
 
-  const border = useColorModeValue('gray.200', 'gray.600');
+  const border = useColorModeValue('gray.200', 'gray.700');
   const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (
@@ -18,12 +18,12 @@ export default function Proposal({ dao, proposal }) {
       {__typename === 'Post' && (
         <Link to={`/${dao}/proposal/${id}`}>
           <Box
-            mb={3}
+            mb={5}
             p={3}
             cursor='pointer'
             rounded='md'
             textAlign='left'
-            shadow='sm'
+            shadow='md'
             border='1px solid'
             borderColor={border}
             backgroundColor={accent}

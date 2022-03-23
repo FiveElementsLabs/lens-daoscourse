@@ -24,9 +24,6 @@ export default function ProposalPage() {
   const [proposal, setProposal] = useState();
   const [comments, setComments] = useState([]);
 
-  const border = useColorModeValue('gray.200', 'gray.600');
-  const accent = useColorModeValue('light_accent', 'dark_accent');
-
   useEffect(() => {
     const loadData = async () => {
       if (postId)
@@ -42,16 +39,19 @@ export default function ProposalPage() {
     loadData();
   }, [dao, postId, comments, proposal]);
 
+  const border = useColorModeValue('gray.200', 'gray.700');
+  const accent = useColorModeValue('light_accent', 'dark_accent');
+
   return (
     <>
       {proposal && typeof comments === 'object' && (
         <>
           <Proposal proposal={proposal} />
 
-          <Grid templateColumns={'repeat(12, 1fr)'} gap={4}>
+          <Grid templateColumns={'repeat(12, 1fr)'} gap={5}>
             <GridItem colSpan={{ base: 12, md: 9 }}>
               <Box
-                mb={3}
+                mb={5}
                 p={3}
                 rounded='md'
                 textAlign='left'
