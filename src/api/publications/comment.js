@@ -51,9 +51,9 @@ const createCommentTypedData = createCommentTypedDataRequest => {
   });
 };
 
-export const createComment = async (signer, postMetaData) => {
-  if (!postMetaData.profileId) {
-    throw new Error('No Profile ID');
+export const createComment = async (signer, commentMetaData) => {
+  if (!commentMetaData.profileId) {
+    console.error('NO PROFILE ID');
   }
 
   const signedTypeData = async (domain, types, value) => {
@@ -80,82 +80,70 @@ export const createComment = async (signer, postMetaData) => {
   //    appId: 'testing-daoscourse'
   //  }
 
-  const address = await signer.address;
-  console.log('create post: address', address);
+  try {
+    const address = await signer.getAddress();
+    console.log('create comment: address', address);
 
-  await login(address);
+    await login(address);
 
-  // For more info about the complete IPFS upload object:
-  // See lib/ipfs on this repo,
-  // See this example: https://github.com/aave/lens-api-examples/blob/master/src/ipfs.ts
-  // And see the docs: https://docs.lens.dev/docs/create-post-typed-data
-  const ipfsResult = await uploadIpfs(postMetaData);
-  console.log('create post: ipfs result', ipfsResult);
+    // For more info about the complete IPFS upload object:
+    // See lib/ipfs on this repo,
+    // See this example: https://github.com/aave/lens-api-examples/blob/master/src/ipfs.ts
+    // And see the docs: https://docs.lens.dev/docs/create-post-typed-data
+    const ipfsResult = await uploadIpfs(commentMetaData);
+    console.log('create comment: ipfs result', ipfsResult);
 
-  // NOTE: postMetaData.publicationId example: "0xc8-0x07"
-  // We must include both the profile id and the post id.
+    // NOTE: postMetaData.publicationId example: "0xc8-0x07"
+    // We must include both the profile id and the post id.
 
-  const createCommentRequest = {
-    profileId: postMetaData.profileId,
-    publicationId: postMetaData.publicationId,
-    contentURI: 'ipfs://' + ipfsResult.path,
-    collectModule: {
-      // For more info about post modules:
-      // https://docs.lens.dev/docs/create-post-typed-data
-      //
-      // feeCollectModule: {
-      //   amount: {
-      //     currency: currencies.enabledModuleCurrencies.map(
-      //       (c: any) => c.address
-      //     )[0],
-      //     value: '0.000001',
-      //   },
-      //   recipient: address,
-      //   referralFee: 10.5,
-      // },
-      //
-      // The Revert module works by disallowing all collects.
-      // If someone tried to collect from the contract level, it would throw and revert.
-      revertCollectModule: true,
-    },
-    referenceModule: {
-      followerOnlyReferenceModule: false,
-    },
-  };
+    const createCommentRequest = {
+      profileId: commentMetaData.profileId,
+      publicationId: commentMetaData.publicationId,
+      contentURI: 'ipfs://' + ipfsResult.path,
+      collectModule: {
+        revertCollectModule: true,
+      },
+      referenceModule: {
+        followerOnlyReferenceModule: false,
+      },
+    };
 
-  const result = await createCommentTypedData(createCommentRequest);
-  console.log('create comment: createCommentTypeData', result);
+    const result = await createCommentTypedData(createCommentRequest);
+    console.log('create comment: createCommentTypedData', result);
 
-  const typedData = result.data.createCommentTypedData.typedData;
-  console.log('create comment: typedData', typedData);
+    const typedData = result.data.createCommentTypedData.typedData;
+    console.log('create comment: typedData', typedData);
 
-  const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
-  console.log('create comment: signature', signature);
+    const signature = await signedTypeData(typedData.domain, typedData.types, typedData.value);
+    console.log('create comment: signature', signature);
 
-  const splitSignature = signature => {
-    return utils.splitSignature(signature);
-  };
+    const splitSignature = signature => {
+      return utils.splitSignature(signature);
+    };
 
-  const { v, r, s } = splitSignature(signature);
+    const { v, r, s } = splitSignature(signature);
 
-  const lensHub = new ethers.Contract(LENS_HUB_CONTRACT, LENS_HUB_ABI, await signer);
+    const lensHub = new ethers.Contract(LENS_HUB_CONTRACT, LENS_HUB_ABI, await signer);
 
-  const tx = await lensHub.postWithSig({
-    profileId: typedData.value.profileId,
-    contentURI: typedData.value.contentURI,
-    profileIdPointed: typedData.value.profileIdPointed,
-    pubIdPointed: typedData.value.pubIdPointed,
-    collectModule: typedData.value.collectModule,
-    collectModuleData: typedData.value.collectModuleData,
-    referenceModule: typedData.value.referenceModule,
-    referenceModuleData: typedData.value.referenceModuleData,
-    sig: {
-      v,
-      r,
-      s,
-      deadline: typedData.value.deadline,
-    },
-  });
-  console.log('create comment: tx hash', tx.hash);
-  return tx.hash;
+    const tx = await lensHub.commentWithSig({
+      profileId: typedData.value.profileId,
+      contentURI: typedData.value.contentURI,
+      profileIdPointed: typedData.value.profileIdPointed,
+      pubIdPointed: typedData.value.pubIdPointed,
+      collectModule: typedData.value.collectModule,
+      collectModuleData: typedData.value.collectModuleData,
+      referenceModule: typedData.value.referenceModule,
+      referenceModuleData: typedData.value.referenceModuleData,
+      sig: {
+        v,
+        r,
+        s,
+        deadline: typedData.value.deadline,
+      },
+    });
+    console.log('create comment: tx hash', tx.hash);
+    return tx.hash;
+  } catch (err) {
+    console.error('ERROR: ', err?.message);
+  }
 };

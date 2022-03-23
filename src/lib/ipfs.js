@@ -1,6 +1,6 @@
 import { create } from 'ipfs-http-client';
 import { v4 as uuidv4 } from 'uuid';
-import { LENS_PUBLICATION_METADATA_VERSION } from './ConfigVars';
+import { LENS_PUBLICATION_METADATA_VERSION, APP_ID } from './ConfigVars';
 
 const client = create({
   host: 'ipfs.infura.io',
@@ -9,15 +9,7 @@ const client = create({
 });
 
 export const uploadIpfs = async postMetaData => {
-  const {
-    description,
-    content,
-    external_url,
-    image,
-    imageMimeType,
-    name,
-    media,
-  } = postMetaData;
+  const { description, content, external_url, image, imageMimeType, name, media } = postMetaData;
 
   const result = await client.add(
     JSON.stringify({
@@ -38,7 +30,7 @@ export const uploadIpfs = async postMetaData => {
       //      type: 'image/jpeg',
       //    },
       // ],
-      appId: 'testing-daoscourse',
+      appId: APP_ID,
     })
   );
 

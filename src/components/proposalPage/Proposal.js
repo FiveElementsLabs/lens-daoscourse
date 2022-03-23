@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Box, Button, Text, Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
+import ProposalInfo from './ProposalInfo';
 
 export default function Proposal(proposal) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -47,18 +48,7 @@ export default function Proposal(proposal) {
           </Box>
         </GridItem>
         <GridItem colSpan={3} display={{ base: 'none', md: 'block' }}>
-          <Box
-            mb={3}
-            p={3}
-            rounded='md'
-            textAlign='left'
-            shadow='sm'
-            border='1px solid'
-            borderColor={border}
-            backgroundColor={accent}
-          >
-            Proposal Info
-          </Box>
+          <ProposalInfo proposal={proposal.proposal} />
           <Box
             mb={3}
             p={3}

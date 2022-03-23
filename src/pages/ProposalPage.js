@@ -4,9 +4,9 @@ import { Grid, GridItem, Box, Text, useColorModeValue } from '@chakra-ui/react';
 
 import Proposal from '../components/proposalPage/Proposal';
 import Comment from '../components/proposalPage/Comment';
+import CreateComment from '../components/proposalPage/CreateComment';
 import { getProposal } from '../api/publications/get-proposal';
 import { getComments } from '../api/publications/get-comments';
-// import { createComment } from '../api/publications/comment';
 
 /*
  * 1- Get post with postId and dao name (params)
@@ -60,7 +60,10 @@ export default function ProposalPage() {
                 borderColor={border}
                 backgroundColor={accent}
               >
-                <Text>Comment section</Text>
+                <Text fontWeight='medium' fontSize='xl'>
+                  Comments - {comments.length}
+                </Text>
+                {postId && <CreateComment postId={postId} />}
                 {comments && comments.map((comment, idx) => <Comment key={idx} comment={comment} />)}
               </Box>
             </GridItem>
