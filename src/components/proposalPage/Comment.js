@@ -1,6 +1,5 @@
 import { Box, Flex, Avatar, Text, Stack, Button, useColorModeValue } from '@chakra-ui/react';
 import { AiOutlineRetweet, AiOutlineComment, AiOutlinePlusCircle } from 'react-icons/ai';
-
 import { formatDistanceToNow } from 'date-fns';
 
 export default function Comment({ comment }) {
@@ -12,8 +11,8 @@ export default function Comment({ comment }) {
   const border = useColorModeValue('gray.300', 'gray.700');
 
   // Handling comments on our frontend:
-  // Name: Comment by {userhandle}
-  // Description = Content and show only content
+  // Name: "Comment by {userhandle}",
+  // Description == Content, and show only content.
 
   return (
     <>

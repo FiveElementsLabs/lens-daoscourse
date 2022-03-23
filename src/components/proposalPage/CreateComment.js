@@ -1,36 +1,60 @@
 import { useState, useEffect } from 'react';
 import { useEthers } from '@usedapp/core';
 import { Box, FormControl, Textarea, Button, Spacer, useColorModeValue, Flex, Text } from '@chakra-ui/react';
+
 import { createComment } from '../../api/publications/comment';
 import { getProfiles } from '../../api/profile/get-profiles';
 
-export default function CreateComment(postId) {
+export default function CreateComment({ postId }) {
   const { library, account } = useEthers();
   const [comment, setComment] = useState();
   const [profile, setProfile] = useState();
+
+  useEffect(() => {
+    const loadProfile = async () => {
+      const profiles = await getProfiles(account);
+      setProfile(profiles.profiles.items[0]);
+    };
+    loadProfile();
+  }, [account]);
 
   const onComment = async e => {
     e.preventDefault();
     // Set Metadata according to our frontend comment policy.#
     // Name: "Comment by {handle}"
-    // Description == Content, and we show only Content
+    // Description: "Comment by {handle} on proposal {postId}"
+    // Content: The actual content of the comment
 
     // First, we need to fetch the currently logged in user's profile.
-    //
+    // TODO: Pick logged-in user from a UI dropdown.
     const commentMetaData = {
-      name: `Comment by @${profile.name}`,
+      profileId: profile.id,
+      publicationId: postId,
+      name: `Comment by @${profile.handle}`,
+      description: `This is a comment by @${profile.handle} on proposal #${postId}`,
+      content: comment,
     };
-    // await createComment(library.getSigner(), commentMetaData);
-  };
+    console.log('COMMENT METADATA: ', commentMetaData);
 
-  useEffect(() => {
-    const getProfile = async () => {
-      const profiles = await getProfiles(account);
-      console.log(profiles.profiles.items[0]);
-      setProfile(profiles.profiles.items[0]);
-    };
-    getProfile();
-  });
+    //  postMetaData: {
+    //    profileId: hexId: the ID of who is pubilishing the post (must be logged-in).
+    //    publicationId: hexId-hexId: The ID of the publication to point comment on.
+    //    description?: Markdown
+    //    content?: Markdown
+    //    external_url: Url
+    //    image: Url
+    //    imageMimeType: MimeType (e.g. 'image/jpeg')
+    //    name: string
+    //    media: [ {
+    //          item: Url
+    //          type: MimeType (e.g. 'image/jpeg')
+    //        } ]
+    //    appId: 'testing-daoscourse'
+    //  }
+
+    const res = await createComment(library.getSigner(), commentMetaData);
+    console.log(res);
+  };
 
   const border = useColorModeValue('gray.300', 'gray.700');
 

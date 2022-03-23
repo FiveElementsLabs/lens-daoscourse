@@ -14,6 +14,11 @@ export const LENS_HUB_CONTRACT = '0xd7B3481De00995046C7850bCe9a5196B7605c367';
 // Check for updates here: https://docs.lens.dev/docs/metadata-standards
 export const LENS_PUBLICATION_METADATA_VERSION = '1.0.0';
 
+// We can use an appId to fingerprint all the content created
+// through the DAOscourse dApp. This is embedded in the metadata
+// of all our publications. See: lib/ipfs for more info.
+export const APP_ID = 'testing-daoscourse';
+
 // This it the list of DAOs using Daoscourse.
 // It could become dynamic by querying a separate database.
 export const DAO_PROFILES = [
