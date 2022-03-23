@@ -4,8 +4,8 @@ import { Badge, Box, Heading, Button, Text, Spacer, Avatar, Flex, Grid, GridItem
 
 import { AiOutlineFileAdd } from 'react-icons/ai';
 
-import Proposal from '../components/daoPage/Proposal';
-import DaoInfo from '../components/daoPage/DaoInfo';
+import Proposal from '../components/daoPage/proposal';
+import DaoInfo from '../components/daoPage/daoInfo';
 import { getPublications } from '../api/publications/get-publications';
 import { DAO_PROFILES } from '../lib/ConfigVars';
 
