@@ -1,10 +1,5 @@
 import { useEffect } from 'react';
-import {
-  useEthers,
-  shortenAddress,
-  useLookupAddress,
-  Mumbai,
-} from '@usedapp/core';
+import { useEthers, shortenAddress, useLookupAddress, Mumbai } from '@usedapp/core';
 import { CopyIcon, ExternalLinkIcon } from '@chakra-ui/icons';
 import { useToast, useColorModeValue, useDisclosure } from '@chakra-ui/react';
 import {
@@ -22,7 +17,7 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react';
 
-export default function Connect() {
+export default function Connect(props) {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { activateBrowserWallet, account, error, deactivate } = useEthers();
@@ -42,9 +37,13 @@ export default function Connect() {
   return (
     <>
       {!account ? (
-        <Button onClick={() => activateBrowserWallet()}>Connect Wallet</Button>
+        <Button onClick={() => activateBrowserWallet()} {...props}>
+          Connect Wallet
+        </Button>
       ) : (
-        <Button onClick={onOpen}>{ens ?? shortenAddress(account)}</Button>
+        <Button onClick={onOpen} {...props}>
+          {ens ?? shortenAddress(account)}
+        </Button>
       )}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -56,7 +55,7 @@ export default function Connect() {
               padding={3}
               mb={4}
               rounded='lg'
-              backgroundColor={useColorModeValue('gray.100', 'gray.600')}
+              backgroundColor={useColorModeValue('light_accent', 'dark_accent')}
               border='1px solid'
               borderColor={useColorModeValue('gray.200', 'gray.500')}
             >
@@ -65,25 +64,11 @@ export default function Connect() {
                 {account}
               </Text>
               <Flex>
-                <Button
-                  variant='link'
-                  mr={6}
-                  size='sm'
-                  rightIcon={<CopyIcon />}
-                  onClick={onCopy}
-                >
+                <Button variant='link' mr={6} size='sm' rightIcon={<CopyIcon />} onClick={onCopy}>
                   {hasCopied ? 'Copied' : 'Copy'}
                 </Button>
-                <Link
-                  href={Mumbai.getExplorerAddressLink(account || '')}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                >
-                  <Button
-                    variant='link'
-                    size='sm'
-                    rightIcon={<ExternalLinkIcon />}
-                  >
+                <Link href={Mumbai.getExplorerAddressLink(account || '')} target='_blank' rel='noopener noreferrer'>
+                  <Button variant='link' size='sm' rightIcon={<ExternalLinkIcon />}>
                     See on Explorer
                   </Button>
                 </Link>

@@ -6,11 +6,12 @@ export default function DaoInfo({ proposal }) {
   const { totalFollowing, totalPosts, totalComments, totalMirrors, totalCollects } = stats;
 
   const border = useColorModeValue('gray.200', 'gray.600');
+  const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (
     <>
       <Box mb={3}>
-        <Box textAlign='left' border='1px solid' borderColor={border} p={3} rounded='md'>
+        <Box textAlign='left' border='1px solid' borderColor={border} backgroundColor={accent} p={3} rounded='md'>
           <Text>{author}</Text>
           <Text mt={5}>Bio</Text>
           <Text fontSize={16} opacity={0.5}>
