@@ -1,3 +1,3 @@
 # Lens DAOscourse
 
-LFGrow Hackathon Project
+LFGrow Hackathon Project 2022
