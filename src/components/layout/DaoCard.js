@@ -1,6 +1,7 @@
 import { Heading, Avatar, Box, Center, Text, Stack, Button, Link, Badge, useColorModeValue } from '@chakra-ui/react';
 
-export default function DaoCard() {
+export default function DaoCard(props) {
+  const { name, desc, tag } = props;
   return (
     <Center py={6}>
       <Box
@@ -12,21 +13,15 @@ export default function DaoCard() {
         p={6}
         textAlign={'center'}
       >
-        <Avatar
-          size={'xl'}
-          name="uniswap"
-          alt={'Avatar Alt'}
-          mb={4}
-          pos={'relative'}
-        />
+        <Avatar size={'xl'} name={name} alt={'Avatar Alt'} mb={4} pos={'relative'} />
         <Heading fontSize={'2xl'} fontFamily={'body'}>
-          Uniswap
+          {name}
         </Heading>
         <Text fontWeight={600} color={'gray.500'} mb={4}>
-          @uniswap
+          {tag}
         </Text>
         <Text textAlign={'center'} color={useColorModeValue('gray.700', 'gray.400')} px={3}>
-            Uniswap v3 Protocol
+          {desc}
         </Text>
 
         <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
