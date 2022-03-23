@@ -1,5 +1,4 @@
-import { Mumbai, Mainnet, ChainId } from '@usedapp/core';
-import { MUMBAI_RPC_URL } from './ConfigVars';
+import { ChainId } from '@usedapp/core';
 
 const DAppConfig = {
   readOnlyChainId: ChainId.Mainnet,

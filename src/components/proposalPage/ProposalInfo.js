@@ -1,10 +1,8 @@
 import { Box, Text, useColorModeValue, Link as ReachLink } from '@chakra-ui/react';
-import { useEthers, Mumbai, shortenAddress, useTokenBalance, useTokenList, useToken } from '@usedapp/core';
+import { Mumbai, shortenAddress, useTokenBalance, useTokenList } from '@usedapp/core';
 import { DAO_PROFILES } from '../../lib/ConfigVars';
 
 export default function ProposalInfo(proposal) {
-  const { account } = useEthers();
-
   /*  const config = {
     readOnlyChainId: 1,
     readOnlyUrls: {
