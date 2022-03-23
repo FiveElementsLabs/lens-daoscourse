@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Box, Button, Text, Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
+import ReactMarkdown from 'react-markdown';
 import ProposalInfo from './ProposalInfo';
 
 export default function Proposal(proposal) {
@@ -38,9 +39,11 @@ export default function Proposal(proposal) {
             <Text textAlign='left' fontSize='lg'>
               Proposal Content:
             </Text>
-            <Text textAlign='left' fontSize='sm' noOfLines={isExpanded ? 1000 : 5}>
-              {proposal.proposal.metadata.content}
-            </Text>
+            <Box textAlign='left' fontSize='sm' noOfLines={isExpanded ? 1000 : 5}>
+              <ReactMarkdown>
+                {proposal.proposal.metadata.content}
+              </ReactMarkdown>
+            </Box>
 
             <Button size='sm' mt={6} variant='link' fontWeight='bold' onClick={() => setIsExpanded(!isExpanded)}>
               {isExpanded ? 'Show Less...' : 'Show More...'}

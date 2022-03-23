@@ -11,12 +11,11 @@ export default function Layout() {
 
   return (
     <>
-
       <Navbar />
 
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="90vh">
-          <Container maxW="container.xl">
+      <Box textAlign='center' fontSize='xl'>
+        <Grid minH='90vh'>
+          <Container maxW='container.xl'>
             <Outlet />
           </Container>
         </Grid>
