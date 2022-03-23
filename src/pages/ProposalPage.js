@@ -61,7 +61,7 @@ export default function ProposalPage() {
                 backgroundColor={accent}
               >
                 <Text fontWeight='medium' fontSize='xl'>
-                  Comments
+                  Comments - {comments.length}
                 </Text>
                 {postId && <CreateComment postId={postId} />}
                 {comments && comments.map((comment, idx) => <Comment key={idx} comment={comment} />)}
