@@ -1,4 +1,4 @@
-import { Heading, Avatar, Box, Center, Text, Stack, Button, Badge, useColorModeValue } from '@chakra-ui/react';
+import { Heading, Avatar, Box, Center, Text, Stack, Button, Link, Badge, useColorModeValue } from '@chakra-ui/react';
 
 export default function DaoCard(props) {
   const { name, desc, tag } = props;
@@ -24,7 +24,7 @@ export default function DaoCard(props) {
           {desc}
         </Text>
 
-        <Stack align={'center'} justify={'center'} direction={'row'} mt={6}>
+        <Stack align={'center'} justify={'center'} direction={'row'} mt={6} mb={6}>
           <Badge px={2} py={1} bg={useColorModeValue('gray.50', 'gray.800')} fontWeight={'400'}>
             #dao
           </Badge>
@@ -36,7 +36,7 @@ export default function DaoCard(props) {
           </Badge>
         </Stack>
 
-        <Stack mt={8} direction={'row'} spacing={4}>
+        <Link href={`/${name}`}>
           <Button
             flex={1}
             bg={'#0055FF'}
@@ -46,9 +46,10 @@ export default function DaoCard(props) {
               bg: 'gray.200',
             }}
           >
+            {' '}
             Go to proposals
           </Button>
-        </Stack>
+        </Link>
       </Box>
     </Center>
   );
