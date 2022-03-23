@@ -1,4 +1,4 @@
-import { Heading, Avatar, Box, Center, Text, Stack, Button, Link, Badge, useColorModeValue } from '@chakra-ui/react';
+import { Heading, Avatar, Box, Center, Text, Stack, Button, Badge, useColorModeValue } from '@chakra-ui/react';
 
 export default function DaoCard(props) {
   const { name, desc, tag } = props;

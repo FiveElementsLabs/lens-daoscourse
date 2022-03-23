@@ -1,4 +1,4 @@
-import { Link, Container, Heading, Stack, Text, Button } from '@chakra-ui/react';
+import { Container, Heading, Stack, Text } from '@chakra-ui/react';
 
 export default function Hero() {
   return (
