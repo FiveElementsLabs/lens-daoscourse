@@ -1,5 +1,5 @@
 import { Box, chakra, Flex, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue } from '@chakra-ui/react';
-import { BsPerson, BsPeople } from 'react-icons/bs';
+import { BsPeople } from 'react-icons/bs';
 import { GoComment, GoCommentDiscussion } from 'react-icons/go';
 import Theme from '../../lib/Theme';
 
