@@ -1,4 +1,5 @@
-import { Heading, Avatar, Box, Center, Text, Stack, Button, Link, Badge, useColorModeValue } from '@chakra-ui/react';
+import { Heading, Avatar, Box, Center, Text, Stack, Button, Badge, useColorModeValue } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export default function DaoCard(props) {
   const { name, desc, tag } = props;
@@ -8,7 +9,6 @@ export default function DaoCard(props) {
         maxW={'320px'}
         w={'full'}
         bg={useColorModeValue('white', 'gray.900')}
-        boxShadow={'2xl'}
         rounded={'lg'}
         p={6}
         textAlign={'center'}
@@ -36,7 +36,7 @@ export default function DaoCard(props) {
           </Badge>
         </Stack>
 
-        <Link href={`/${name}`}>
+        <Link to={`/${name}`}>
           <Button
             flex={1}
             bg={'#0055FF'}
