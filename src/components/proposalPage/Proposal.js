@@ -76,9 +76,11 @@ export default function Proposal({ proposal, comments, postId }) {
             </Text>
             {postId && <CreateComment postId={postId} />}
             {comments &&
-              comments.map((comment, idx) => {
-                if (!comment.metadata.attributes[0]?.traitType) return <Comment key={idx} comment={comment} />;
-              })}
+              comments.map((comment, idx) => (
+                <div key={idx}>
+                  {!comment.metadata.attributes?.length ? <Comment key={idx} comment={comment} /> : <></>}
+                </div>
+              ))}
           </Box>
         </GridItem>
         <GridItem colSpan={3} display={{ base: 'none', md: 'block' }}>

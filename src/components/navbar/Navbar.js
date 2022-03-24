@@ -21,20 +21,19 @@ import {
   Avatar,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import { Link as LinkRouter } from 'react-router-dom';
 
 import { useProfile } from '../../hooks/useProfile';
+import Logo from '../footer/Logo';
+import lightIcon from '../footer/icon_light.svg';
+import darkIcon from '../footer/icon_dark.svg';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { APP_NAME } from '../../lib/ConfigVars';
 import Connect from './Connect';
 
 const NAV_ITEMS = [
   {
-    label: 'Home',
-    href: '/',
-  },
-  {
-    label: 'API Test',
-    href: '/api-test',
+    label: 'How it works',
+    href: '/how-it-works',
   },
 ];
 
@@ -57,10 +56,9 @@ export default function Navbar() {
               />
             </Flex>
             <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} alignItems='center'>
-              <Text fontWeight='bold' fontSize='2xl' color={useColorModeValue('primary', 'white')}>
-                {APP_NAME}
-              </Text>
-
+              <LinkRouter to={'/'}>
+                <Logo lightLogo={lightIcon} darkLogo={darkIcon} width='80rem' />
+              </LinkRouter>
               <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
                 <DesktopNav />
               </Flex>
@@ -109,19 +107,20 @@ const DesktopNav = () => {
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize='sm'
-                fontWeight='bold'
-                color={linkColor}
-                _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Link>
+              <LinkRouter to={navItem.href ?? '#'}>
+                <Box
+                  p={2}
+                  fontSize='sm'
+                  fontWeight='bold'
+                  color={linkColor}
+                  _hover={{
+                    textDecoration: 'none',
+                    color: linkHoverColor,
+                  }}
+                >
+                  {navItem.label}
+                </Box>
+              </LinkRouter>
             </PopoverTrigger>
 
             {navItem.children && (
