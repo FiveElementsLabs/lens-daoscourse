@@ -8,7 +8,7 @@ export default function DaoCard(props) {
       <Box
         maxW={'320px'}
         w={'full'}
-        bg={useColorModeValue('#ECF1FE', 'gray.900')}
+        bg={useColorModeValue('#ECF1FE', 'dark_accent')}
         rounded={'lg'}
         p={6}
         textAlign={'center'}
@@ -39,12 +39,12 @@ export default function DaoCard(props) {
         <Link to={`/${name}`}>
           <Button
             flex={1}
-            bg={useColorModeValue('#0055FF', '#0000dd')}
+            bg={useColorModeValue('#0055FF', 'yellow_accent')}
             textColor={useColorModeValue('white', 'white')}
             fontSize={'sm'}
             rounded={'full'}
             _hover={{
-              bg: useColorModeValue('#0077ff', '#0049dd'),
+              bg: useColorModeValue('#0077ff', '#ff7d22'),
             }}
           >
             {' '}
