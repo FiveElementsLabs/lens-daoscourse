@@ -1,4 +1,6 @@
 import omitDeep from 'omit-deep';
+import { Buffer } from 'buffer';
+import { getAuthenticationToken, removeAuthenticationToken } from './State';
 
 /*
  *  These are general helpers useful throughout the app.
@@ -18,4 +20,20 @@ export const omit = (object, name) => {
 
 export const capitalizeName = name => {
   return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+};
+
+const getPayload = () => JSON.parse(Buffer.from(getAuthenticationToken().split('.')[1], 'base64'));
+const getExpiration = () => new Date(getPayload().exp);
+
+export const checkJwtExpiration = () => {
+  const expiration = getExpiration();
+  const now = new Date();
+  const oneMinute = 1000 * 60 * 1;
+  console.warn('EXP LEFT: ', expiration.getTime() - now.getTime());
+  if (expiration.getTime() - now.getTime() < oneMinute) {
+    removeAuthenticationToken();
+    return false;
+  }
+  console.warn('HERE PRINTS');
+  return true;
 };

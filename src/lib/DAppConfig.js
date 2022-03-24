@@ -1,10 +1,10 @@
-import { ChainId } from '@usedapp/core';
+import { Mumbai } from '@usedapp/core';
+import { MUMBAI_RPC_URL } from './ConfigVars';
 
 const DAppConfig = {
-  readOnlyChainId: ChainId.Mainnet,
+  readOnlyChainId: Mumbai.chainId,
   readOnlyUrls: {
-    //[Mumbai.chainId]: MUMBAI_RPC_URL,
-    [ChainId.Mainnet]: 'https://mainnet.infura.io/v3/61a9f83ab0ae4873818b67960409b7fe',
+    [Mumbai.chainId]: MUMBAI_RPC_URL,
   },
   notifications: {
     expirationPeriod: 3000,
