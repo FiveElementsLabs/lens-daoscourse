@@ -11,7 +11,6 @@ import {
   PopoverTrigger,
   PopoverContent,
   useColorModeValue,
-  useBreakpointValue,
   useDisclosure,
   Container,
 } from '@chakra-ui/react';
@@ -22,7 +21,6 @@ import darkIcon from '../footer/icon_dark.svg';
 import { Link as LinkRouter } from 'react-router-dom'
 
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import { APP_NAME } from '../../lib/ConfigVars';
 import Connect from './Connect';
 
 export default function Navbar() {
