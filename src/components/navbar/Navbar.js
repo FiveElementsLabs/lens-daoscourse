@@ -16,6 +16,9 @@ import {
   Container,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import Logo from '../footer/Logo';
+import lightIcon from '../footer/icon_light.svg';
+import darkIcon from '../footer/icon_dark.svg';
 
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { APP_NAME } from '../../lib/ConfigVars';
@@ -44,16 +47,7 @@ export default function Navbar() {
             />
           </Flex>
           <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} alignItems='center'>
-            <Text
-              textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
-              fontFamily={'heading'}
-              fontWeight='bold'
-              fontSize='2xl'
-              color={useColorModeValue('primary', 'white')}
-            >
-              {APP_NAME}
-            </Text>
-
+            <Logo lightLogo={lightIcon} darkLogo={darkIcon} width="80rem"/>
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <DesktopNav />
             </Flex>

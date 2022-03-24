@@ -7,9 +7,21 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)'}} gap={4}>
+      <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }} gap={4}>
         <GridItem>
           <DaoCard tag={'@uniswap'} desc={'Uniswap v3 Protocol'} name={'uniswap'} to={`/uniswap`} />
+        </GridItem>
+        <GridItem>
+          <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
+        </GridItem>
+        <GridItem>
+          <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
+        </GridItem>
+        <GridItem>
+          <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
+        </GridItem>
+        <GridItem>
+          <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
         </GridItem>
         <GridItem>
           <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
