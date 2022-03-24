@@ -200,11 +200,7 @@ const MobileNavItem = ({ label, children, href }) => {
 
 const NAV_ITEMS = [
   {
-    label: 'Home',
-    href: '/',
-  },
-  {
-    label: 'API Test',
-    href: '/api-test',
+    label: 'How it works',
+    href: '/how-it-works',
   },
 ];
