@@ -25,8 +25,8 @@ import { Link as LinkRouter } from 'react-router-dom';
 
 import { useProfile } from '../../hooks/useProfile';
 import Logo from '../footer/Logo';
-import lightIcon from '../footer/icon_light.svg';
-import darkIcon from '../footer/icon_dark.svg';
+import darkLogo from './dark-logo.svg';
+import lightLogo from './light-logo.svg';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Connect from './Connect';
 
@@ -57,7 +57,7 @@ export default function Navbar() {
             </Flex>
             <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} alignItems='center'>
               <LinkRouter to={'/'}>
-                <Logo lightLogo={lightIcon} darkLogo={darkIcon} width='80rem' />
+                <Logo lightLogo={lightLogo} darkLogo={darkLogo} width='160rem' />
               </LinkRouter>
               <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
                 <DesktopNav />

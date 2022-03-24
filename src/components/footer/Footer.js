@@ -1,8 +1,9 @@
 import { Box, chakra, Container, Stack, Text, useColorModeValue, VisuallyHidden } from '@chakra-ui/react';
 import { FaDiscord, FaTwitter } from 'react-icons/fa';
 import Logo from './Logo';
-import darkLogo from './dark-logo.svg';
-import lightLogo from './light-logo.svg';
+
+import lightIcon from '../footer/icon_light.svg';
+import darkIcon from '../footer/icon_dark.svg';
 
 const SocialButton = ({ children, label, href }) => {
   return (
@@ -46,7 +47,7 @@ export default function Footer() {
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}
       >
-        <Logo darkLogo={darkLogo} lightLogo={lightLogo} width="160rem"/>
+        <Logo darkLogo={darkIcon} lightLogo={lightIcon} width="80rem"/>
         <Text>© 2022 Five Elements Labs. All rights reserved</Text>
         <Stack direction={'row'} spacing={6}>
           <SocialButton label={'Twitter'} href={'#'}>
