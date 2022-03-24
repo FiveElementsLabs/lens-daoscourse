@@ -9,8 +9,10 @@ import { mode } from '@chakra-ui/theme-tools';
 const colors = {
   primary: '#0055FF',
   light_accent: '#ECF1FE',
+  light_azure: '#C5E2FC',
   light_background: '#D9E4FD',
   dark_accent: '#04143A',
+  dark_azure: '#1A365D',
   dark_background: '#122451',
   yellow_accent: '#FF9900',
 };

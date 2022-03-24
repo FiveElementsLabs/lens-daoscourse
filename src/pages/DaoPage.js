@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Badge, Box, Heading, Button, Text, Spacer, Avatar, Flex, Grid, GridItem } from '@chakra-ui/react';
 
 import { AiOutlineFileAdd } from 'react-icons/ai';
+import { RiUserFollowLine } from 'react-icons/ri';
+import { useEthers } from '@usedapp/core';
 
 import Proposal from '../components/daoPage/proposal';
 import DaoInfo from '../components/daoPage/daoInfo';
 import { getPublications } from '../api/publications/get-publications';
+import { createFollow } from '../api/publications/follow';
+import { capitalizeName } from '../lib/Helpers';
 import { DAO_PROFILES } from '../lib/ConfigVars';
 
 // 1. Control if the :dao name exists in the dao array.
@@ -16,6 +20,8 @@ import { DAO_PROFILES } from '../lib/ConfigVars';
 export default function DaoPage() {
   const { dao } = useParams();
   let navigate = useNavigate();
+  const { library } = useEthers();
+
   const [proposals, setProposals] = useState([]);
   const [daoData, setDaoData] = useState(null);
 
@@ -28,8 +34,7 @@ export default function DaoPage() {
           setDaoData(daoInfo);
           setProposals(res);
         } catch (err) {
-          console.error(err?.message);
-          navigate('/');
+          navigate('/error/not-found');
         }
       }
     };
@@ -38,47 +43,60 @@ export default function DaoPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dao]);
 
+  const onFollow = async () => {
+    // Set Metadata according to our frontend comment policy.#
+    // Name: "Comment by {handle}"
+    // Description: "Comment by {handle} on proposal {postId}"
+    // Content: The actual content of the comment
+
+    const followMetaData = {
+      profileId: daoData?.profileId,
+    };
+
+    const res = await createFollow(library.getSigner(), followMetaData);
+    console.log(res);
+  };
+
   return (
     <>
       {daoData && (
         <>
           {proposals.length && (
             <Box mt={5}>
-              <Flex alignItems='center'>
+              <Flex alignItems='center' flexDir={{ base: 'column', md: 'row' }}>
                 <Avatar
                   name={proposals[0].profile.name}
                   src={proposals[0].profile.picture?.original?.url}
                   w='100px'
                   h='100px'
-                  mr='14px'
+                  mr={{ base: 0, md: '14px' }}
                 />
-                <Heading m={0}>
-                  {proposals[0].profile.name} / {daoData.name}
-                </Heading>
-                <Badge variant='outline' fontSize='xl' ml={2}>
-                  #{proposals[0].profile.id}
-                </Badge>
+                <Box textAlign={{ base: 'center', md: 'left' }}>
+                  <Heading>
+                    {capitalizeName(daoData.name)}
+                    <Badge ml={3} fontSize='xl' variant='outline' rounded='md'>
+                      #{proposals[0].profile.id}
+                    </Badge>
+                  </Heading>
+                  <Text>{daoData.desc}</Text>
+                </Box>
+
                 <Spacer />
-                <Link to='/create-post'>
-                  <Button mr={0} leftIcon={<AiOutlineFileAdd />}>
-                    Create Proposal
+                <Box mt={{ base: 3, md: 0 }} mr={2}>
+                  <Button variant='solid' leftIcon={<RiUserFollowLine />} onClick={onFollow}>
+                    Follow DAO
                   </Button>
+                </Box>
+                <Link to='/create-post'>
+                  <Box mt={{ base: 3, md: 0 }}>
+                    <Button leftIcon={<AiOutlineFileAdd />}>Create Proposal</Button>
+                  </Box>
                 </Link>
-              </Flex>
-              <Flex>
-                <Text ml='114px'>{daoData.desc}</Text>
               </Flex>
             </Box>
           )}
-          <Box py={5}>
-            {/* <Select placeholder="Most Recent">  
-              <option value="option1">Most Recent</option>
-              <option value="option2">Most Popular</option>
-              <option value="option3">Most Commented</option>
-            </Select> */}
-          </Box>
 
-          <Grid templateColumns={'repeat(12, 1fr)'} gap={4}>
+          <Grid templateColumns={'repeat(12, 1fr)'} gap={5} mt={5}>
             <GridItem colSpan={{ base: 12, md: 9 }}>
               {proposals && proposals.map((proposal, idx) => <Proposal key={idx} dao={dao} proposal={proposal} />)}
             </GridItem>

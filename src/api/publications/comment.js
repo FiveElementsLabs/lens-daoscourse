@@ -42,6 +42,10 @@ const CREATE_COMMENT_TYPED_DATA = `
  }
 `;
 
+/* referenceModule: {
+      followerOnlyReferenceModule: false
+    } */
+
 const createCommentTypedData = createCommentTypedDataRequest => {
   return ApolloClient.mutate({
     mutation: gql(CREATE_COMMENT_TYPED_DATA),
@@ -73,6 +77,7 @@ export const createComment = async (signer, commentMetaData) => {
   //    image: Url
   //    imageMimeType: MimeType (e.g. 'image/jpeg')
   //    name: string
+  //    attributes: [object]
   //    media: [ {
   //          item: Url
   //          type: MimeType (e.g. 'image/jpeg')

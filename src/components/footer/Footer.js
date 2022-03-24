@@ -30,10 +30,16 @@ const SocialButton = ({ children, label, href }) => {
 
 export default function Footer() {
   return (
-    <Box bg={useColorModeValue('light_accent', 'dark_accent')} color={useColorModeValue('gray.700', 'gray.200')}>
+    <Box
+      position='absolute'
+      bottom='0'
+      w='full'
+      backgroundColor={useColorModeValue('light_azure', 'dark_azure')}
+      color={useColorModeValue('gray.700', 'gray.100')}
+    >
       <Container
         as={Stack}
-        maxW={'6xl'}
+        maxW='container.xl'
         py={4}
         direction={{ base: 'column', md: 'row' }}
         spacing={4}

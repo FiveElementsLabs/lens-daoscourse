@@ -1,13 +1,13 @@
-import { Box, Text, useColorModeValue, Link as ReachLink } from '@chakra-ui/react';
+import { Box, Text, useColorModeValue, Link } from '@chakra-ui/react';
 import { Mumbai, shortenAddress } from '@usedapp/core';
 
 export default function ProposalInfo(proposal) {
-  const border = useColorModeValue('gray.200', 'gray.600');
-  const accent = useColorModeValue('light_accent', 'dark_accent');
-
   const createdDate = new Date(proposal.proposal.createdAt);
   const endDate = new Date(proposal.proposal.createdAt);
   endDate.setDate(createdDate.getDate() + 7);
+
+  const border = useColorModeValue('gray.200', 'transparent');
+  const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (
     <Box
@@ -19,14 +19,16 @@ export default function ProposalInfo(proposal) {
       border='1px solid'
       borderColor={border}
       backgroundColor={accent}
-      fontSize={14}
+      fontSize='sm'
+      padding={'1rem'}
     >
-      <Text fontSize={20}> Proposal Info</Text>
+      <Text fontSize='xl'> Proposal Overview</Text>
+      <Text>Unique ID: {proposal.proposal.id}</Text>
       <Text>
-        Author:&nbsp;
-        <ReachLink href={Mumbai.getExplorerAddressLink(proposal.proposal.profile.ownedBy)}>
+        Author:{' '}
+        <Link href={Mumbai.getExplorerAddressLink(proposal.proposal.profile.ownedBy)}>
           {shortenAddress(proposal.proposal.profile.ownedBy)}
-        </ReachLink>
+        </Link>
       </Text>
       <Text>Created: {createdDate.toLocaleString()}</Text>
       <Text>End: {endDate.toLocaleString()}</Text>

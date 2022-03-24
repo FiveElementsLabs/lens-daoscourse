@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Grid, GridItem, Box, Text, useColorModeValue } from '@chakra-ui/react';
 
 import Proposal from '../components/proposalPage/Proposal';
-import Comment from '../components/proposalPage/Comment';
-import CreateComment from '../components/proposalPage/CreateComment';
 import { getProposal } from '../api/publications/get-proposal';
 import { getComments } from '../api/publications/get-comments';
 
@@ -24,9 +21,6 @@ export default function ProposalPage() {
   const [proposal, setProposal] = useState();
   const [comments, setComments] = useState([]);
 
-  const border = useColorModeValue('gray.200', 'gray.600');
-  const accent = useColorModeValue('light_accent', 'dark_accent');
-
   useEffect(() => {
     const loadData = async () => {
       if (postId)
@@ -36,7 +30,7 @@ export default function ProposalPage() {
           setProposal(prop);
           setComments(comm.items);
         } catch (err) {
-          console.error('LOADING ERROR: ', err?.message);
+          console.error('LOADING ERROR in ProposalPage: ', err?.message);
         }
     };
     loadData();
@@ -46,28 +40,7 @@ export default function ProposalPage() {
     <>
       {proposal && typeof comments === 'object' && (
         <>
-          <Proposal proposal={proposal} />
-
-          <Grid templateColumns={'repeat(12, 1fr)'} gap={4}>
-            <GridItem colSpan={{ base: 12, md: 9 }}>
-              <Box
-                mb={3}
-                p={3}
-                rounded='md'
-                textAlign='left'
-                shadow='sm'
-                border='1px solid'
-                borderColor={border}
-                backgroundColor={accent}
-              >
-                <Text fontWeight='medium' fontSize='xl'>
-                  Comments - {comments.length}
-                </Text>
-                {postId && <CreateComment postId={postId} />}
-                {comments && comments.map((comment, idx) => <Comment key={idx} comment={comment} />)}
-              </Box>
-            </GridItem>
-          </Grid>
+          <Proposal proposal={proposal} comments={comments} postId={postId} />
         </>
       )}
     </>
