@@ -19,6 +19,7 @@ import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@ch
 import Logo from '../footer/Logo';
 import lightIcon from '../footer/icon_light.svg';
 import darkIcon from '../footer/icon_dark.svg';
+import { Link as LinkRouter } from 'react-router-dom'
 
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { APP_NAME } from '../../lib/ConfigVars';
@@ -47,7 +48,9 @@ export default function Navbar() {
             />
           </Flex>
           <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} alignItems='center'>
-            <Logo lightLogo={lightIcon} darkLogo={darkIcon} width="80rem"/>
+            <LinkRouter to={'/'} >
+              <Logo lightLogo={lightIcon} darkLogo={darkIcon} width='80rem'/>
+            </LinkRouter>
             <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
               <DesktopNav />
             </Flex>
