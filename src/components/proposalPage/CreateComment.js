@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useEthers } from '@usedapp/core';
 import { Box, FormControl, Textarea, Button, Spacer, useColorModeValue, Flex, Text } from '@chakra-ui/react';
 
 import { createComment } from '../../api/publications/comment';
-import { useProfile } from "../../hooks/useProfile";
+import { useProfile } from '../../hooks/useProfile';
 
 export default function CreateComment({ postId }) {
-  const { library, } = useEthers();
+  const { library } = useEthers();
   const [comment, setComment] = useState();
   const { currentProfile } = useProfile();
 
@@ -59,14 +59,12 @@ export default function CreateComment({ postId }) {
             onChange={e => setComment(e.target.value)}
           />
         </FormControl>
-        <Flex>
-          <Text fontSize={16} width='fit-content' my='auto'>
+        <Flex alignItems='center' pt={3}>
+          <Text fontSize='md' fontWeight='medium' width='fit-content' my='auto'>
             Publish as: @{currentProfile?.handle}
           </Text>
           <Spacer />
-          <Button type='submit' mt={3}>
-            Publish Comment
-          </Button>
+          <Button type='submit'>Publish Comment</Button>
         </Flex>
       </form>
     </Box>

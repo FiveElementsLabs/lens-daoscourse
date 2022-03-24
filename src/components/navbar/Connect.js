@@ -47,18 +47,11 @@ export default function Connect(props) {
       )}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent bg={useColorModeValue('light_accent', 'dark_accent')}>
           <ModalHeader>Account</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Box
-              padding={3}
-              mb={4}
-              rounded='lg'
-              backgroundColor={useColorModeValue('light_accent', 'dark_accent')}
-              border='1px solid'
-              borderColor={useColorModeValue('gray.200', 'gray.500')}
-            >
+            <Box padding={3} mb={4} rounded='lg' backgroundColor={useColorModeValue('light_azure', 'dark_azure')}>
               <Text mb={1}>Connected with Metamask:</Text>
               <Text mb={3} fontWeight='bold' fontSize='sm'>
                 {account}

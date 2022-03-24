@@ -7,7 +7,7 @@ export default function DaoInfo({ proposal }) {
   const { name: author, website, twitterUrl, bio, stats } = profile;
   const { totalFollowing, totalPosts, totalComments, totalMirrors, totalCollects } = stats;
 
-  const border = useColorModeValue('gray.200', 'gray.700');
+  const border = useColorModeValue('gray.200', 'transparent');
   const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (

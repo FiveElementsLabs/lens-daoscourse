@@ -37,17 +37,13 @@ export const createProfile = async (address, handle) => {
   prettyJSON('create profile: result', createProfileResult.data);
 
   console.log('create profile: poll until indexed');
-  const result = await pollUntilIndexed(
-    createProfileResult.data.createProfile.txHash
-  );
+  const result = await pollUntilIndexed(createProfileResult.data.createProfile.txHash);
   console.log('create profile: profile has been indexed', result);
 
   const logs = result.txReceipt.logs;
   console.log('create profile: logs', logs);
 
-  const topicId = utils.id(
-    'ProfileCreated(uint256,address,address,string,string,address,bytes,string,uint256)'
-  );
+  const topicId = utils.id('ProfileCreated(uint256,address,address,string,string,address,bytes,string,uint256)');
   console.log('topicid we care about', topicId);
 
   const profileCreatedLog = logs.find(l => l.topics[0] === topicId);
@@ -56,10 +52,7 @@ export const createProfile = async (address, handle) => {
   let profileCreatedEventLog = profileCreatedLog.topics;
   console.log('profile created event logs', profileCreatedEventLog);
 
-  const profileId = utils.defaultAbiCoder.decode(
-    ['uint256'],
-    profileCreatedEventLog[1]
-  )[0];
+  const profileId = utils.defaultAbiCoder.decode(['uint256'], profileCreatedEventLog[1])[0];
 
   console.log('profile id', BigNumber.from(profileId).toHexString());
 

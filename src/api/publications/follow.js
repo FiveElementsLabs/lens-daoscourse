@@ -40,7 +40,9 @@ const createFollowTypedData = createFollowTypedDataRequest => {
   return ApolloClient.mutate({
     mutation: gql(FOLLOW_TYPED_DATA),
     variables: {
-      request: createFollowTypedDataRequest,
+      request: {
+        follow: [createFollowTypedDataRequest],
+      },
     },
   });
 };
@@ -75,7 +77,7 @@ export const createFollow = async (signer, followMetaData) => {
     // We must include both the profile id and the post id.
 
     const createFollowRequest = {
-      profileId: followMetadata.profileId,
+      profile: followMetaData.profileId,
     };
 
     const result = await createFollowTypedData(createFollowRequest);
@@ -94,16 +96,15 @@ export const createFollow = async (signer, followMetaData) => {
     const { v, r, s } = splitSignature(signature);
 
     const lensHub = new ethers.Contract(LENS_HUB_CONTRACT, LENS_HUB_ABI, await signer);
+    console.log('before tx');
+    console.log(address);
+    console.log(typedData.value);
+    console.log(typedData.value.datas);
 
     const tx = await lensHub.followWithSig({
-      profileId: typedData.value.profileId,
-      contentURI: typedData.value.contentURI,
-      profileIdPointed: typedData.value.profileIdPointed,
-      pubIdPointed: typedData.value.pubIdPointed,
-      collectModule: typedData.value.collectModule,
-      collectModuleData: typedData.value.collectModuleData,
-      referenceModule: typedData.value.referenceModule,
-      referenceModuleData: typedData.value.referenceModuleData,
+      follower: address,
+      profileIds: typedData.value.profileIds,
+      datas: typedData.value.datas,
       sig: {
         v,
         r,

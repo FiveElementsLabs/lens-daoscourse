@@ -46,28 +46,7 @@ export default function ProposalPage() {
     <>
       {proposal && typeof comments === 'object' && (
         <>
-          <Proposal proposal={proposal} />
-
-          <Grid templateColumns={'repeat(12, 1fr)'} gap={5}>
-            <GridItem colSpan={{ base: 12, md: 9 }}>
-              <Box
-                mb={5}
-                p={3}
-                rounded='md'
-                textAlign='left'
-                shadow='sm'
-                border='1px solid'
-                borderColor={border}
-                backgroundColor={accent}
-              >
-                <Text fontWeight='medium' fontSize='xl'>
-                  Comments - {comments.length}
-                </Text>
-                {postId && <CreateComment postId={postId} />}
-                {comments && comments.map((comment, idx) => <Comment key={idx} comment={comment} />)}
-              </Box>
-            </GridItem>
-          </Grid>
+          <Proposal proposal={proposal} comments={comments} postId={postId} />
         </>
       )}
     </>

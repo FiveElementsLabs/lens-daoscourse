@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Badge, Box, Heading, Button, Text, Spacer, Avatar, Flex, Grid, GridItem } from '@chakra-ui/react';
 
 import { AiOutlineFileAdd } from 'react-icons/ai';
-import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri';
+import { RiUserFollowLine } from 'react-icons/ri';
+import { useEthers } from '@usedapp/core';
 
 import Proposal from '../components/daoPage/proposal';
 import DaoInfo from '../components/daoPage/daoInfo';
 import { getPublications } from '../api/publications/get-publications';
+import { createFollow } from '../api/publications/follow';
 import { capitalizeName } from '../lib/Helpers';
 import { DAO_PROFILES } from '../lib/ConfigVars';
 
@@ -18,6 +20,8 @@ import { DAO_PROFILES } from '../lib/ConfigVars';
 export default function DaoPage() {
   const { dao } = useParams();
   let navigate = useNavigate();
+  const { library } = useEthers();
+
   const [proposals, setProposals] = useState([]);
   const [daoData, setDaoData] = useState(null);
 
@@ -26,11 +30,13 @@ export default function DaoPage() {
       if (dao) {
         try {
           const daoInfo = DAO_PROFILES.find(d => d.name === dao);
+          console.log(daoInfo);
           const res = await getPublications(daoInfo.profileId);
+          console.log(res);
           setDaoData(daoInfo);
           setProposals(res);
         } catch (err) {
-          navigate('/');
+          navigate('/error/not-found');
         }
       }
     };
@@ -38,6 +44,20 @@ export default function DaoPage() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dao]);
+
+  const onFollow = async () => {
+    // Set Metadata according to our frontend comment policy.#
+    // Name: "Comment by {handle}"
+    // Description: "Comment by {handle} on proposal {postId}"
+    // Content: The actual content of the comment
+
+    const followMetaData = {
+      profileId: daoData?.profileId,
+    };
+
+    const res = await createFollow(library.getSigner(), followMetaData);
+    console.log(res);
+  };
 
   return (
     <>
@@ -64,15 +84,16 @@ export default function DaoPage() {
                 </Box>
 
                 <Spacer />
-                <Box mt={{ base: 3, md: 0 }}>
-                  <Button variant='ghost' leftIcon={<RiUserUnfollowLine />}>
-                    Follow
+                <Box mt={{ base: 3, md: 0 }} mr={2}>
+                  <Button variant='solid' leftIcon={<RiUserFollowLine />} onClick={onFollow}>
+                    Follow DAO
                   </Button>
                 </Box>
-                <Spacer />
-                <Box mt={{ base: 3, md: 0 }}>
-                  <Button leftIcon={<AiOutlineFileAdd />}>Create Proposal</Button>
-                </Box>
+                <Link to='/create-post'>
+                  <Box mt={{ base: 3, md: 0 }}>
+                    <Button leftIcon={<AiOutlineFileAdd />}>Create Proposal</Button>
+                  </Box>
+                </Link>
               </Flex>
             </Box>
           )}

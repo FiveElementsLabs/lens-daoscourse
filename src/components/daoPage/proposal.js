@@ -10,7 +10,7 @@ export default function Proposal({ dao, proposal }) {
   const { name, description } = metadata;
   const { totalAmountOfMirrors, totalAmountOfCollects, totalAmountOfComments } = stats;
 
-  const border = useColorModeValue('gray.200', 'gray.700');
+  const border = useColorModeValue('gray.200', 'transparent');
   const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (
