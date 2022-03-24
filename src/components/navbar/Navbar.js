@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Box,
   Flex,
@@ -8,7 +9,12 @@ import {
   Collapse,
   Icon,
   Popover,
+  Button,
   PopoverTrigger,
+  Menu, 
+  MenuButton,
+  MenuList,
+  MenuItem,
   PopoverContent,
   useColorModeValue,
   useDisclosure,
@@ -16,6 +22,7 @@ import {
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
 
+import { useProfile } from "../../hooks/useProfile";
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { APP_NAME } from '../../lib/ConfigVars';
 import Connect from './Connect';
@@ -32,7 +39,10 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
+  const { currentProfile, setCurrentProfile, profiles } = useProfile();
   const { isOpen, onToggle } = useDisclosure();
+
+  console.log(JSONprettify(currentProfile));
 
   return (
     <Box backgroundColor={useColorModeValue('light_azure', 'dark_azure')} shadow='md'>
@@ -58,6 +68,18 @@ export default function Navbar() {
               </Flex>
             </Flex>
 
+            <Menu>
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                {currentProfile?.handle}
+              </MenuButton>
+              <MenuList>
+                <MenuItem>Download</MenuItem>
+                <MenuItem>Create a Copy</MenuItem>
+                <MenuItem>Mark as Draft</MenuItem>
+                <MenuItem>Delete</MenuItem>
+                <MenuItem>Attend a Workshop</MenuItem>
+              </MenuList>
+            </Menu>
             <ColorModeSwitcher mr={2} justifySelf='flex-end' />
             <Connect variant='solid'>Connect Wallet</Connect>
           </Flex>

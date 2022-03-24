@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Badge, Box, Heading, Button, Text, Spacer, Avatar, Flex, Grid, GridItem } from '@chakra-ui/react';
 
 import { AiOutlineFileAdd } from 'react-icons/ai';
+import { RiUserFollowLine, RiUserUnfollowLine } from 'react-icons/ri';
 
 import Proposal from '../components/daoPage/proposal';
 import DaoInfo from '../components/daoPage/daoInfo';
@@ -64,12 +65,15 @@ export default function DaoPage() {
 
                 <Spacer />
                 <Box mt={{ base: 3, md: 0 }}>
-                  <Link to='/create-post'>
-                    <Button leftIcon={<AiOutlineFileAdd />}>Create Proposal</Button>
-                  </Link>
+                  <Button variant='ghost' leftIcon={<RiUserUnfollowLine />}>
+                    Follow
+                  </Button>
+                </Box>
+                <Spacer />
+                <Box mt={{ base: 3, md: 0 }}>
+                  <Button leftIcon={<AiOutlineFileAdd />}>Create Proposal</Button>
                 </Box>
               </Flex>
-              <Flex></Flex>
             </Box>
           )}
 
