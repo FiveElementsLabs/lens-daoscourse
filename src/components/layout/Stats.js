@@ -10,8 +10,7 @@ function StatsCard(props) {
       px={{ base: 2, md: 4 }}
       py={'5'}
       shadow={'xl'}
-      border={'1px solid'}
-      backgroundColor={useColorModeValue(Theme.colors.light_background, Theme.colors.dark_background)}
+      backgroundColor={useColorModeValue('white', Theme.colors.dark_background)}
       borderColor={textColor}
       rounded={'lg'}
     >
@@ -42,29 +41,25 @@ export default function Stats() {
         <StatsCard
           title={'Followers'}
           stat={'5,000'}
-          textColor={useColorModeValue(Theme.colors.dark_accent, Theme.colors.yellow_accent)}
-          icon={
-            <BsPeople size={'3em'} color={useColorModeValue(Theme.colors.dark_accent, Theme.colors.yellow_accent)} />
-          }
+          textColor={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)}
+          icon={<BsPeople size={'3em'} color={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)} />}
         />
         <StatsCard
           title={'Proposals'}
           stat={'1,000'}
-          textColor={useColorModeValue(Theme.colors.dark_accent, Theme.colors.yellow_accent)}
+          textColor={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)}
           icon={
             <GoCommentDiscussion
               size={'3em'}
-              color={useColorModeValue(Theme.colors.dark_accent, Theme.colors.yellow_accent)}
+              color={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)}
             />
           }
         />
         <StatsCard
           title={'Comments'}
           stat={'40,000'}
-          textColor={useColorModeValue(Theme.colors.dark_accent, Theme.colors.yellow_accent)}
-          icon={
-            <GoComment size={'3em'} color={useColorModeValue(Theme.colors.dark_accent, Theme.colors.yellow_accent)} />
-          }
+          textColor={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)}
+          icon={<GoComment size={'3em'} color={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)} />}
         />
       </SimpleGrid>
     </Box>
