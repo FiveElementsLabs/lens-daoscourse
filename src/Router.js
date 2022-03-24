@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { useLayoutEffect } from 'react';
 
 /*
  *  React-Router-Dom setup
@@ -16,19 +17,29 @@ import CreatePost from './pages/CreatePost';
 import ProposalPage from './pages/ProposalPage';
 import NotFound from './pages/NotFound';
 
+const Wrapper = ({ children }) => {
+  const location = useLocation();
+  useLayoutEffect(() => {
+    document.documentElement.scrollTo(0, 0);
+  }, [location.pathname]);
+  return children;
+};
+
 export default function Router() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path='/api-test' element={<ApiTest />} />
-          <Route path='/create-post' element={<CreatePost />} />
-          <Route path='/:dao' element={<DaoPage />} />
-          <Route path='/:dao/proposal/:postId' element={<ProposalPage />} />
-          <Route path='*' element={<NotFound />} />
-        </Route>
-      </Routes>
+      <Wrapper>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path='/api-test' element={<ApiTest />} />
+            <Route path='/create-post' element={<CreatePost />} />
+            <Route path='/:dao' element={<DaoPage />} />
+            <Route path='/:dao/proposal/:postId' element={<ProposalPage />} />
+            <Route path='*' element={<NotFound />} /> {/* 404 like page*/}
+          </Route>
+        </Routes>
+      </Wrapper>
     </BrowserRouter>
   );
 }
