@@ -8,26 +8,20 @@ import {
   Collapse,
   Icon,
   Popover,
-  Button,
   PopoverTrigger,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   PopoverContent,
   useColorModeValue,
   useDisclosure,
   Container,
-  Avatar,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Link as LinkRouter } from 'react-router-dom';
 
-import { useProfile } from '../../hooks/useProfile';
 import Logo from '../footer/Logo';
 import lightIcon from '../footer/icon_light.svg';
 import darkIcon from '../footer/icon_dark.svg';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
+import SelectProfile from './SelectProfile';
 import Connect from './Connect';
 
 const NAV_ITEMS = [
@@ -38,7 +32,6 @@ const NAV_ITEMS = [
 ];
 
 export default function Navbar() {
-  const { currentProfile, changeProfile, profiles } = useProfile();
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -63,27 +56,13 @@ export default function Navbar() {
                 <DesktopNav />
               </Flex>
             </Flex>
-            {profiles?.length && (
-              <Menu>
-                <MenuButton
-                  as={Button}
-                  leftIcon={<Avatar size='xs' src={currentProfile?.picture?.url} name={currentProfile?.handle} />}
-                  rightIcon={<ChevronDownIcon />}
-                >
-                  {currentProfile?.handle}
-                </MenuButton>
-                <MenuList>
-                  {profiles?.map((profile, idx) => (
-                    <MenuItem onClick={() => changeProfile(profile)} key={idx}>
-                      <Avatar size='xs' src={profile?.picture?.url} name={profile.handle} mr='10px' />
-                      {profile.handle}
-                    </MenuItem>
-                  ))}
-                </MenuList>
-              </Menu>
-            )}
+
+            <Box display={{ base: 'none', md: 'block' }}>
+              <SelectProfile />
+            </Box>
 
             <ColorModeSwitcher mr={2} justifySelf='flex-end' />
+
             <Connect variant='solid'>Connect Wallet</Connect>
           </Flex>
 
