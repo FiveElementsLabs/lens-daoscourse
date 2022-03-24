@@ -21,6 +21,7 @@ export default function DaoInfo({ proposal }) {
           p={3}
           rounded='md'
           shadow='md'
+          padding={'1.5rem'}
         >
           <Text fontSize='2xl' fontWeight='medium'>
             {author}

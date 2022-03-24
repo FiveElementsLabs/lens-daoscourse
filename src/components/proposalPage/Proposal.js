@@ -10,7 +10,7 @@ import CreateComment from './CreateComment';
 export default function Proposal({ proposal, comments, postId }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const border = useColorModeValue('gray.200', 'gray.700');
+  const border = useColorModeValue('gray.200', 'transparent');
   const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (
@@ -24,6 +24,7 @@ export default function Proposal({ proposal, comments, postId }) {
         border='1px solid'
         borderColor={border}
         backgroundColor={accent}
+        padding={'1rem'}
       >
         <Text fontWeight='semibold' fontSize={{ base: '2xl', md: '3xl' }}>
           {proposal.metadata.name}
@@ -41,6 +42,7 @@ export default function Proposal({ proposal, comments, postId }) {
             border='1px solid'
             borderColor={border}
             backgroundColor={accent}
+            padding={'1rem'}
           >
             <Flex alignItems='center'>
               <Text textAlign='left' fontSize='2xl'>
@@ -67,17 +69,21 @@ export default function Proposal({ proposal, comments, postId }) {
             border='1px solid'
             borderColor={border}
             backgroundColor={accent}
+            padding={'1rem'}
           >
             <Text fontWeight='medium' fontSize='xl'>
               Comments - {comments.length}
             </Text>
             {postId && <CreateComment postId={postId} />}
-            {comments && comments.map((comment, idx) => <Comment key={idx} comment={comment} />)}
+            {comments &&
+              comments.map((comment, idx) => {
+                if (!comment.metadata.attributes[0]?.traitType) return <Comment key={idx} comment={comment} />;
+              })}
           </Box>
         </GridItem>
         <GridItem colSpan={3} display={{ base: 'none', md: 'block' }}>
           <ProposalInfo proposal={proposal} />
-          <ProposalVote proposal={proposal} />
+          <ProposalVote proposal={proposal} comments={comments} />
         </GridItem>
       </Grid>
     </>

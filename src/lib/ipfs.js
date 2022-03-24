@@ -9,7 +9,7 @@ const client = create({
 });
 
 export const uploadIpfs = async postMetaData => {
-  const { description, content, external_url, image, imageMimeType, name, media } = postMetaData;
+  const { description, content, external_url, image, imageMimeType, name, media, attributes } = postMetaData;
 
   const result = await client.add(
     JSON.stringify({
@@ -21,7 +21,7 @@ export const uploadIpfs = async postMetaData => {
       image,
       imageMimeType,
       name,
-      attributes: [],
+      attributes,
       media,
       // media: [
       //    {

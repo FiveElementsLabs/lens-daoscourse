@@ -16,12 +16,14 @@ export default function CreateComment({ postId }) {
     // Name: "Comment by {handle}"
     // Description: "Comment by {handle} on proposal {postId}"
     // Content: The actual content of the comment
+    // Attributes: empty array
 
     const commentMetaData = {
       profileId: currentProfile?.id,
       publicationId: postId,
       name: `Comment by @${currentProfile?.handle}`,
       description: `This is a comment by @${currentProfile?.handle} on proposal #${postId}`,
+      attributes: [],
       content: comment,
     };
     console.log('COMMENT METADATA: ', commentMetaData);

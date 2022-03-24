@@ -1,17 +1,24 @@
-import { useState } from 'react';
 import { useEthers } from '@usedapp/core';
-import { Box, Text, useColorModeValue, CircularProgressLabel, CircularProgress, Button } from '@chakra-ui/react';
+import {
+  Box,
+  Text,
+  useColorModeValue,
+  CircularProgressLabel,
+  CircularProgress,
+  Button,
+  Flex,
+  Spacer,
+} from '@chakra-ui/react';
 
 import { useProfile } from '../../hooks/useProfile';
 import { createComment } from '../../api/publications/comment';
 
-export default function ProposalVote({ proposal }) {
+export default function ProposalVote({ proposal, comments }) {
   const { library } = useEthers();
 
   const { currentProfile } = useProfile();
-  console.log(currentProfile);
 
-  const border = useColorModeValue('gray.200', 'gray.700');
+  const border = useColorModeValue('gray.200', 'transparent');
   const accent = useColorModeValue('light_accent', 'dark_accent');
 
   const onComment = async () => {
@@ -24,8 +31,14 @@ export default function ProposalVote({ proposal }) {
       profileId: currentProfile?.id,
       publicationId: proposal.id,
       name: currentProfile.ownedBy, //Address
-      description: `VOTE`, // VOTE == is a vote
-      content: 'YES', //YES - NO
+      description: `Vote the proposal`, // VOTE == is a vote
+      content: proposal.id, //YES - NO
+      attributes: [
+        {
+          value: 'YES',
+          traitType: 'VOTE',
+        },
+      ],
     };
 
     //  postMetaData: {
@@ -59,31 +72,52 @@ export default function ProposalVote({ proposal }) {
       borderColor={border}
       backgroundColor={accent}
       fontSize='sm'
+      padding={'1rem'}
     >
-      <Text fontSize='xl'>Proposal Vote </Text>
-      <Box textAlign='center'>
-        <Text mt={5}>For</Text>
-        <CircularProgress value={40} color='green.400' size='6rem'>
-          <CircularProgressLabel>40%</CircularProgressLabel>
-        </CircularProgress>
-        <Text mt={5}>Against</Text>
-        <CircularProgress value={20} color='red.600' size='6rem'>
-          <CircularProgressLabel>20%</CircularProgressLabel>
-        </CircularProgress>
-        <Text mt={5}>Abstain</Text>
-        <CircularProgress value={40} color='gray.600' size='6rem'>
-          <CircularProgressLabel>40%</CircularProgressLabel>
-        </CircularProgress>
-      </Box>
-      <Box textAlign='center'>
+      <Flex>
+        <Text fontSize='xl'>Proposal Vote </Text>
+        <Spacer />
         <Button
-          mt={3}
+          background='yellow_accent'
+          _hover={{ bg: 'orange.400' }}
           onClick={() => {
             onComment();
           }}
         >
-          Vota
+          Vote
         </Button>
+      </Flex>
+      <Box textAlign='center'>
+        <Text mt={5}>For</Text>
+        <CircularProgress
+          value={35}
+          color='green.400'
+          size='6rem'
+          thickness='0.5rem'
+          trackColor={useColorModeValue('light_azure', 'dark_azure')}
+        >
+          <CircularProgressLabel>35%</CircularProgressLabel>
+        </CircularProgress>
+        <Text mt={5}>Against</Text>
+        <CircularProgress
+          value={20}
+          color='red.600'
+          size='6rem'
+          thickness='0.5rem'
+          trackColor={useColorModeValue('light_azure', 'dark_azure')}
+        >
+          <CircularProgressLabel>20%</CircularProgressLabel>
+        </CircularProgress>
+        <Text mt={5}>Abstain</Text>
+        <CircularProgress
+          value={45}
+          color='gray.500'
+          size='6rem'
+          thickness='0.5rem'
+          trackColor={useColorModeValue('light_azure', 'dark_azure')}
+        >
+          <CircularProgressLabel>45%</CircularProgressLabel>
+        </CircularProgress>
       </Box>
     </Box>
   );

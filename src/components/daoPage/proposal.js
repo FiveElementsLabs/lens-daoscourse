@@ -27,6 +27,7 @@ export default function Proposal({ dao, proposal }) {
             border='1px solid'
             borderColor={border}
             backgroundColor={accent}
+            padding={'1.5rem'}
           >
             <Flex>
               <Avatar name={author} src={picture?.original?.url} mr='14px' />

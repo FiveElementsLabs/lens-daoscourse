@@ -19,6 +19,7 @@ export default function CreatePost() {
     e.preventDefault();
     try {
       // See api/publications/post for full metadata types.
+      postMetaData.attributes = [];
       await createPost(library.getSigner(), postMetaData);
     } catch (err) {
       console.error(err.message);

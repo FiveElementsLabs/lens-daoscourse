@@ -6,7 +6,7 @@ export default function ProposalInfo(proposal) {
   const endDate = new Date(proposal.proposal.createdAt);
   endDate.setDate(createdDate.getDate() + 7);
 
-  const border = useColorModeValue('gray.200', 'gray.700');
+  const border = useColorModeValue('gray.200', 'transparent');
   const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (
@@ -20,6 +20,7 @@ export default function ProposalInfo(proposal) {
       borderColor={border}
       backgroundColor={accent}
       fontSize='sm'
+      padding={'1rem'}
     >
       <Text fontSize='xl'> Proposal Overview</Text>
       <Text>Unique ID: {proposal.proposal.id}</Text>

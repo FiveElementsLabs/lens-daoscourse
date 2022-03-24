@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Grid, GridItem, Box, Text, useColorModeValue } from '@chakra-ui/react';
 
 import Proposal from '../components/proposalPage/Proposal';
-import Comment from '../components/proposalPage/Comment';
-import CreateComment from '../components/proposalPage/CreateComment';
 import { getProposal } from '../api/publications/get-proposal';
 import { getComments } from '../api/publications/get-comments';
 
@@ -33,14 +30,11 @@ export default function ProposalPage() {
           setProposal(prop);
           setComments(comm.items);
         } catch (err) {
-          console.error('LOADING ERROR: ', err?.message);
+          console.error('LOADING ERROR in ProposalPage: ', err?.message);
         }
     };
     loadData();
   }, [dao, postId, comments, proposal]);
-
-  const border = useColorModeValue('gray.200', 'gray.700');
-  const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (
     <>

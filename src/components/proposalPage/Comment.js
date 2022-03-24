@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Flex, Avatar, Text, Stack, Button, useColorModeValue } from '@chakra-ui/react';
 import { AiOutlineRetweet, AiOutlinePlusCircle } from 'react-icons/ai';
-import { FaRegComments} from 'react-icons/fa'
+import { FaRegComments } from 'react-icons/fa';
 import { formatDistanceToNow } from 'date-fns';
 
 import { getComments } from '../../api/publications/get-comments';
@@ -10,7 +10,6 @@ import CreateComment from '../../components/proposalPage/CreateComment';
 export default function Comment({ comment }) {
   const [replies, setReplies] = useState(null);
   const [showReply, setShowReply] = useState(false);
-
   const { metadata, profile, stats, createdAt, id } = comment;
   const { name: author, picture } = profile;
   const { name, content } = metadata;

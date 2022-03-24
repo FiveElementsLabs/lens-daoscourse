@@ -30,9 +30,7 @@ export default function DaoPage() {
       if (dao) {
         try {
           const daoInfo = DAO_PROFILES.find(d => d.name === dao);
-          console.log(daoInfo);
           const res = await getPublications(daoInfo.profileId);
-          console.log(res);
           setDaoData(daoInfo);
           setProposals(res);
         } catch (err) {
