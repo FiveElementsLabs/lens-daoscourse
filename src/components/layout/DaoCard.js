@@ -1,4 +1,5 @@
-import { Heading, Avatar, Box, Center, Text, Stack, Button, Link, Badge, useColorModeValue } from '@chakra-ui/react';
+import { Heading, Avatar, Box, Center, Text, Stack, Button, Badge, useColorModeValue } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 
 export default function DaoCard(props) {
   const { name, desc, tag } = props;
@@ -7,8 +8,7 @@ export default function DaoCard(props) {
       <Box
         maxW={'320px'}
         w={'full'}
-        bg={useColorModeValue('white', 'gray.900')}
-        boxShadow={'2xl'}
+        bg={useColorModeValue('#ECF1FE', 'gray.900')}
         rounded={'lg'}
         p={6}
         textAlign={'center'}
@@ -25,25 +25,26 @@ export default function DaoCard(props) {
         </Text>
 
         <Stack align={'center'} justify={'center'} direction={'row'} mt={6} mb={6}>
-          <Badge px={2} py={1} bg={useColorModeValue('gray.50', 'gray.800')} fontWeight={'400'}>
+          <Badge px={2} py={1} bg={useColorModeValue('#84AFFF', 'gray.700')} fontWeight={'400'}>
             #dao
           </Badge>
-          <Badge px={2} py={1} bg={useColorModeValue('gray.50', 'gray.800')} fontWeight={'400'}>
+          <Badge px={2} py={1} bg={useColorModeValue('#84AFFF', 'gray.700')} fontWeight={'400'}>
             #defi
           </Badge>
-          <Badge px={2} py={1} bg={useColorModeValue('gray.50', 'gray.800')} fontWeight={'400'}>
+          <Badge px={2} py={1} bg={useColorModeValue('#84AFFF', 'gray.700')} fontWeight={'400'}>
             #uniswap
           </Badge>
         </Stack>
 
-        <Link href={`/${name}`}>
+        <Link to={`/${name}`}>
           <Button
             flex={1}
-            bg={'#0055FF'}
+            bg={useColorModeValue('#0055FF', '#0000dd')}
+            textColor={useColorModeValue('white', 'white')}
             fontSize={'sm'}
             rounded={'full'}
-            _focus={{
-              bg: 'gray.200',
+            _hover={{
+              bg: useColorModeValue('#0077ff', '#0049dd'),
             }}
           >
             {' '}
