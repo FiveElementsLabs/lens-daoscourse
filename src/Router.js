@@ -14,6 +14,7 @@ import Home from './pages/Home';
 import ApiTest from './pages/ApiTest';
 import CreatePost from './pages/CreatePost';
 import ProposalPage from './pages/ProposalPage';
+import NotFound from './pages/NotFound';
 
 export default function Router() {
   return (
@@ -25,7 +26,7 @@ export default function Router() {
           <Route path='/create-post' element={<CreatePost />} />
           <Route path='/:dao' element={<DaoPage />} />
           <Route path='/:dao/proposal/:postId' element={<ProposalPage />} />
-          <Route path='*' element={<Home />} /> {/* 404 like page*/}
+          <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

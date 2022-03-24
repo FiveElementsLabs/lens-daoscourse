@@ -1,17 +1,22 @@
 import { useState } from 'react';
-import { Box, Button, Text, Grid, GridItem, useColorModeValue } from '@chakra-ui/react';
-import ProposalInfo from './ProposalInfo';
+import { Box, Badge, Button, Text, Grid, GridItem, useColorModeValue, Flex } from '@chakra-ui/react';
+import ReactMarkdown from 'react-markdown';
 
-export default function Proposal(proposal) {
+import ProposalInfo from './ProposalInfo';
+import ProposalVote from './ProposalVote';
+import Comment from './Comment';
+import CreateComment from './CreateComment';
+
+export default function Proposal({ proposal, comments, postId }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const border = useColorModeValue('gray.200', 'gray.600');
+  const border = useColorModeValue('gray.200', 'transparent');
   const accent = useColorModeValue('light_accent', 'dark_accent');
 
   return (
     <>
       <Box
-        my={3}
+        my={5}
         p={3}
         rounded='md'
         textAlign='left'
@@ -19,9 +24,12 @@ export default function Proposal(proposal) {
         border='1px solid'
         borderColor={border}
         backgroundColor={accent}
+        padding={'1rem'}
       >
-        <Text fontWeight={600}>{proposal.proposal.metadata.name}</Text>
-        <Text fontSize={14}>{proposal.proposal.metadata.description}</Text>
+        <Text fontWeight='semibold' fontSize={{ base: '2xl', md: '3xl' }}>
+          {proposal.metadata.name}
+        </Text>
+        <Text fontSize='md'>{proposal.metadata.description}</Text>
       </Box>
       <Grid templateColumns={'repeat(12, 1fr)'} gap={4}>
         <GridItem colSpan={{ base: 12, md: 9 }}>
@@ -34,23 +42,26 @@ export default function Proposal(proposal) {
             border='1px solid'
             borderColor={border}
             backgroundColor={accent}
+            padding={'1rem'}
           >
-            <Text textAlign='left' fontSize='lg'>
-              Proposal Content:
-            </Text>
-            <Text textAlign='left' fontSize='sm' noOfLines={isExpanded ? 1000 : 5}>
-              {proposal.proposal.metadata.content}
-            </Text>
+            <Flex alignItems='center'>
+              <Text textAlign='left' fontSize='2xl'>
+                Proposal
+              </Text>
+              <Badge ml={2} variant='outline' fontSize='sm'>
+                {proposal.id}
+              </Badge>
+            </Flex>
+            <Box textAlign='left' fontSize='sm' noOfLines={isExpanded ? 1000 : 5}>
+              <ReactMarkdown>{proposal.metadata.content}</ReactMarkdown>
+            </Box>
 
             <Button size='sm' mt={6} variant='link' fontWeight='bold' onClick={() => setIsExpanded(!isExpanded)}>
               {isExpanded ? 'Show Less...' : 'Show More...'}
             </Button>
           </Box>
-        </GridItem>
-        <GridItem colSpan={3} display={{ base: 'none', md: 'block' }}>
-          <ProposalInfo proposal={proposal.proposal} />
           <Box
-            mb={3}
+            mb={5}
             p={3}
             rounded='md'
             textAlign='left'
@@ -58,9 +69,23 @@ export default function Proposal(proposal) {
             border='1px solid'
             borderColor={border}
             backgroundColor={accent}
+            padding={'1rem'}
           >
-            Proposal Vote
+            <Text fontWeight='medium' fontSize='xl'>
+              Comments - {comments.length}
+            </Text>
+            {postId && <CreateComment postId={postId} />}
+            {comments &&
+              comments.map((comment, idx) => (
+                <div key={idx}>
+                  {!comment.metadata.attributes?.length ? <Comment key={idx} comment={comment} /> : <></>}
+                </div>
+              ))}
           </Box>
+        </GridItem>
+        <GridItem colSpan={3} display={{ base: 'none', md: 'block' }}>
+          <ProposalInfo proposal={proposal} />
+          <ProposalVote proposal={proposal} comments={comments} />
         </GridItem>
       </Grid>
     </>

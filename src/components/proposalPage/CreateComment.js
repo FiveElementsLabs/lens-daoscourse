@@ -1,22 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useEthers } from '@usedapp/core';
 import { Box, FormControl, Textarea, Button, Spacer, useColorModeValue, Flex, Text } from '@chakra-ui/react';
 
 import { createComment } from '../../api/publications/comment';
-import { getProfiles } from '../../api/profile/get-profiles';
+import { useProfile } from '../../hooks/useProfile';
 
 export default function CreateComment({ postId }) {
-  const { library, account } = useEthers();
+  const { library } = useEthers();
   const [comment, setComment] = useState();
-  const [profile, setProfile] = useState();
-
-  useEffect(() => {
-    const loadProfile = async () => {
-      const profiles = await getProfiles(account);
-      setProfile(profiles.profiles.items[0]);
-    };
-    loadProfile();
-  }, [account]);
+  const { currentProfile } = useProfile();
 
   const onComment = async e => {
     e.preventDefault();
@@ -24,14 +16,14 @@ export default function CreateComment({ postId }) {
     // Name: "Comment by {handle}"
     // Description: "Comment by {handle} on proposal {postId}"
     // Content: The actual content of the comment
+    // Attributes: empty array
 
-    // First, we need to fetch the currently logged in user's profile.
-    // TODO: Pick logged-in user from a UI dropdown.
     const commentMetaData = {
-      profileId: profile.id,
+      profileId: currentProfile?.id,
       publicationId: postId,
-      name: `Comment by @${profile.handle}`,
-      description: `This is a comment by @${profile.handle} on proposal #${postId}`,
+      name: `Comment by @${currentProfile?.handle}`,
+      description: `This is a comment by @${currentProfile?.handle} on proposal #${postId}`,
+      attributes: [],
       content: comment,
     };
     console.log('COMMENT METADATA: ', commentMetaData);
@@ -69,14 +61,12 @@ export default function CreateComment({ postId }) {
             onChange={e => setComment(e.target.value)}
           />
         </FormControl>
-        <Flex>
-          <Text fontSize={16} width='fit-content' my='auto'>
-            Publish as: @{profile?.handle}
+        <Flex alignItems='center' pt={3}>
+          <Text fontSize='md' fontWeight='medium' width='fit-content' my='auto'>
+            Publish as: @{currentProfile?.handle}
           </Text>
           <Spacer />
-          <Button type='submit' mt={3}>
-            Publish Comment
-          </Button>
+          <Button type='submit'>Publish Comment</Button>
         </Flex>
       </form>
     </Box>

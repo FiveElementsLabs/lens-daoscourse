@@ -8,61 +8,91 @@ import {
   Collapse,
   Icon,
   Popover,
+  Button,
   PopoverTrigger,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   PopoverContent,
   useColorModeValue,
   useDisclosure,
   Container,
+  Avatar,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
+import { Link as LinkRouter } from 'react-router-dom';
+
+import { useProfile } from '../../hooks/useProfile';
 import Logo from '../footer/Logo';
 import lightIcon from '../footer/icon_light.svg';
 import darkIcon from '../footer/icon_dark.svg';
-import { Link as LinkRouter } from 'react-router-dom'
-
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Connect from './Connect';
 
+const NAV_ITEMS = [
+  {
+    label: 'How it works',
+    href: '/how-it-works',
+  },
+];
+
 export default function Navbar() {
+  const { currentProfile, changeProfile, profiles } = useProfile();
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Container maxW='container.xl'>
-      <Box>
-        <Flex
-          minH={'60px'}
-          py={{ base: 2 }}
-          borderBottom={2}
-          borderStyle={'solid'}
-          borderColor={useColorModeValue('gray.400', 'gray.600')}
-          align={'center'}
-        >
-          <Flex flex={{ base: 1, md: 'auto' }} ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
-            <IconButton
-              onClick={onToggle}
-              icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
-              variant={'link'}
-              aria-label={'Toggle Navigation'}
-            />
-          </Flex>
-          <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} alignItems='center'>
-            <LinkRouter to={'/'} >
-              <Logo lightLogo={lightIcon} darkLogo={darkIcon} width='80rem'/>
-            </LinkRouter>
-            <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
-              <DesktopNav />
+    <Box backgroundColor={useColorModeValue('light_azure', 'dark_azure')} shadow='md'>
+      <Container maxW='container.xl'>
+        <Box>
+          <Flex minH={'60px'} py={{ base: 2 }} align={'center'}>
+            <Flex flex={{ base: 1, md: 'auto' }} ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
+              <IconButton
+                onClick={onToggle}
+                icon={isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />}
+                variant='solid'
+                color={useColorModeValue('black', 'white')}
+                aria-label={'Toggle Navigation'}
+              />
             </Flex>
+            <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} alignItems='center'>
+              <LinkRouter to={'/'}>
+                <Logo lightLogo={lightIcon} darkLogo={darkIcon} width='80rem' />
+              </LinkRouter>
+              <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
+                <DesktopNav />
+              </Flex>
+            </Flex>
+            {profiles?.length && (
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  leftIcon={<Avatar size='xs' src={currentProfile?.picture?.url} name={currentProfile?.handle} />}
+                  rightIcon={<ChevronDownIcon />}
+                >
+                  {currentProfile?.handle}
+                </MenuButton>
+                <MenuList>
+                  {profiles?.map((profile, idx) => (
+                    <MenuItem onClick={() => changeProfile(profile)} key={idx}>
+                      <Avatar size='xs' src={profile?.picture?.url} name={profile.handle} mr='10px' />
+                      {profile.handle}
+                    </MenuItem>
+                  ))}
+                </MenuList>
+              </Menu>
+            )}
+
+            <ColorModeSwitcher mr={2} justifySelf='flex-end' />
+            <Connect variant='solid'>Connect Wallet</Connect>
           </Flex>
 
-          <ColorModeSwitcher mr={2} justifySelf='flex-end' />
-          <Connect variant='solid'>Connect Wallet</Connect>
-        </Flex>
-
-        <Collapse in={isOpen} animateOpacity>
-          <MobileNav />
-        </Collapse>
-      </Box>
-    </Container>
+          <Collapse in={isOpen} animateOpacity>
+            <MobileNav />
+          </Collapse>
+        </Box>
+      </Container>
+    </Box>
   );
 }
 
@@ -77,19 +107,20 @@ const DesktopNav = () => {
         <Box key={navItem.label}>
           <Popover trigger={'hover'} placement={'bottom-start'}>
             <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize='sm'
-                fontWeight='bold'
-                color={linkColor}
-                _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Link>
+              <LinkRouter to={navItem.href ?? '#'}>
+                <Box
+                  p={2}
+                  fontSize='sm'
+                  fontWeight='bold'
+                  color={linkColor}
+                  _hover={{
+                    textDecoration: 'none',
+                    color: linkHoverColor,
+                  }}
+                >
+                  {navItem.label}
+                </Box>
+              </LinkRouter>
             </PopoverTrigger>
 
             {navItem.children && (
@@ -198,10 +229,3 @@ const MobileNavItem = ({ label, children, href }) => {
     </Stack>
   );
 };
-
-const NAV_ITEMS = [
-  {
-    label: 'How it works',
-    href: '/how-it-works',
-  },
-];
