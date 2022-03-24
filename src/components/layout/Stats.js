@@ -10,7 +10,7 @@ function StatsCard(props) {
       px={{ base: 2, md: 4 }}
       py={'5'}
       shadow={'xl'}
-      backgroundColor={useColorModeValue('white', Theme.colors.dark_background)}
+      backgroundColor={useColorModeValue('white', 'dark_accent')}
       borderColor={textColor}
       rounded={'lg'}
     >
