@@ -8,6 +8,7 @@ import { useEthers } from '@usedapp/core';
 import Proposal from '../components/daoPage/proposal';
 import DaoInfo from '../components/daoPage/daoInfo';
 import { getComments } from '../api/publications/get-comments';
+import { getPublications } from '../api/publications/get-publications';
 import { createFollow } from '../api/publications/follow';
 import { capitalizeName } from '../lib/Helpers';
 import { DAO_PROFILES } from '../lib/ConfigVars';
@@ -65,7 +66,8 @@ export default function DaoPage() {
               <Flex alignItems='center' flexDir={{ base: 'column', md: 'row' }}>
                 <Avatar
                   name={proposals[0].mainPost?.profile.name}
-                  src={proposals[0].mainPost?.profile.picture?.original?.url}
+                  src={daoData.img}
+                  backgroundColor='white'
                   w='100px'
                   h='100px'
                   mr={{ base: 0, md: '14px' }}

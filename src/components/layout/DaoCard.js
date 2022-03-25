@@ -1,8 +1,12 @@
 import { Heading, Avatar, Box, Center, Text, Stack, Button, Badge, useColorModeValue } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { capitalizeName } from '../../lib/Helpers';
 
 export default function DaoCard(props) {
-  const { name, desc, tag } = props;
+  const { name, desc, tag, img, tags } = props;
+
+  const tagBg = useColorModeValue('#84AFFF', 'gray.700');
+
   return (
     <Center>
       <Box
@@ -13,9 +17,9 @@ export default function DaoCard(props) {
         p={6}
         textAlign={'center'}
       >
-        <Avatar size={'xl'} name={name} alt={'Avatar Alt'} mb={4} pos={'relative'} />
+        <Avatar size={'xl'} name={name} alt={'Avatar Alt'} mb={4} pos={'relative'} src={img} backgroundColor='white' />
         <Heading fontSize={'2xl'} fontFamily={'body'}>
-          {name}
+          {capitalizeName(name)}
         </Heading>
         <Text fontWeight={600} color={'gray.500'} mb={4}>
           {tag}
@@ -25,15 +29,11 @@ export default function DaoCard(props) {
         </Text>
 
         <Stack align={'center'} justify={'center'} direction={'row'} mt={6} mb={6}>
-          <Badge px={2} py={1} bg={useColorModeValue('#84AFFF', 'gray.700')} fontWeight={'400'}>
-            #dao
-          </Badge>
-          <Badge px={2} py={1} bg={useColorModeValue('#84AFFF', 'gray.700')} fontWeight={'400'}>
-            #defi
-          </Badge>
-          <Badge px={2} py={1} bg={useColorModeValue('#84AFFF', 'gray.700')} fontWeight={'400'}>
-            #uniswap
-          </Badge>
+          {tags?.map(tag => (
+            <Badge px={2} py={1} bg={tagBg} fontWeight={'400'}>
+              #{tag}
+            </Badge>
+          ))}
         </Stack>
 
         <Button rounded={'full'} px={6} colorScheme={'orange'} bg={'orange.400'} _hover={{ bg: 'orange.500' }}>
