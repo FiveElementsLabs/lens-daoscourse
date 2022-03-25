@@ -59,6 +59,9 @@ export default function Proposal({ proposal, comments, postId }) {
               {isExpanded ? 'Show Less...' : 'Show More...'}
             </Button>
           </Box>
+          <Box display={{ base: 'block', md: 'none' }}>
+            <ProposalVote proposal={proposal} comments={comments} />
+          </Box>
           <Box
             mb={5}
             p={3}
