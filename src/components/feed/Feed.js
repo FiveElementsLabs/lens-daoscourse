@@ -8,13 +8,13 @@ export default function Feed() {
       templateRows='repeat(10, 1fr)'
       templateColumns='repeat(2, 1fr)'
       gap={4}
+      mt="16"
     >
       <GridItem rowSpan={1} colSpan={1}>
         <Heading as='h3' size='lg' align='left'>
           Latest posts
         </Heading>
       </GridItem>
-      <GridItem rowSpan={10} colSpan={1} bg='papayawhip'></GridItem>
       <GridItem rowSpan={1} colSpan={1}>
         <PostPreview
           title='My first post'

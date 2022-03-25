@@ -13,6 +13,7 @@ import Layout from './components/layout/Layout';
 import DaoPage from './pages/DaoPage';
 import Home from './pages/Home';
 import ApiTest from './pages/ApiTest';
+import Profile from './pages/Profile';
 import CreatePost from './pages/CreatePost';
 import ProposalPage from './pages/ProposalPage';
 import NotFound from './pages/NotFound';
@@ -36,6 +37,7 @@ export default function Router() {
             <Route path='/create-post' element={<CreatePost />} />
             <Route path='/:dao' element={<DaoPage />} />
             <Route path='/:dao/proposal/:postId' element={<ProposalPage />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path='*' element={<NotFound />} /> {/* 404 like page*/}
           </Route>
         </Routes>
