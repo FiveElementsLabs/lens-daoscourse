@@ -72,7 +72,7 @@ export default function Proposal({ proposal, comments, postId }) {
             padding={'1rem'}
           >
             <Text fontWeight='medium' fontSize='xl'>
-              Comments - {comments.length}
+              Comments
             </Text>
             {postId && <CreateComment postId={postId} />}
             {comments &&
