@@ -2,18 +2,13 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Text, FormControl, FormLabel, Input, Textarea, Button } from '@chakra-ui/react';
 import { useEthers } from '@usedapp/core';
-import { DAO_PROFILES } from '../lib/ConfigVars';
 
-import { useProfile } from '../hooks/useProfile';
-import { createPost } from '../api/publications/post';
 import { createComment } from '../api/publications/comment';
 
 export default function CreatePost() {
   const [postMetaData, setPostMetaData] = useState({});
   const { daoPage } = useParams();
-  const { currentProfile } = useProfile();
   const { library } = useEthers();
-  const [comment, setComment] = useState();
 
   const updatePostMetaData = (e, field) => {
     setPostMetaData({
@@ -50,7 +45,7 @@ export default function CreatePost() {
     //    appId: 'testing-daoscourse'
     //  }
 
-    const res = await createComment(library.getSigner(), commentMetaData);
+    await createComment(library.getSigner(), commentMetaData);
   };
 
   return (

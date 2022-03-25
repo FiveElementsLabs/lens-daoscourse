@@ -9,9 +9,6 @@ import {
   CircularProgress,
   Button,
   Spacer,
-  FormControl,
-  FormLabel,
-  HStack,
   ButtonGroup,
 } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -28,7 +25,6 @@ export default function ProposalVote({ proposal, comments }) {
   const [numberOfVotes, setNumberOfVotes] = useState();
   const [voteYesPerc, setVoteYesPerc] = useState();
   const [voteNoPerc, setVoteNoPerc] = useState();
-  const [personalVote, setPersonalVote] = useState();
 
   const border = useColorModeValue('gray.200', 'transparent');
   const accent = useColorModeValue('light_accent', 'dark_accent');

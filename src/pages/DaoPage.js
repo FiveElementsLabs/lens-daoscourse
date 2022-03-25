@@ -1,16 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Link as ReachLink } from 'react-router-dom';
-
 import { Badge, Box, Heading, Button, Text, Spacer, Avatar, Flex, Grid, GridItem } from '@chakra-ui/react';
-
 import { AiOutlineFileAdd } from 'react-icons/ai';
 import { RiUserFollowLine } from 'react-icons/ri';
 import { useEthers } from '@usedapp/core';
 
 import Proposal from '../components/daoPage/proposal';
 import DaoInfo from '../components/daoPage/daoInfo';
-import { getPublications } from '../api/publications/get-publications';
 import { getComments } from '../api/publications/get-comments';
 import { createFollow } from '../api/publications/follow';
 import { capitalizeName } from '../lib/Helpers';
@@ -57,7 +53,7 @@ export default function DaoPage() {
       profileId: daoData?.profileId,
     };
 
-    const res = await createFollow(library.getSigner(), followMetaData);
+    await createFollow(library.getSigner(), followMetaData);
   };
 
   return (

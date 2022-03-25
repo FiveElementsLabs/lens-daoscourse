@@ -44,7 +44,7 @@ export default function CreateComment({ postId }) {
     //    appId: 'testing-daoscourse'
     //  }
 
-    const res = await createComment(library.getSigner(), commentMetaData);
+    await createComment(library.getSigner(), commentMetaData);
   };
 
   const border = useColorModeValue('gray.300', 'gray.700');
