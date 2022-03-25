@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { useEthers } from '@usedapp/core';
 import { getProfiles } from '../api/profile/get-profiles';
@@ -14,7 +15,6 @@ export const useProfile = () => {
 
   const loadProfiles = async () => {
     if (account) {
-      console.log('BEING CALLED');
       const current = localStorage.getItem('current_profile');
       const res = await getProfiles(account, library.getSigner());
 
@@ -37,5 +37,13 @@ export const useProfile = () => {
     }
   };
 
-  return { profiles, currentProfile, changeProfile, loadProfiles };
+  useEffect(() => {
+    (async () => {
+      await loadProfiles();
+    })();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account]);
+
+  return { profiles, currentProfile, changeProfile };
 };

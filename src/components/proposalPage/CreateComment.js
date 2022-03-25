@@ -45,7 +45,6 @@ export default function CreateComment({ postId }) {
     //  }
 
     const res = await createComment(library.getSigner(), commentMetaData);
-    console.log(res);
   };
 
   const border = useColorModeValue('gray.300', 'gray.700');

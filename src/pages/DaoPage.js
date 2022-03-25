@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
+import { Link as ReachLink } from 'react-router-dom';
+
 import { Badge, Box, Heading, Button, Text, Spacer, Avatar, Flex, Grid, GridItem } from '@chakra-ui/react';
 
 import { AiOutlineFileAdd } from 'react-icons/ai';
@@ -9,6 +11,7 @@ import { useEthers } from '@usedapp/core';
 import Proposal from '../components/daoPage/proposal';
 import DaoInfo from '../components/daoPage/daoInfo';
 import { getPublications } from '../api/publications/get-publications';
+import { getComments } from '../api/publications/get-comments';
 import { createFollow } from '../api/publications/follow';
 import { capitalizeName } from '../lib/Helpers';
 import { DAO_PROFILES } from '../lib/ConfigVars';
@@ -30,9 +33,10 @@ export default function DaoPage() {
       if (dao) {
         try {
           const daoInfo = DAO_PROFILES.find(d => d.name === dao);
-          const res = await getPublications(daoInfo.profileId);
+          const res = await getComments(daoInfo.homepage);
+          //const res = await getPublications(daoInfo.profileId);
           setDaoData(daoInfo);
-          setProposals(res);
+          setProposals(res.items);
         } catch (err) {
           navigate('/error/not-found');
         }
@@ -54,7 +58,6 @@ export default function DaoPage() {
     };
 
     const res = await createFollow(library.getSigner(), followMetaData);
-    console.log(res);
   };
 
   return (
@@ -65,8 +68,8 @@ export default function DaoPage() {
             <Box mt={5}>
               <Flex alignItems='center' flexDir={{ base: 'column', md: 'row' }}>
                 <Avatar
-                  name={proposals[0].profile.name}
-                  src={proposals[0].profile.picture?.original?.url}
+                  name={proposals[0].mainPost?.profile.name}
+                  src={proposals[0].mainPost?.profile.picture?.original?.url}
                   w='100px'
                   h='100px'
                   mr={{ base: 0, md: '14px' }}
@@ -75,7 +78,7 @@ export default function DaoPage() {
                   <Heading>
                     {capitalizeName(daoData.name)}
                     <Badge ml={3} fontSize='xl' variant='outline' rounded='md'>
-                      #{proposals[0].profile.id}
+                      #{proposals[0].mainPost?.profile.id}
                     </Badge>
                   </Heading>
                   <Text>{daoData.desc}</Text>
@@ -87,7 +90,7 @@ export default function DaoPage() {
                     Follow DAO
                   </Button>
                 </Box>
-                <Link to='/create-post'>
+                <Link to={`/${daoData.homepage}/create-post`}>
                   <Box mt={{ base: 3, md: 0 }}>
                     <Button leftIcon={<AiOutlineFileAdd />}>Create Proposal</Button>
                   </Box>
@@ -98,7 +101,10 @@ export default function DaoPage() {
 
           <Grid templateColumns={'repeat(12, 1fr)'} gap={5} mt={5}>
             <GridItem colSpan={{ base: 12, md: 9 }}>
-              {proposals && proposals.map((proposal, idx) => <Proposal key={idx} dao={dao} proposal={proposal} />)}
+              {proposals &&
+                proposals.map((proposal, idx) => {
+                  return <Proposal key={idx} dao={dao} proposal={proposal} />;
+                })}
             </GridItem>
             <GridItem colSpan={3} display={{ base: 'none', md: 'block' }}>
               {proposals.length && <DaoInfo proposal={proposals[0]} />}

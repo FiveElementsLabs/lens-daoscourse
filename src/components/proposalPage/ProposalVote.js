@@ -2,18 +2,17 @@ import { useEffect } from 'react';
 import { useEthers } from '@usedapp/core';
 import {
   Box,
+  Flex,
   Text,
   useColorModeValue,
   CircularProgressLabel,
   CircularProgress,
   Button,
-  Flex,
   Spacer,
   FormControl,
   FormLabel,
-  RadioGroup,
   HStack,
-  Radio,
+  ButtonGroup,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useProfile } from '../../hooks/useProfile';
@@ -114,7 +113,7 @@ export default function ProposalVote({ proposal, comments }) {
           max={numberOfVotes}
           color='green.400'
           size='6rem'
-          thickness='0.5rem'
+          thickness='0.25rem'
           trackColor={useColorModeValue('light_azure', 'dark_azure')}
         >
           <CircularProgressLabel>{voteYesPerc}%</CircularProgressLabel>
@@ -125,7 +124,7 @@ export default function ProposalVote({ proposal, comments }) {
           max={numberOfVotes}
           color='red.600'
           size='6rem'
-          thickness='0.5rem'
+          thickness='0.25rem'
           trackColor={useColorModeValue('light_azure', 'dark_azure')}
         >
           <CircularProgressLabel>{voteNoPerc}%</CircularProgressLabel>
@@ -136,60 +135,36 @@ export default function ProposalVote({ proposal, comments }) {
           max={numberOfVotes}
           color='gray.500'
           size='6rem'
-          thickness='0.5rem'
+          thickness='0.25rem'
           trackColor={useColorModeValue('light_azure', 'dark_azure')}
         >
           <CircularProgressLabel>{voteAbstain > 0 ? 100 - (voteYesPerc + voteNoPerc) : 0}%</CircularProgressLabel>
         </CircularProgress>
       </Box>
 
-      <FormControl as='fieldset' textAlign='center' mt={2}>
-        <FormLabel as='legend' textAlign='center'>
-          CHOOSE VOTE
-        </FormLabel>
-        <RadioGroup defaultValue='Itachi'>
-          <HStack spacing='40px'>
-            <Radio
-              value='YES'
-              mx='auto'
-              onClick={() => {
-                setPersonalVote('YES');
-              }}
-            >
-              Yes
-            </Radio>
-            <Radio
-              value='NO'
-              mx='auto'
-              onClick={() => {
-                setPersonalVote('NO');
-              }}
-            >
-              No
-            </Radio>
-            <Radio
-              value='ABSTAIN'
-              mx='auto'
-              onClick={() => {
-                setPersonalVote('ABSTAIN');
-              }}
-            >
-              Abstain
-            </Radio>
-          </HStack>
-        </RadioGroup>
-        <Button
-          mt={3}
-          rounded={'full'}
-          px={6}
-          colorScheme={'orange'}
-          bg={'orange.400'}
-          _hover={{ bg: 'orange.500' }}
-          onClick={() => onComment(personalVote)}
-        >
-          Vote
-        </Button>
-      </FormControl>
+      <Text my={3} fontSize='lg' textAlign='center'>
+        Cast your Vote
+      </Text>
+
+      <Flex w='full' direction='column'>
+        <ButtonGroup w='full' display='flex' justifyContent='center' p={1}>
+          <Button backgroundColor='green.400' color='black' onClick={() => onComment('YES')} variant='outline' w='full'>
+            Yes
+          </Button>
+          <Button
+            backgroundColor='gray.400'
+            color='black'
+            onClick={() => onComment('ABSTAIN')}
+            variant='outline'
+            w='full'
+          >
+            Abstain
+          </Button>
+          <Button backgroundColor='red.600' color='black' onClick={() => onComment('NO')} variant='outline' w='full'>
+            No
+          </Button>
+        </ButtonGroup>
+      </Flex>
     </Box>
   );
 }

@@ -9,7 +9,6 @@ import CreateComment from './CreateComment';
 
 export default function Proposal({ proposal, comments, postId }) {
   const [isExpanded, setIsExpanded] = useState(false);
-
   const border = useColorModeValue('gray.200', 'transparent');
   const accent = useColorModeValue('light_accent', 'dark_accent');
 
@@ -85,6 +84,7 @@ export default function Proposal({ proposal, comments, postId }) {
         </GridItem>
         <GridItem colSpan={3} display={{ base: 'none', md: 'block' }}>
           <ProposalInfo proposal={proposal} />
+
           <ProposalVote proposal={proposal} comments={comments} />
         </GridItem>
       </Grid>

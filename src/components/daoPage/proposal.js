@@ -15,7 +15,7 @@ export default function Proposal({ dao, proposal }) {
 
   return (
     <>
-      {__typename === 'Post' && (
+      {__typename === 'Comment' && (
         <Link to={`/${dao}/proposal/${id}`}>
           <Box
             mb={5}

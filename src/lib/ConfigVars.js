@@ -29,6 +29,7 @@ export const DAO_PROFILES = [
     desc: 'Uniswap is a decentralized protocol for automated liquidity provision.',
     profileId: '0xc8',
     daoToken: '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
+    homepage: '0xc8-0x20',
   },
   {
     name: 'yearn',
@@ -36,5 +37,6 @@ export const DAO_PROFILES = [
     desc: 'DeFi made simple.',
     profileId: '0x13',
     daoToken: '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e',
+    homepage: '0x13-0x3e',
   },
 ];
