@@ -16,18 +16,8 @@ export default function DaoList() {
           templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }}
           gap={10}
         >
-          <DaoCard tag={'@uniswap'} desc={'Uniswap v3 Protocol'} name={'uniswap'} to={`/uniswap`} />
           <GridItem>
-            <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
-          </GridItem>
-          <GridItem>
-            <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
-          </GridItem>
-          <GridItem>
-            <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
-          </GridItem>
-          <GridItem>
-            <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
+            <DaoCard tag={'@uniswap'} desc={'Uniswap v3 Protocol'} name={'uniswap'} to={`/uniswap`} />
           </GridItem>
           <GridItem>
             <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
