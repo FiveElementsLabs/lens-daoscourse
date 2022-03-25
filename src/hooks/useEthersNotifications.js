@@ -17,7 +17,7 @@ export const useEthersNotifications = () => {
                 title: 'Wallet Connected',
                 status: 'success',
                 position: 'bottom-right',
-                variant: 'subtle',
+                variant: 'solid',
               });
               break;
             case 'transactionStarted':
@@ -26,7 +26,7 @@ export const useEthersNotifications = () => {
                 title: 'Transaction Sent',
                 status: 'info',
                 position: 'bottom-right',
-                variant: 'subtle',
+                variant: 'solid',
               });
               break;
             case 'transactionSucceed':
@@ -35,7 +35,7 @@ export const useEthersNotifications = () => {
                 title: 'Transaction Successful',
                 status: 'success',
                 position: 'bottom-right',
-                variant: 'subtle',
+                variant: 'solid',
               });
               break;
             case 'transactionFailed':
@@ -44,7 +44,7 @@ export const useEthersNotifications = () => {
                 title: 'Transaction Failed',
                 status: 'error',
                 position: 'bottom-right',
-                variant: 'subtle',
+                variant: 'solid',
               });
               break;
 
