@@ -3,6 +3,7 @@ import { useEthers } from '@usedapp/core';
 import { Box, Button, Code, Flex, Container, FormControl, FormLabel, Input, Textarea, Text } from '@chakra-ui/react';
 
 import { useAuth } from '../hooks/useAuth';
+import { useProfile } from '../hooks/useProfile';
 import { ping } from '../api/health/ping';
 import { getPublications } from '../api/publications/get-publications';
 import { createProfile } from '../api/profile/create-profile';
@@ -14,6 +15,7 @@ import { createComment } from '../api/publications/comment';
 export default function ApiTest() {
   const { account, library } = useEthers();
   const { login, logout } = useAuth();
+  const { currentProfile } = useProfile();
 
   const [message, setMessage] = useState('');
   const [handle, setHandle] = useState('');
@@ -102,8 +104,8 @@ export default function ApiTest() {
           </Button>
           <Button onClick={() => setMessage(logout())}>Logout</Button>
         </Flex>
-        <Button w='full' mt={5} onClick={async () => setMessage(await getPublications('0xc8'))}>
-          Get publications of "0xc8"
+        <Button w='full' mt={5} onClick={async () => setMessage(await getPublications(currentProfile.id))}>
+          Get your publications
         </Button>
         <Button w='full' mt={5} onClick={async () => setMessage(await getProfiles(account))}>
           Get all my profiles

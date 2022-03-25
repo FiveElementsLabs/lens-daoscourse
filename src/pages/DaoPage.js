@@ -65,7 +65,8 @@ export default function DaoPage() {
               <Flex alignItems='center' flexDir={{ base: 'column', md: 'row' }}>
                 <Avatar
                   name={proposals[0].mainPost?.profile.name}
-                  src={proposals[0].mainPost?.profile.picture?.original?.url}
+                  src={daoData.img}
+                  backgroundColor='white'
                   w='100px'
                   h='100px'
                   mr={{ base: 0, md: '14px' }}
