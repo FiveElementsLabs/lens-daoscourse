@@ -2,5 +2,7 @@
   "arrowParens": "avoid",
   "trailingComma": "es5",
   "singleQuote": true,
-  "semi": true
+  "jsxSingleQuote": true,
+  "semi": true,
+  "printWidth": 120
 }

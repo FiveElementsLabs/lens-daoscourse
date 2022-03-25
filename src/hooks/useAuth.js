@@ -10,7 +10,8 @@ export const useAuth = () => {
 
   const login = async () => {
     try {
-      if (!library.getSigner()) console.error('Provider not loaded');
+      if (!library) console.error('Provider not loaded');
+      if (!library.getSigner()) console.error('Signer not loaded');
       const res = await loginCall(account, library.getSigner());
       if (res.message === 'Already logged in') {
         // This runs if we are already logged in.

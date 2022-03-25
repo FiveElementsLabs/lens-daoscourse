@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from '@chakra-ui/react';
+import { Box, Container } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 
 import { useEthersNotifications } from '../../hooks/useEthersNotifications';
@@ -10,18 +10,14 @@ export default function Layout() {
   useEthersNotifications();
 
   return (
-    <>
+    <Box position='relative' w='full' minH='100vh'>
       <Navbar />
 
-      <Box textAlign="center" fontSize="xl">
-        <Grid minH="90vh" p={3}>
-          <Container maxW="container.xl">
-            <Outlet />
-          </Container>
-        </Grid>
-      </Box>
+      <Container maxW='container.xl' pb={{ base: 48, md: 28 }}>
+        <Outlet />
+      </Container>
 
       <Footer />
-    </>
+    </Box>
   );
 }

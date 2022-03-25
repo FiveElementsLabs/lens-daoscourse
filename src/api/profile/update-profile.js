@@ -28,7 +28,8 @@ export const updateProfile = async (address, profileMetaData) => {
 
   await login(address);
 
-  const { profileId, name, bio } = profileMetaData;
+  const { profileId, name, bio, location, website, twitterUrl } =
+    profileMetaData;
 
   // Profile Metadata possible types
   // DOCS: https://docs.lens.dev/docs/update-profile
@@ -44,9 +45,9 @@ export const updateProfile = async (address, profileMetaData) => {
     profileId,
     name,
     bio,
-    location: null,
-    website: null,
-    twitterUrl: null,
+    location,
+    website,
+    twitterUrl,
     coverPicture: null,
   });
 

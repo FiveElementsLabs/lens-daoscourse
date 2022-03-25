@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client/core';
 import ApolloClient from '../../lib/ApolloClient';
 import { login } from '../authentication/login';
-import { prettyJSON } from '../../lib/Helpers';
+// import { prettyJSON } from '../../lib/Helpers';
 
 const GET_PROFILES = `
   query($request: ProfileQueryRequest!) {
@@ -94,7 +94,7 @@ const getProfilesRequest = request => {
 };
 
 export const getProfiles = async address => {
-  console.log('profiles of: address', address);
+  // console.log('profiles of: address', address);
 
   await login(address);
 
@@ -102,7 +102,7 @@ export const getProfiles = async address => {
 
   const profilesFromProfileIds = await getProfilesRequest(request);
 
-  prettyJSON('profiles: result', profilesFromProfileIds.data);
+  // prettyJSON('profiles: result', profilesFromProfileIds.data);
 
   return profilesFromProfileIds.data;
 };
