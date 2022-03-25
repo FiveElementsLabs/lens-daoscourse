@@ -12,12 +12,16 @@ import {
   PopoverContent,
   useColorModeValue,
   useDisclosure,
+  useMediaQuery,
   Container,
 } from '@chakra-ui/react';
+
 import { HamburgerIcon, CloseIcon, ChevronDownIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Link as LinkRouter } from 'react-router-dom';
 
 import Logo from '../footer/Logo';
+import darkIcon from '../footer/icon_dark.svg';
+import lightIcon from '../footer/icon_light.svg';
 import darkLogo from './dark-logo.svg';
 import lightLogo from './light-logo.svg';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
@@ -26,13 +30,14 @@ import Connect from './Connect';
 
 const NAV_ITEMS = [
   {
-    label: 'How it works',
-    href: '/how-it-works',
+    label: 'Profile',
+    href: '/profile',
   },
 ];
 
 export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
+  const [isLargerThan640] = useMediaQuery('(min-width: 640px)');
 
   return (
     <Box backgroundColor={useColorModeValue('light_azure', 'dark_azure')} shadow='md'>
@@ -50,7 +55,11 @@ export default function Navbar() {
             </Flex>
             <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} alignItems='center'>
               <LinkRouter to={'/'}>
-                <Logo lightLogo={lightLogo} darkLogo={darkLogo} width='160rem' />
+                {isLargerThan640 ? (
+                  <Logo lightLogo={lightLogo} darkLogo={darkLogo} width='160rem' />
+                ) : (
+                  <Logo lightLogo={lightIcon} darkLogo={darkIcon} width='100rem' />
+                )}
               </LinkRouter>
               <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
                 <DesktopNav />
