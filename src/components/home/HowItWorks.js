@@ -1,5 +1,5 @@
 import { Box, SimpleGrid, Icon, Text, Stack, Flex, Center, useColorModeValue } from '@chakra-ui/react';
-import { FcOrgUnit, FcComments, FcApproval, FcPortraitMode, FcKindle, FcPanorama } from 'react-icons/fc';
+import { FcOrgUnit, FcBullish, FcApproval, FcPortraitMode, FcKindle, FcPanorama } from 'react-icons/fc';
 
 const Feature = ({ title, text, icon }) => {
   return (
@@ -27,7 +27,7 @@ export default function HowItWorks() {
           </Box>
           <Box bg={useColorModeValue('#ECF1FE', 'dark_accent')} padding={10}>
             <Feature
-              icon={<Icon as={FcComments} w={10} h={10} />}
+              icon={<Icon as={FcBullish} w={10} h={10} />}
               title={'Grow your audience'}
               text={'Track profiles activity, reward active contribution to your ecosistem. Recruit more contributors'}
             />
