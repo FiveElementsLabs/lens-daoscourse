@@ -14,6 +14,9 @@ export default function Home() {
         <GridItem>
           <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
         </GridItem>
+        <GridItem>
+          <DaoCard tag={'@luduvigo'} desc={'Luduvigo'} name={'luduvigo'} />
+        </GridItem>
       </Grid>
       <Stats />
       <br></br>
