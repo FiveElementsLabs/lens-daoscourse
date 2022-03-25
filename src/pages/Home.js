@@ -1,34 +1,16 @@
-import { Grid, GridItem } from '@chakra-ui/react';
-import Hero from '../components/layout/Hero';
-import DaoCard from '../components/layout/DaoCard';
-import Stats from '../components/layout/Stats';
+import DaoList from '../components/home/DaoList';
+import Hero from '../components/home/Hero';
+import HowItWorks from '../components/home/HowItWorks';
+
+import Stats from '../components/home/Stats';
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }} gap={4}>
-        <GridItem>
-          <DaoCard tag={'@uniswap'} desc={'Uniswap v3 Protocol'} name={'uniswap'} to={`/uniswap`} />
-        </GridItem>
-        <GridItem>
-          <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
-        </GridItem>
-        <GridItem>
-          <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
-        </GridItem>
-        <GridItem>
-          <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
-        </GridItem>
-        <GridItem>
-          <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
-        </GridItem>
-        <GridItem>
-          <DaoCard tag={'@yearnfinance'} desc={'Yearn Finance'} name={'yearn'} />
-        </GridItem>
-      </Grid>
+      <HowItWorks />
+      <DaoList />
       <Stats />
-      <br></br>
     </>
   );
 }

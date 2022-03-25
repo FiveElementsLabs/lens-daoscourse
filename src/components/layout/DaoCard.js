@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function DaoCard(props) {
   const { name, desc, tag } = props;
   return (
-    <Center py={6}>
+    <Center>
       <Box
         maxW={'320px'}
         w={'full'}
@@ -36,21 +36,9 @@ export default function DaoCard(props) {
           </Badge>
         </Stack>
 
-        <Link to={`/${name}`}>
-          <Button
-            flex={1}
-            bg={useColorModeValue('#0055FF', 'yellow_accent')}
-            textColor={useColorModeValue('white', 'white')}
-            fontSize={'sm'}
-            rounded={'full'}
-            _hover={{
-              bg: useColorModeValue('#0077ff', '#ff7d22'),
-            }}
-          >
-            {' '}
-            Go to proposals
-          </Button>
-        </Link>
+        <Button rounded={'full'} px={6} colorScheme={'orange'} bg={'orange.400'} _hover={{ bg: 'orange.500' }}>
+          <Link to={`/${name}`}>Go to proposals</Link>
+        </Button>
       </Box>
     </Center>
   );

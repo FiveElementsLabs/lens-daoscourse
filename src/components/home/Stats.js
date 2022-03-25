@@ -40,13 +40,13 @@ export default function Stats() {
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
         <StatsCard
           title={'Followers'}
-          stat={'5,000'}
+          stat={'500'}
           textColor={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)}
           icon={<BsPeople size={'3em'} color={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)} />}
         />
         <StatsCard
           title={'Proposals'}
-          stat={'1,000'}
+          stat={'120+'}
           textColor={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)}
           icon={
             <GoCommentDiscussion
@@ -57,7 +57,7 @@ export default function Stats() {
         />
         <StatsCard
           title={'Comments'}
-          stat={'40,000'}
+          stat={'2,300+'}
           textColor={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)}
           icon={<GoComment size={'3em'} color={useColorModeValue(Theme.colors.primary, Theme.colors.yellow_accent)} />}
         />
