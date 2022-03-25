@@ -8,7 +8,6 @@ import { useEthers } from '@usedapp/core';
 import Proposal from '../components/daoPage/proposal';
 import DaoInfo from '../components/daoPage/daoInfo';
 import { getComments } from '../api/publications/get-comments';
-import { getPublications } from '../api/publications/get-publications';
 import { createFollow } from '../api/publications/follow';
 import { capitalizeName } from '../lib/Helpers';
 import { DAO_PROFILES } from '../lib/ConfigVars';

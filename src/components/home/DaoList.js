@@ -44,7 +44,6 @@ export default function DaoList() {
               img={'https://s2.coinmarketcap.com/static/img/coins/200x200/5864.png'}
             />
           </GridItem>
-
           <GridItem>
             <DaoCard
               tag={'@lidofinance'}
