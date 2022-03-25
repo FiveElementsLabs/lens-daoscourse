@@ -1,12 +1,14 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Box, Text, FormControl, FormLabel, Input, Textarea, Button } from '@chakra-ui/react';
 import { useEthers } from '@usedapp/core';
 
-import { createPost } from '../api/publications/post';
+import { createComment } from '../api/publications/comment';
 
 export default function CreatePost() {
-  const { library } = useEthers();
   const [postMetaData, setPostMetaData] = useState({});
+  const { daoPage } = useParams();
+  const { library } = useEthers();
 
   const updatePostMetaData = (e, field) => {
     setPostMetaData({
@@ -15,15 +17,35 @@ export default function CreatePost() {
     });
   };
 
-  const onCreatePost = async e => {
+  const onComment = async e => {
     e.preventDefault();
-    try {
-      // See api/publications/post for full metadata types.
-      postMetaData.attributes = [];
-      await createPost(library.getSigner(), postMetaData);
-    } catch (err) {
-      console.error(err.message);
-    }
+    const commentMetaData = {
+      profileId: postMetaData?.profileId,
+      publicationId: daoPage,
+      name: postMetaData.name,
+      description: postMetaData.description,
+      attributes: [],
+      content: postMetaData.content,
+    };
+    console.log('COMMENT METADATA: ', commentMetaData);
+
+    //  postMetaData: {
+    //    profileId: hexId: the ID of who is pubilishing the post (must be logged-in).
+    //    publicationId: hexId-hexId: The ID of the publication to point comment on.
+    //    description?: Markdown
+    //    content?: Markdown
+    //    external_url: Url
+    //    image: Url
+    //    imageMimeType: MimeType (e.g. 'image/jpeg')
+    //    name: string
+    //    media: [ {
+    //          item: Url
+    //          type: MimeType (e.g. 'image/jpeg')
+    //        } ]
+    //    appId: 'testing-daoscourse'
+    //  }
+
+    await createComment(library.getSigner(), commentMetaData);
   };
 
   return (
@@ -31,37 +53,20 @@ export default function CreatePost() {
       <Box mx='auto' mt={5} maxW='container.md' border='1px solid gray' rounded='xl' p={4}>
         <Text>Create new Post</Text>
         {/* Possible fields: profileId, name, description, external_url, image, imageMimeType, content */}
-        <form onSubmit={onCreatePost}>
+        <form onSubmit={onComment}>
           <FormControl mt={5} isRequired>
             <FormLabel htmlFor='profileId'>Profile ID</FormLabel>
             <Input id='profileId' type='text' onChange={e => updatePostMetaData(e, 'profileId')} />
           </FormControl>
-          <FormControl mt={5}>
-            <FormLabel htmlFor='name'>Name</FormLabel>
+          <FormControl mt={5} isRequired>
+            <FormLabel htmlFor='name'>Title</FormLabel>
             <Input id='name' type='text' onChange={e => updatePostMetaData(e, 'name')} />
           </FormControl>
-          <FormControl mt={5}>
+          <FormControl mt={5} isRequired>
             <FormLabel htmlFor='description'>Description</FormLabel>
             <Input id='description' type='text' onChange={e => updatePostMetaData(e, 'description')} />
           </FormControl>
-          <FormControl mt={5}>
-            <FormLabel htmlFor='external_url'>External URL</FormLabel>
-            <Input id='external_url' type='text' onChange={e => updatePostMetaData(e, 'external_url')} />
-          </FormControl>
-          <FormControl mt={5}>
-            <FormLabel htmlFor='image'>Image URL</FormLabel>
-            <Input id='image' type='text' onChange={e => updatePostMetaData(e, 'image')} />
-          </FormControl>
-          <FormControl mt={5}>
-            <FormLabel htmlFor='imageMimeType'>Image MimeType</FormLabel>
-            <Input
-              id='imageMimeType'
-              type='text'
-              placeholder='image/jpeg'
-              onChange={e => updatePostMetaData(e, 'imageMimeType')}
-            />
-          </FormControl>
-          <FormControl mt={5}>
+          <FormControl mt={5} isRequired>
             <FormLabel htmlFor='content'>Content</FormLabel>
             <Textarea id='content' onChange={e => updatePostMetaData(e, 'content')} />
           </FormControl>

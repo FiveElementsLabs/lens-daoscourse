@@ -93,10 +93,10 @@ const getProfilesRequest = request => {
   });
 };
 
-export const getProfiles = async address => {
+export const getProfiles = async (address, signer) => {
   // console.log('profiles of: address', address);
 
-  await login(address);
+  await login(address, signer);
 
   const request = { ownedBy: address };
 

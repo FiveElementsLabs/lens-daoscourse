@@ -12,6 +12,7 @@ export const useAuth = () => {
     try {
       if (!library) console.error('Provider not loaded');
       if (!library.getSigner()) console.error('Signer not loaded');
+      console.log('LIBRARY: ', library);
       const res = await loginCall(account, library.getSigner());
       if (res.message === 'Already logged in') {
         // This runs if we are already logged in.
@@ -21,7 +22,7 @@ export const useAuth = () => {
             title: 'Already logged in',
             status: 'info',
             position: 'bottom-right',
-            variant: 'subtle',
+            variant: 'solid',
           });
       } else {
         // This runs if we login successfully.
@@ -31,7 +32,7 @@ export const useAuth = () => {
             title: 'Login successful',
             status: 'success',
             position: 'bottom-right',
-            variant: 'subtle',
+            variant: 'solid',
           });
         return res.data;
       }
@@ -43,7 +44,7 @@ export const useAuth = () => {
           title: 'Error while logging in',
           status: 'error',
           position: 'bottom-right',
-          variant: 'subtle',
+          variant: 'solid',
         });
       return err?.message;
     }
@@ -57,7 +58,7 @@ export const useAuth = () => {
         title: 'Logout successful',
         status: 'success',
         position: 'bottom-right',
-        variant: 'subtle',
+        variant: 'solid',
       });
     return 'Logout successful';
   };

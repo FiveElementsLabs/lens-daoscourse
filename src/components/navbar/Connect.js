@@ -19,13 +19,13 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react';
 
-import SelectProfile from './SelectProfile';
 import { useProfile } from '../../hooks/useProfile';
+import SelectProfile from './SelectProfile';
 
 export default function Connect(props) {
   const toast = useToast();
-  const { currentProfile } = useProfile();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { currentProfile } = useProfile();
   const { activateBrowserWallet, account, error, deactivate } = useEthers();
   const { hasCopied, onCopy } = useClipboard(account || '');
   const ens = useLookupAddress();

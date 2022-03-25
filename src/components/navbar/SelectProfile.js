@@ -1,10 +1,9 @@
 import { Button, Menu, MenuButton, MenuList, MenuItem, Avatar } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
-
 import { useProfile } from '../../hooks/useProfile';
 
 export default function SelectProfile(props) {
-  const { currentProfile, changeProfile, profiles } = useProfile();
+  const { profiles, currentProfile, changeProfile } = useProfile();
 
   return (
     <>

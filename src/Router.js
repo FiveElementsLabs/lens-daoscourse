@@ -34,7 +34,7 @@ export default function Router() {
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
             <Route path='/api-test' element={<ApiTest />} />
-            <Route path='/create-post' element={<CreatePost />} />
+            <Route path='/:daoPage/create-post' element={<CreatePost />} />
             <Route path='/:dao' element={<DaoPage />} />
             <Route path='/:dao/proposal/:postId' element={<ProposalPage />} />
             <Route path="/profile" element={<Profile />} />

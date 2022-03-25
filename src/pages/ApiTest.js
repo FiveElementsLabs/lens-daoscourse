@@ -97,7 +97,7 @@ export default function ApiTest() {
           <Button onClick={onClear}>Clear</Button>
         </Flex>
         <Flex mt={4}>
-          <Button w='full' onClick={async () => setMessage(await login())} mr={5}>
+          <Button w='full' onClick={async () => setMessage(async () => await login())} mr={5}>
             Login
           </Button>
           <Button onClick={() => setMessage(logout())}>Logout</Button>

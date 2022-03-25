@@ -22,18 +22,21 @@ export const capitalizeName = name => {
   return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
 };
 
-const getPayload = () => JSON.parse(Buffer.from(getAuthenticationToken().split('.')[1], 'base64'));
-const getExpiration = () => new Date(getPayload().exp);
+const getPayload = async () => await JSON.parse(Buffer.from(getAuthenticationToken()?.split('.')[1], 'base64'));
+const getExpiration = async () => new Date((await getPayload()).exp * 1000);
 
-export const checkJwtExpiration = () => {
-  const expiration = getExpiration();
+export const checkJwtExpiration = async () => {
+  if (!getAuthenticationToken()) {
+    return false;
+  }
+
+  const expiration = await getExpiration();
   const now = new Date();
   const oneMinute = 1000 * 60 * 1;
-  console.warn('EXP LEFT: ', expiration.getTime() - now.getTime());
+
   if (expiration.getTime() - now.getTime() < oneMinute) {
     removeAuthenticationToken();
     return false;
   }
-  console.warn('HERE PRINTS');
   return true;
 };

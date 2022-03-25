@@ -2,13 +2,14 @@ import { useEffect } from 'react';
 import { useEthers } from '@usedapp/core';
 import {
   Box,
+  Flex,
   Text,
   useColorModeValue,
   CircularProgressLabel,
   CircularProgress,
   Button,
-  Flex,
   Spacer,
+  ButtonGroup,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useProfile } from '../../hooks/useProfile';
@@ -22,6 +23,8 @@ export default function ProposalVote({ proposal, comments }) {
   const [voteNo, setVoteNo] = useState();
   const [voteAbstain, setVoteAbstain] = useState();
   const [numberOfVotes, setNumberOfVotes] = useState();
+  const [voteYesPerc, setVoteYesPerc] = useState();
+  const [voteNoPerc, setVoteNoPerc] = useState();
 
   const border = useColorModeValue('gray.200', 'transparent');
   const accent = useColorModeValue('light_accent', 'dark_accent');
@@ -37,15 +40,12 @@ export default function ProposalVote({ proposal, comments }) {
     if (comments)
       comments.forEach(comment => {
         const voteAttribute = comment.metadata?.attributes[0];
-        console.log(comment.metadata.attributes[0]?.value);
         if (voteAttribute?.traitType === 'VOTE') {
           switch (voteAttribute?.value) {
             case 'YES':
-              console.log('yes vote');
               vote.yes += 1;
               break;
             case 'NO':
-              console.log('no vote');
               vote.no += 1;
               break;
             case 'ABSTAIN':
@@ -57,16 +57,17 @@ export default function ProposalVote({ proposal, comments }) {
           }
         }
       });
-
+    setNumberOfVotes(vote.yes + vote.no + vote.abstain);
     setVoteYes(vote.yes);
     setVoteNo(vote.no);
     setVoteAbstain(vote.abstain);
-    setNumberOfVotes(vote.yes + vote.no + vote.abstain);
+    setVoteYesPerc(Math.trunc((vote.yes / (vote.yes + vote.no + vote.abstain)) * 100) || 0);
+    setVoteNoPerc(Math.trunc((vote.no / (vote.yes + vote.no + vote.abstain)) * 100) || 0);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [comments]);
 
-  const onComment = async () => {
+  const onComment = async vote => {
     const commentMetaData = {
       profileId: currentProfile?.id,
       publicationId: proposal.id,
@@ -75,14 +76,13 @@ export default function ProposalVote({ proposal, comments }) {
       content: proposal.id, //YES - NO
       attributes: [
         {
-          value: 'YES',
+          value: vote,
           traitType: 'VOTE',
         },
       ],
     };
 
-    const res = await createComment(library.getSigner(), commentMetaData);
-    console.log(res);
+    await createComment(library.getSigner(), commentMetaData);
   };
 
   return (
@@ -101,9 +101,6 @@ export default function ProposalVote({ proposal, comments }) {
       <Flex>
         <Text fontSize='xl'>Proposal Vote </Text>
         <Spacer />
-        <Button background='yellow_accent' _hover={{ bg: 'orange.400' }} onClick={onComment}>
-          Vote
-        </Button>
       </Flex>
       <Box textAlign='center'>
         <Text mt={5}>For</Text>
@@ -112,10 +109,10 @@ export default function ProposalVote({ proposal, comments }) {
           max={numberOfVotes}
           color='green.400'
           size='6rem'
-          thickness='0.5rem'
+          thickness='0.25rem'
           trackColor={useColorModeValue('light_azure', 'dark_azure')}
         >
-          <CircularProgressLabel>{Math.ceil((voteYes / numberOfVotes) * 100)}%</CircularProgressLabel>
+          <CircularProgressLabel>{voteYesPerc}%</CircularProgressLabel>
         </CircularProgress>
         <Text mt={5}>Against</Text>
         <CircularProgress
@@ -123,10 +120,10 @@ export default function ProposalVote({ proposal, comments }) {
           max={numberOfVotes}
           color='red.600'
           size='6rem'
-          thickness='0.5rem'
+          thickness='0.25rem'
           trackColor={useColorModeValue('light_azure', 'dark_azure')}
         >
-          <CircularProgressLabel>{Math.ceil((voteNo / numberOfVotes) * 100)}%</CircularProgressLabel>
+          <CircularProgressLabel>{voteNoPerc}%</CircularProgressLabel>
         </CircularProgress>
         <Text mt={5}>Abstain</Text>
         <CircularProgress
@@ -134,16 +131,35 @@ export default function ProposalVote({ proposal, comments }) {
           max={numberOfVotes}
           color='gray.500'
           size='6rem'
-          thickness='0.5rem'
+          thickness='0.25rem'
           trackColor={useColorModeValue('light_azure', 'dark_azure')}
         >
-          <CircularProgressLabel>{Math.ceil((voteAbstain / numberOfVotes) * 100)}%</CircularProgressLabel>
+          <CircularProgressLabel>{voteAbstain > 0 ? 100 - (voteYesPerc + voteNoPerc) : 0}%</CircularProgressLabel>
         </CircularProgress>
       </Box>
-      <Flex>
-        <Button background='yellow_accent' _hover={{ bg: 'orange.400' }} onClick={onComment}>
-          Vote
-        </Button>
+
+      <Text my={3} fontSize='lg' textAlign='center'>
+        Cast your Vote
+      </Text>
+
+      <Flex w='full' direction='column'>
+        <ButtonGroup w='full' display='flex' justifyContent='center' p={1}>
+          <Button backgroundColor='green.400' color='black' onClick={() => onComment('YES')} variant='outline' w='full'>
+            Yes
+          </Button>
+          <Button
+            backgroundColor='gray.400'
+            color='black'
+            onClick={() => onComment('ABSTAIN')}
+            variant='outline'
+            w='full'
+          >
+            Abstain
+          </Button>
+          <Button backgroundColor='red.600' color='black' onClick={() => onComment('NO')} variant='outline' w='full'>
+            No
+          </Button>
+        </ButtonGroup>
       </Flex>
     </Box>
   );

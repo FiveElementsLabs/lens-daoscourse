@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { ApolloProvider } from '@apollo/client';
 import { DAppProvider } from '@usedapp/core';

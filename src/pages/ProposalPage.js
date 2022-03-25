@@ -26,6 +26,7 @@ export default function ProposalPage() {
       if (postId)
         try {
           const prop = await getProposal(postId);
+
           const comm = await getComments(postId);
           setProposal(prop);
           setComments(comm.items);
