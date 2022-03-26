@@ -29,8 +29,8 @@ export default function DaoCard(props) {
         </Text>
 
         <Stack align={'center'} justify={'center'} direction={'row'} mt={6} mb={6}>
-          {tags?.map(tag => (
-            <Badge px={2} py={1} bg={tagBg} fontWeight={'400'}>
+          {tags?.map((tag, idx) => (
+            <Badge key={idx} px={2} py={1} bg={tagBg} fontWeight={'400'}>
               #{tag}
             </Badge>
           ))}

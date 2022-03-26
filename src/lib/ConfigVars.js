@@ -74,7 +74,7 @@ export const DAO_PROFILES = [
     desc: 'The derivatives liquidity protocol.',
     profileId: '0x0225',
     daoToken: '0x0bc529c00c6401aef6d220be8c6ea1667f6ad93e',
-    homepage: '0x225-0x01',
+    homepage: '0x0225-0x01',
     img: 'https://www.finaria.it/wp-content/uploads/2022/02/comprare-synthetix.png',
   },
 ];

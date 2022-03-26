@@ -1,11 +1,39 @@
 import { useState } from 'react';
 import { Box, Badge, Button, Text, Grid, GridItem, useColorModeValue, Flex } from '@chakra-ui/react';
 import ReactMarkdown from 'react-markdown';
+import ChakraUIRenderer from 'chakra-ui-markdown-renderer';
 
 import ProposalInfo from './ProposalInfo';
 import ProposalVote from './ProposalVote';
 import Comment from './Comment';
 import CreateComment from './CreateComment';
+
+const markdownTheme = {
+  h1: props => {
+    const { children } = props;
+    return (
+      <Text mb={2} fontSize='xl' fontWeight='medium'>
+        {children}
+      </Text>
+    );
+  },
+  h2: props => {
+    const { children } = props;
+    return (
+      <Text mb={2} fontSize='lg' fontWeight='bold'>
+        {children}
+      </Text>
+    );
+  },
+  h3: props => {
+    const { children } = props;
+    return (
+      <Text mb={2} fontSize='lg' fontWeight='medium'>
+        {children}
+      </Text>
+    );
+  },
+};
 
 export default function Proposal({ proposal, comments, postId }) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -51,8 +79,12 @@ export default function Proposal({ proposal, comments, postId }) {
                 {proposal.id}
               </Badge>
             </Flex>
-            <Box textAlign='left' fontSize='sm' noOfLines={isExpanded ? 1000 : 5}>
-              <ReactMarkdown>{proposal.metadata.content}</ReactMarkdown>
+            <Box textAlign='left' fontSize='sm' noOfLines={isExpanded ? 1000 : 5} mt={3}>
+              <ReactMarkdown
+                children={proposal.metadata.content}
+                components={ChakraUIRenderer(markdownTheme)}
+                skipHtml
+              />
             </Box>
 
             <Button size='sm' mt={6} variant='link' fontWeight='bold' onClick={() => setIsExpanded(!isExpanded)}>
