@@ -2,14 +2,17 @@
 
 LFGrow Hackathon - March 18-30, 2022
 
-**Name**: Lens DAOscourse
+*Winner of:* 🛠 Lens Protocol — Best DAO Tooling
 
-**Description**: We are building a DAO governance platform (Discourse-like) on top of the Lens protocol.
+### Description
+DAOscourse is a DAO Governance dApp leveraging the Lens protocol to create mechanisms to allow contributors to participate to the governance On-Chain and own their contributions
 
 **Github**: https://github.com/FiveElementsLabs/lens-daoscourse
 
-**Idea**: We are going to build a DAO governance platform on the Lens protocol.
+### How it's made
 
-The idea is to build a decentralized application that is similar to governance forum like https://gov.yearn.finance/
+The app uses the Lens protocol to create profiles, follow DAOs, create proposals, comments, share and collect proposals. We used React and Chakra UI to build the frontend. We are using Mumbai Testnet for the moment and soon Polygon. All the intensive part was to leverage what Lens has built so far for profiles creation, following profiles, create posts, comments, and so on.
 
-Public URL: https://showcase.ethglobal.com/lfgrow/lens-daoscourse-g2x07
+Showcase URL: https://showcase.ethglobal.com/lfgrow/lens-daoscourse-g2x07
+
+Public URL: https://daoscourse.com/
